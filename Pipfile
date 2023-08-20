@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 fastapi = "~=0.100"
+fastapi-users = "~=12.1"
+fastapi-users-db-sqlalchemy = "~=6.0"
 pydantic = "~=2.1"
 uvicorn = "~=0.23"
 sqlalchemy = "~=2.0"
