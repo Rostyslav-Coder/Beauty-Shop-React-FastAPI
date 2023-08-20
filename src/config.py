@@ -13,5 +13,6 @@ DB_HOST = os.environ.get("DB_HOST")
 DB_PORT = os.environ.get("DB_PORT")
 DB_NAME = os.environ.get("DB_NAME")
 
-MANAGER_SECRET = os.environ.get("MANAGER_SECRET")
+MANAGER_PASS_SECRET = os.environ.get("MANAGER_PASS_SECRET")
+MANAGER_VERIF_SECRET = os.environ.get("MANAGER_VERIF_SECRET")
 AUTH_SECRET = os.environ.get("AUTH_SECRET")
