@@ -16,3 +16,10 @@ class Profession(Enum):
     TANNING_CONSULTANT = "Tanning consultant"
     BEAUTY_CONSULTANT = "Beauty consultant"
     SALON_MANAGER = "Salon manager"
+
+
+class EmploymentContract(Enum):
+    """Class of employment contract types"""
+
+    CONTRACT = "Working contract"
+    RENT = "Rent contract"
