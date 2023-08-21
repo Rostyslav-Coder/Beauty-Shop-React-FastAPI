@@ -1,10 +1,12 @@
 """src/users/models.py"""
 
 from datetime import datetime
+from uuid import uuid4
 
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID
-from sqlalchemy import TIMESTAMP, UUID, Boolean, Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import TIMESTAMP, Boolean, String
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.database import Base
 
@@ -15,7 +17,7 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     __tablename__ = "users"
 
     id: Mapped[UUID] = mapped_column(
-        Integer, primary_key=True, autoincrement=True
+        UUID(as_uuid=True), primary_key=True, default=uuid4
     )
     email: Mapped[str] = mapped_column(
         String(length=320), unique=True, index=True, nullable=False
@@ -43,3 +45,5 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     created_date: Mapped[TIMESTAMP] = mapped_column(
         TIMESTAMP, default=datetime.utcnow
     )
+
+    employee = relationship("Employee", uselist=False)
