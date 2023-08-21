@@ -1,0 +1,1 @@
+"""src/employees/constants.py"""
