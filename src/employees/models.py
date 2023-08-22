@@ -2,7 +2,7 @@
 
 from uuid import uuid4
 
-from sqlalchemy import ARRAY, Enum, ForeignKey, String
+from sqlalchemy import ARRAY, Enum, ForeignKey, LargeBinary, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -21,7 +21,10 @@ class Employee(Base):
     profession: Mapped[Profession] = mapped_column(
         Enum(Profession), nullable=False
     )
-    photo_url: Mapped[str] = mapped_column(String, nullable=True)
+    employee_photo: Mapped[bytes] = mapped_column(LargeBinary, nullable=True)
+    title: Mapped[str] = mapped_column(String(length=500), nullable=False)
+    instagram: Mapped[str] = mapped_column(String, nullable=True)
+    facebook: Mapped[str] = mapped_column(String, nullable=True)
     images_urls: Mapped[list[str]] = mapped_column(
         ARRAY(String), nullable=True
     )
