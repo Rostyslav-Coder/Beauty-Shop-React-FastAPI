@@ -50,5 +50,7 @@ class UserCreate(BaseUserCreate):
 class UserUpdate(BaseUserUpdate):
     """Pydantic User In schema"""
 
+    email: EmailStr
+    phone_number: str
     first_name: Optional[str] = None
     last_name: Optional[str] = None
