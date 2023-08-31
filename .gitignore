@@ -1,22 +1,61 @@
-# Puython stuff
-# ---------------------------------------------------
-__pycache__/
+## Local configurations
+# Virtual environments
+.venv
+env/
+venv/
+
+# Environment variables
+.env
 
 
-# Editors
-# ---------------------------------------------------
-.idea/
-.vscode/
-.mypy_cache/
+## Editors
+# VS code
+.vscode
+
+# Pylint
+.pylintrc
+
+# PyCharm
+.idea
+
+
+## Linters & Formaters
+# Mypy
+.mypy_cache
+
+# Ruff
 .ruff_cache/
 
 
-# Pstgresql
-# ---------------------------------------------------
-migrations/
-*.sql
+## Storages
+# Sqlite
+*.sqlite3
+
+# Databases dumps
+dump.sql
+
+# Volumes
+data/
 
 
-# Env files
-# ---------------------------------------------------
-.env
+## Log files
+*log
+
+
+## Kubernetes configmaps
+infra/configmaps.yaml
+
+
+## Python stuff
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Unit test / coverage reports
+.coverage
+.coverage.*
+
+# Hypothesis
+.hypothesis/
+
+# Drafts
+my.py
