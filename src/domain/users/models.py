@@ -4,6 +4,7 @@ from typing import Optional
 
 from pydantic import Field
 
+from src.domain.constants import UserRole
 from src.infrastructure.models import InternalModel, PublicModel
 
 __all__ = ("UserCreateRequestBody", "UserPublic", "UserUncommited", "User")
@@ -20,20 +21,19 @@ class _UserPublic(PublicModel):
     phone_number: str = Field(description="OpenAPI description")
     first_name: str = Field(description="OpenAPI description")
     last_name: str = Field(description="OpenAPI description")
-    address: str = Field(description="OpenAPI description")
 
 
 class UserCreateRequestBody(_UserPublic):
     """User create request body"""
 
-    password: str = Field(description="OpenAPI description")
+    password: str
 
 
 class UserPublic(_UserPublic):
     """The internal application representation."""
 
     id: int
-    is_manager: bool
+    role: UserRole
 
 
 # Internal models
@@ -46,11 +46,10 @@ class UserUncommited(InternalModel):
     password: str
     first_name: Optional[str]
     last_name: Optional[str]
-    address: str = Field(description="OpenAPI description")
 
 
 class User(UserUncommited):
     """Existed product representation."""
 
     id: int
-    is_manager: bool
+    role: UserRole
