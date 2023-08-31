@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 
 from src.users.base_config import auth_backend, fastapi_users
+from src.employees.routers import router as employee_router
 from src.users.routers import router as user_router
 from src.users.schemas import UserCreate, UserRead, UserUpdate
 
@@ -40,3 +41,4 @@ app.include_router(
 )
 
 app.include_router(user_router, prefix="/users", tags=["auth"])
+app.include_router(employee_router, prefix="/employee", tags=["employee"])

@@ -31,7 +31,7 @@ class Employee(Base):
     profession: Mapped[Profession] = mapped_column(
         Enum(Profession), nullable=False
     )
-    employee_photo: Mapped[bytes] = mapped_column(LargeBinary, nullable=True)
+    employee_photo: Mapped[str] = mapped_column(String, nullable=True)
     title: Mapped[str] = mapped_column(String(length=500), nullable=False)
     instagram: Mapped[str] = mapped_column(String, nullable=True)
     facebook: Mapped[str] = mapped_column(String, nullable=True)

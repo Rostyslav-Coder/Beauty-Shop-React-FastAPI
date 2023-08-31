@@ -54,3 +54,21 @@ class UserUpdate(BaseUserUpdate):
     phone_number: str
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+
+
+class UserInside(BaseUser[UUID]):
+    """Pydantic User Inside schema"""
+
+    id: UUID
+    email: str
+    phone_number: str
+    hashed_password: str
+    first_name: str
+    last_name: str
+    is_active: bool
+    is_verified: bool
+    is_employee: bool
+    is_superuser: bool
+    created_date: datetime
+
+    __config__ = ConfigDict(from_attributes=True)

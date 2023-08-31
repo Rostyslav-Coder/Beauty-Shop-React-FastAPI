@@ -2,6 +2,7 @@
 
 from datetime import timedelta
 from decimal import Decimal
+from typing import Optional
 from uuid import UUID
 
 from pydantic import AnyUrl, BaseModel, ConfigDict, Field
@@ -9,27 +10,31 @@ from pydantic import AnyUrl, BaseModel, ConfigDict, Field
 from src.employees.constants import EmploymentContract, Profession
 
 
-class EmployeeRead(BaseModel):
+class EmployeeOut(BaseModel):
     """Pydantic Employee Out schema"""
 
     employee_id: UUID
     profession: Profession
-    employee_photo: bytes = Field(
-        None, title="Employee Photo", description="Employee Photo"
-    )
+    employee_photo: Optional[AnyUrl]
     title: str
-    instagram: AnyUrl
-    facebook: AnyUrl
+    instagram: Optional[AnyUrl]
+    facebook: Optional[AnyUrl]
     images_urls: list[AnyUrl]
     employment_contract: EmploymentContract
 
     __config__ = ConfigDict(from_attributes=True)
 
 
-class EmployeeCreate(EmployeeRead):
+class EmployeeIn(BaseModel):
     """Pydantic Employee In schema"""
 
-    user_id: UUID
+    profession: Profession
+    employee_photo: Optional[AnyUrl]
+    title: str
+    instagram: Optional[AnyUrl]
+    facebook: Optional[AnyUrl]
+    images_urls: Optional[list[AnyUrl]]
+    employment_contract: EmploymentContract
 
 
 class ServiceRead(BaseModel):
