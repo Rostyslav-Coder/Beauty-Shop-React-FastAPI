@@ -18,7 +18,9 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-__all__ = ()
+from src.domain.constants import UserRole
+
+__all__ = ("UsersTable", "EmployeesTable", "ServiceTable", "BookingTable")
 
 meta = MetaData(
     naming_convention={
@@ -54,7 +56,9 @@ class UsersTable(Base):
     password: Mapped[str] = mapped_column(String(length=1024), nullable=False)
     first_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
     last_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
-    role: Mapped[Enum] = mapped_column(Enum("UserRole"), nullable=False)
+    role: Mapped[Enum] = mapped_column(
+        Enum(UserRole), nullable=False, default=UserRole.USER
+    )
 
     employee = relationship(
         "EmployeesTable", back_populates="user", uselist=False
