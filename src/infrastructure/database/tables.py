@@ -21,6 +21,7 @@ from sqlalchemy.orm import (
 )
 
 from src.domain.constants import (
+    BookingStatus,
     Profession,
     UserRole,
     WorkingDays,
@@ -120,7 +121,7 @@ class BookingTable(Base):
     )
     start_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
     end_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
-    status: Mapped[Enum] = mapped_column(Enum("BookingStatus"), nullable=False)
+    status: Mapped[Enum] = mapped_column(Enum(BookingStatus), nullable=False)
 
     user = relationship("UsersTable")
     employee = relationship("EmployeesTable", back_populates="bookings")
