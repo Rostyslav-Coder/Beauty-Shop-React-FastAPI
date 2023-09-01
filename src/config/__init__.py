@@ -1,8 +1,19 @@
 """src/config/__init__.py"""
 
+import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+from passlib.context import CryptContext
 from pydantic import BaseConfig, BaseModel, BaseSettings
+
+load_dotenv()
+
+
+# Virtual environment variables
+# =====================================
+# Employees variables
+EMPLOYEES_KEY = os.environ.get("EMPLOYEES_KEYS")
 
 
 # API Settings
@@ -67,6 +78,9 @@ class AuthenticationSettings(BaseModel):
     refresh_token: RefreshTokenSettings = RefreshTokenSettings()
     algorithm: str = "HS256"
     scheme: str = "Bearer"
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 # Settings are powered by pydantic
