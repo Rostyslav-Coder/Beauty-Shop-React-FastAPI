@@ -15,8 +15,8 @@ class UsersRepository(BaseRepository[UsersTable]):
         async for instance in self._all():
             yield User.from_orm(instance)
 
-    async def get(self, id_: int) -> User:
-        instance = await self._get(key="id", value=id_)
+    async def get(self, key_: str, value_: Any) -> User:
+        instance = await self._get(key=key_, value=value_)
         return User.from_orm(instance)
 
     async def create(self, schema: UserUncommited) -> User:
