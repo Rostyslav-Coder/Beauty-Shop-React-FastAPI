@@ -2,6 +2,7 @@
 
 from pydantic import Field
 
+from src.domain.constants import Profession, WorkingDays, WorkingShift
 from src.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
@@ -18,18 +19,18 @@ class EmployeeCreateRequestBody(PublicModel):
     """Employee create request body."""
 
     user_id: int = Field(description="OpenAPI description")
-    profession: str = Field(description="OpenAPI description")
-    working_days: str = Field(description="OpenAPI description")
-    working_shift: str = Field(description="OpenAPI description")
+    profession: Profession = Field(description="OpenAPI description")
+    working_days: WorkingDays = Field(description="OpenAPI description")
+    working_shift: WorkingShift = Field(description="OpenAPI description")
 
 
 class EmployeePublic(PublicModel):
     """The internal application representation."""
 
     user_id: int
-    profession: str
-    working_days: str
-    working_shift: str
+    profession: Profession
+    working_days: WorkingDays
+    working_shift: WorkingShift
 
 
 # Internal models
@@ -38,9 +39,9 @@ class EmployeeUncommited(InternalModel):
     """This schema is used for creating instance in the database."""
 
     user_id: int
-    profession: str
-    working_days: str
-    working_shift: str
+    profession: Profession
+    working_days: WorkingDays
+    working_shift: WorkingShift
 
 
 class Employee(EmployeeUncommited):
