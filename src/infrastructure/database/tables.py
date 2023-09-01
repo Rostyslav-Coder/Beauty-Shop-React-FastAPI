@@ -8,7 +8,9 @@ from sqlalchemy import (
     Enum,
     ForeignKey,
     Integer,
+    Interval,
     MetaData,
+    Numeric,
     String,
 )
 from sqlalchemy.orm import (
@@ -94,8 +96,8 @@ class ServiceTable(Base):
 
     name: Mapped[str] = mapped_column(String(length=100), nullable=False)
     title: Mapped[str] = mapped_column(String(length=500), nullable=False)
-    duration: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
-    price: Mapped[int] = mapped_column(Integer, nullable=False)
+    duration: Mapped[Interval] = mapped_column(Interval, nullable=False)
+    price: Mapped[Numeric] = mapped_column(Numeric, nullable=False)
     employee_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("employees.id"), nullable=False
     )
