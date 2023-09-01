@@ -18,7 +18,12 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from src.domain.constants import UserRole
+from src.domain.constants import (
+    Profession,
+    UserRole,
+    WorkingDays,
+    WorkingShift,
+)
 
 __all__ = ("UsersTable", "EmployeesTable", "ServiceTable", "BookingTable")
 
@@ -71,14 +76,12 @@ class EmployeesTable(Base):
     user_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("users.id"), nullable=False
     )
-    profession: Mapped[Enum] = mapped_column(
-        Enum("Profession"), nullable=False
-    )
+    profession: Mapped[Enum] = mapped_column(Enum(Profession), nullable=False)
     working_days: Mapped[Enum] = mapped_column(
-        Enum("WorkingDays"), nullable=False
+        Enum(WorkingDays), nullable=False
     )
     working_shift: Mapped[Enum] = mapped_column(
-        Enum("WorkingShift"), nullable=False
+        Enum(WorkingShift), nullable=False
     )
 
     user = relationship("UsersTable", back_populates="employee")
@@ -89,9 +92,9 @@ class EmployeesTable(Base):
 class ServiceTable(Base):
     __tablename__ = "services"
 
-    name: Mapped[str] = mapped_column(String(length=32), nullable=False)
+    name: Mapped[str] = mapped_column(String(length=100), nullable=False)
     title: Mapped[str] = mapped_column(String(length=500), nullable=False)
-    duration: Mapped[int] = mapped_column(Integer, nullable=False)
+    duration: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
     price: Mapped[int] = mapped_column(Integer, nullable=False)
     employee_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("employees.id"), nullable=False
