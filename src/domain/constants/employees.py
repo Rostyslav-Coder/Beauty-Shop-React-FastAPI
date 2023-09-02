@@ -10,21 +10,21 @@ __all__ = (
 
 
 class Profession(Enum):
-    HAIR_STYLIST = "Hair stylist"
-    MAKEUP_ARTIST = "Makeup artist"
-    ESTHETICIAN = "Esthetician"
-    NAIL_TECHNICIAN = "Nail technician"
-    EYELESH_SPECIALIST = "Eyelash specialist"
-    MASSAGE_THERAPIST = "Massage therapist"
-    TATTOO_ARTIST = "Tattoo artist"
+    HAIR_STYLIST = "HAIR_STYLIST"
+    MAKEUP_ARTIST = "MAKEUP_ARTIST"
+    ESTHETICIAN = "ESTHETICIAN"
+    NAIL_TECHNICIAN = "NAIL_TECHNICIAN"
+    EYELESH_SPECIALIST = "EYELESH_SPECIALIST"
+    MASSAGE_THERAPIST = "MASSAGE_THERAPIST"
+    TATTOO_ARTIST = "TATTOO_ARTIST"
 
 
 class WorkingDays(Enum):
-    EVEN_DAYS = "Even Days"
-    ODD_DAYS = "Odd Days"
-    WEEK_DAYS = "Week Days"
+    EVEN_DAYS = "EVEN_DAYS"
+    ODD_DAYS = "ODD_DAYS"
+    WEEK_DAYS = "WEEK_DAYS"
 
 
 class WorkingShift(Enum):
-    MORNING_SHIFT = "Morning Shift"
-    AFTERNOON_SHIFT = "Afternoon Shift"
+    MORNING_SHIFT = "MORNING_SHIFT"
+    AFTERNOON_SHIFT = "AFTERNOON_SHIFT"
