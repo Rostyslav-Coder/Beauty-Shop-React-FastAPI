@@ -72,7 +72,8 @@ class RoleRequired:
         self.role = role
 
     async def __call__(self, user: User = Depends(get_current_user)):
-        if user.role != self.role:
-            raise AuthorizationError
+        enum_role = UserRole(self.role)
 
+        if user.role != enum_role.value:
+            raise AuthorizationError
         return user
