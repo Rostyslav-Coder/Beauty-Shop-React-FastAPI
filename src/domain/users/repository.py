@@ -27,6 +27,6 @@ class UsersRepository(BaseRepository[UsersTable]):
         self, key_: str, value_: Any, payload_: UserUncommited
     ) -> User:
         instance: UsersTable = await self._update(
-            key=key_, value=value_, payload=payload_.dict()
+            key=key_, value=value_, payload=payload_
         )
         return User.from_orm(instance)
