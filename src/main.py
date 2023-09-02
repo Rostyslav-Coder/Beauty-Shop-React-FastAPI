@@ -30,7 +30,10 @@ logger.add(
 # -------------------------------
 app: FastAPI = application.create(
     debug=settings.debug,
-    rest_routers=(rest.users.router,),
+    rest_routers=(
+        rest.users.router,
+        rest.authenticate.router,
+    ),
     startup_tasks=[database.create_tables],
     shutdown_tasks=[],
 )
