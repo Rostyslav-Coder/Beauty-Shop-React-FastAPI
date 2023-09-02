@@ -2,6 +2,8 @@
 
 from typing import Any, AsyncGenerator
 
+from sqlalchemy.orm import joinedload
+
 from src.domain.employees import Employee, EmployeeUncommited
 from src.infrastructure.database import BaseRepository, EmployeesTable
 
@@ -15,8 +17,13 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
         async for instance in self._all():
             yield Employee.from_orm(instance)
 
-    async def get(self, id_: int) -> Employee:
-        instance = await self._get(key="id", value=id_)
+    async def get(self, key_: str, value_: Any) -> Employee:
+        instance = (
+            await self._session.query(EmployeesTable)
+            .options(joinedload(EmployeesTable.user))
+            .filter(getattr(EmployeesTable, key_) == value_)
+            .first()
+        )
         return Employee.from_orm(instance)
 
     async def create(self, schema: EmployeeUncommited) -> Employee:
