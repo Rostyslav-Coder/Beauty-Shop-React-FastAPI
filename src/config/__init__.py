@@ -14,7 +14,7 @@ load_dotenv()
 # =====================================
 # Employees variables
 ADMIN_KEY = os.environ.get("ADMIN_KEY")
-EMPLOYEES_KEY = os.environ.get("EMPLOYEES_KEYS")
+EMPLOYEES_KEY = os.environ.get("EMPLOYEES_KEY")
 
 
 # API Settings
@@ -66,7 +66,7 @@ class LoggingSettings(BaseModel):
 
 class AccessTokenSettings(BaseModel):
     secret_key: str = "invaliad"
-    ttl: int = 100  # seconds
+    ttl: int = 3600  # seconds
 
 
 class RefreshTokenSettings(BaseModel):
