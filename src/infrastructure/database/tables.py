@@ -125,4 +125,4 @@ class BookingTable(Base):
 
     user = relationship("UsersTable")
     employee = relationship("EmployeesTable", back_populates="bookings")
-    service = relationship("ServiceTable", back_populates="bookings")
+    services = relationship("ServiceTable", back_populates="bookings")
