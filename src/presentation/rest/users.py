@@ -65,13 +65,17 @@ async def user_employee(
     """Update users role to employee"""
 
     # Check employee secret key
-    if employee_key != EMPLOYEES_KEY:
+    print(user)
+    print(employee_key)
+    print(EMPLOYEES_KEY)
+    if employee_key != str(EMPLOYEES_KEY):
         raise AuthorizationError
 
     # Update user to employee
     user.role = UserRole.EMPLOYEE
+    # payload = {"role": "Employee"}
     user: User = await UsersRepository().update(
-        key_="id", value_=user.id, payload_=user
+        key_="id", value_=user.id, payload_=user.dict()
     )
     employee = UserPublic.from_orm(user)
 
