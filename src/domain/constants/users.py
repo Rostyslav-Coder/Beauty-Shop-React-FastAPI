@@ -6,6 +6,6 @@ __all__ = ("UserRole",)
 
 
 class UserRole(Enum):
-    USER = "User"
-    EMPLOYEE = "Employee"
-    ADMIN = "Admin"
+    USER = "USER"
+    EMPLOYEE = "EMPLOYEE"
+    ADMIN = "ADMIN"
