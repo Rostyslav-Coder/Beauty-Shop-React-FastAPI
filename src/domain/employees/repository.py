@@ -2,10 +2,12 @@
 
 from typing import Any, AsyncGenerator
 
+from sqlalchemy import Result, select
 from sqlalchemy.orm import joinedload
 
 from src.domain.employees import Employee, EmployeeUncommited
 from src.infrastructure.database import BaseRepository, EmployeesTable
+from src.infrastructure.errors import NotFoundError
 
 __all__ = ("EmployeeRepository",)
 
@@ -18,13 +20,17 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
             yield Employee.from_orm(instance)
 
     async def get(self, key_: str, value_: Any) -> Employee:
-        instance = (
-            await self._session.query(EmployeesTable)
+        query = (
+            select(self.schema_class)
             .options(joinedload(EmployeesTable.user))
-            .filter(getattr(EmployeesTable, key_) == value_)
-            .first()
+            .where(getattr(self.schema_class, key_) == value_)
         )
-        return Employee.from_orm(instance)
+        result: Result = await self.execute(query)
+
+        if not (_result := result.scalars().one_or_none()):
+            raise NotFoundError
+
+        return Employee.from_orm(_result)
 
     async def create(self, schema: EmployeeUncommited) -> Employee:
         instance: EmployeesTable = await self._save(schema.dict())
@@ -34,6 +40,6 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
         self, key_: str, value_: Any, payload_: EmployeeUncommited
     ) -> Employee:
         instance: EmployeesTable = await self._update(
-            key=key_, value=value_, payload=payload_.dict()
+            key=key_, value=value_, payload=payload_
         )
         return Employee.from_orm(instance)

@@ -3,6 +3,7 @@
 from pydantic import Field
 
 from src.domain.constants import Profession, WorkingDays, WorkingShift
+from src.domain.users import UserPublic
 from src.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
@@ -15,8 +16,10 @@ __all__ = (
 
 # Public models
 # ------------------------------------------------------
-class EmployeeCreateRequestBody(PublicModel):
-    """Employee create request body."""
+class _EmployeePublic(PublicModel):
+    """Base class for public user schemas. Defines common fields
+    that are present in all public user schemas.
+    """
 
     user_id: int = Field(description="OpenAPI description")
     profession: Profession = Field(description="OpenAPI description")
@@ -24,13 +27,17 @@ class EmployeeCreateRequestBody(PublicModel):
     working_shift: WorkingShift = Field(description="OpenAPI description")
 
 
-class EmployeePublic(PublicModel):
+class EmployeeCreateRequestBody(_EmployeePublic):
+    """Employee create request body."""
+
+    pass
+
+
+class EmployeePublic(_EmployeePublic):
     """The internal application representation."""
 
-    user_id: int
-    profession: Profession
-    working_days: WorkingDays
-    working_shift: WorkingShift
+    id: int
+    user: UserPublic
 
 
 # Internal models
@@ -47,4 +54,5 @@ class EmployeeUncommited(InternalModel):
 class Employee(EmployeeUncommited):
     """Existed product representation."""
 
-    pass
+    id: int
+    user: UserPublic
