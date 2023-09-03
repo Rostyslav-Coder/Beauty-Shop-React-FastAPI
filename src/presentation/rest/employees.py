@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, Depends, Request, status
 
-from src.application.authentication import RoleRequired
+from src.application.authentication import RoleRequired, get_current_user
 from src.domain.constants import UserRole, WorkingDays
 from src.domain.employees import (
     Employee,
@@ -63,6 +63,7 @@ async def employee_update_days(
 async def employee_get(
     _: Request,
     employee_id: int,
+    user: User = Depends(get_current_user),
 ) -> Response[EmployeePublic]:
     """Get employee with user, full model"""
 
