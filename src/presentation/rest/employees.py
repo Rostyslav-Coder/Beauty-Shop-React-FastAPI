@@ -13,7 +13,7 @@ from src.domain.employees import (
 )
 from src.domain.users import User
 from src.infrastructure.database import transaction
-from src.infrastructure.models import Response  # ResponseMulti
+from src.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
@@ -63,13 +63,28 @@ async def employee_update_days(
 async def employee_get(
     _: Request,
     employee_id: int,
-    user: User = Depends(get_current_user),
+    user: User = Depends(get_current_user),  # pylint: disable=W0613
 ) -> Response[EmployeePublic]:
-    """Get employee with user, full model"""
+    """Get employee with user data, full model"""
 
+    # Get employee from database
     employee: Employee = await EmployeeRepository().get(
         key_="id", value_=employee_id
     )
     employee_public = EmployeePublic.from_orm(employee)
 
     return Response[EmployeePublic](result=employee_public)
+
+
+@router.get("/all", status_code=status.HTTP_200_OK)
+@transaction
+async def employee_all(
+    _: Request,
+    user: User = Depends(get_current_user),  # pylint: disable=W0613
+) -> ResponseMulti[EmployeePublic]:
+    """Get employees list with user data, full model"""
+
+    # Get employees list from database
+    employees = await EmployeeRepository().all()
+
+    return ResponseMulti[EmployeePublic](result=employees)
