@@ -80,11 +80,13 @@ async def employee_get(
 @transaction
 async def employee_all(
     _: Request,
+    skip: int = None,
+    limit: int = None,
     user: User = Depends(get_current_user),  # pylint: disable=W0613
 ) -> ResponseMulti[EmployeePublic]:
     """Get employees list with user data, full model"""
 
     # Get employees list from database
-    employees = await EmployeeRepository().all()
+    employees = await EmployeeRepository().all(skip_=skip, limit_=limit)
 
     return ResponseMulti[EmployeePublic](result=employees)
