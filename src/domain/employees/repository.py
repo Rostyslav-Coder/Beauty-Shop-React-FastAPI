@@ -15,9 +15,12 @@ __all__ = ("EmployeeRepository",)
 class EmployeeRepository(BaseRepository[EmployeesTable]):
     schema_class = EmployeesTable
 
-    async def all(self) -> list[Employee]:
-        query = select(self.schema_class).options(
-            joinedload(EmployeesTable.user)
+    async def all(self, skip_: int = 0, limit_: int = 10) -> list[Employee]:
+        query = (
+            select(self.schema_class)
+            .options(joinedload(EmployeesTable.user))
+            .offset(skip_)
+            .limit(limit_)
         )
         result: Result = await self.execute(query)
         employees = [
