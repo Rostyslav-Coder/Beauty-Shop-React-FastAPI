@@ -1,6 +1,6 @@
 """src/domain/employees/repository.py"""
 
-from typing import Any, AsyncGenerator
+from typing import Any
 
 from sqlalchemy import Result, select
 from sqlalchemy.orm import joinedload
@@ -15,9 +15,15 @@ __all__ = ("EmployeeRepository",)
 class EmployeeRepository(BaseRepository[EmployeesTable]):
     schema_class = EmployeesTable
 
-    async def all(self) -> AsyncGenerator[Employee, None]:
-        async for instance in self._all():
-            yield Employee.from_orm(instance)
+    async def all(self) -> list[Employee]:
+        query = select(self.schema_class).options(
+            joinedload(EmployeesTable.user)
+        )
+        result: Result = await self.execute(query)
+        employees = [
+            Employee.from_orm(employee) for employee in result.scalars().all()
+        ]
+        return employees
 
     async def get(self, key_: str, value_: Any) -> Employee:
         query = (
