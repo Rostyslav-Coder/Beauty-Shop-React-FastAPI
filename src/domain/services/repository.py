@@ -5,18 +5,18 @@ from typing import Any, AsyncGenerator
 from src.domain.services import Service, ServiceUncommited
 from src.infrastructure.database import BaseRepository, ServiceTable
 
-__all__ = ("SericeRepository",)
+__all__ = ("ServiceRepository",)
 
 
-class SericeRepository(BaseRepository[ServiceTable]):
+class ServiceRepository(BaseRepository[ServiceTable]):
     schema_class = ServiceTable
 
     async def all(self) -> AsyncGenerator[Service, None]:
         async for instance in self._all():
             yield Service.from_orm(instance)
 
-    async def get(self, id_: int) -> Service:
-        instance = await self._get(key="id", value=id_)
+    async def get(self, key_: int, value_: Any) -> Service:
+        instance = await self._get(key=key_, value=value_)
         return Service.from_orm(instance)
 
     async def create(self, schema: ServiceUncommited) -> Service:
@@ -24,9 +24,9 @@ class SericeRepository(BaseRepository[ServiceTable]):
         return Service.from_orm(instance)
 
     async def update(
-        self, key_: str, value_: Any, payload_: ServiceUncommited
+        self, key_: str, value_: Any, payload_: dict[str, Any]
     ) -> Service:
         instance: ServiceTable = await self._update(
-            key=key_, value=value_, payload=payload_.dict()
+            key=key_, value=value_, payload=payload_
         )
         return Service.from_orm(instance)

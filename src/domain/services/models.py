@@ -27,15 +27,10 @@ class ServiceCreateRequestBody(PublicModel):
     employee_id: int = Field(description="OpenAPI description")
 
 
-class ServicePublic(PublicModel):
+class ServicePublic(ServiceCreateRequestBody):
     """The public representation of the service."""
 
     id: int
-    name: str
-    title: str
-    duration: timedelta
-    price: Decimal
-    employee_id: int
 
 
 # Internal models
@@ -47,10 +42,10 @@ class ServiceUncommited(InternalModel):
     title: str
     duration: timedelta
     price: Decimal
+    employee_id: int
 
 
 class Service(ServiceUncommited):
     """Existed service representation."""
 
     id: int
-    employee_id: int
