@@ -27,7 +27,7 @@ class ServiceCreateRequestBody(PublicModel):
 
 
 class ServicePublic(PublicModel):
-    """The internal application representation."""
+    """The public representation of the service."""
 
     name: str
     title: str
@@ -47,6 +47,6 @@ class ServiceUncommited(InternalModel):
 
 
 class Service(ServiceUncommited):
-    """Existed product representation."""
+    """Existed service representation."""
 
     pass
