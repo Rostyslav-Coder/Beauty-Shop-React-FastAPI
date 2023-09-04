@@ -24,15 +24,18 @@ class ServiceCreateRequestBody(PublicModel):
     title: str = Field(description="OpenAPI description")
     duration: timedelta = Field(description="OpenAPI description")
     price: Decimal = Field(description="OpenAPI description")
+    employee_id: int = Field(description="OpenAPI description")
 
 
 class ServicePublic(PublicModel):
     """The public representation of the service."""
 
+    id: int
     name: str
     title: str
     duration: timedelta
     price: Decimal
+    employee_id: int
 
 
 # Internal models
@@ -49,4 +52,5 @@ class ServiceUncommited(InternalModel):
 class Service(ServiceUncommited):
     """Existed service representation."""
 
-    pass
+    id: int
+    employee_id: int
