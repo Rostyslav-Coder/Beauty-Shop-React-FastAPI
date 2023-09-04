@@ -3,13 +3,15 @@
 from fastapi import APIRouter, Depends, Request, status
 
 from src.application.authentication import RoleRequired, get_current_user
-from src.domain.constants import UserRole, WorkingDays
+from src.domain.constants import UserRole, WorkingDays, WorkingShift
 from src.domain.employees import (
     Employee,
     EmployeeCreateRequestBody,
     EmployeePublic,
     EmployeeRepository,
     EmployeeUncommited,
+    UserEmployee,
+    UserEmployeePublic,
 )
 from src.domain.users import User
 from src.infrastructure.database import transaction
@@ -58,6 +60,25 @@ async def employee_update_days(
     return Response[EmployeePublic](result=employee_public)
 
 
+@router.put("/update_shift", status_code=status.HTTP_202_ACCEPTED)
+@transaction
+async def employee_update_shift(
+    _: Request,
+    new_shift: WorkingShift,
+    user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
+) -> Response[EmployeePublic]:
+    """Update employees working shift"""
+
+    # Update employees working shift
+    payload = {"working_shift": new_shift}
+    employee: EmployeeUncommited = await EmployeeRepository().update(
+        key_="user_id", value_=user.id, payload_=payload
+    )
+    employee_public = EmployeePublic.from_orm(employee)
+
+    return Response[EmployeePublic](result=employee_public)
+
+
 @router.get("/get", status_code=status.HTTP_200_OK)
 @transaction
 async def employee_get(
@@ -68,12 +89,12 @@ async def employee_get(
     """Get employee with user data, full model"""
 
     # Get employee from database
-    employee: Employee = await EmployeeRepository().get(
+    employee: UserEmployee = await EmployeeRepository().get(
         key_="id", value_=employee_id
     )
-    employee_public = EmployeePublic.from_orm(employee)
+    employee_public = UserEmployeePublic.from_orm(employee)
 
-    return Response[EmployeePublic](result=employee_public)
+    return Response[UserEmployeePublic](result=employee_public)
 
 
 @router.get("/all", status_code=status.HTTP_200_OK)
@@ -83,10 +104,12 @@ async def employee_all(
     skip: int = None,
     limit: int = None,
     user: User = Depends(get_current_user),  # pylint: disable=W0613
-) -> ResponseMulti[EmployeePublic]:
+) -> ResponseMulti[UserEmployeePublic]:
     """Get employees list with user data, full model"""
 
     # Get employees list from database
-    employees = await EmployeeRepository().all(skip_=skip, limit_=limit)
+    employees: UserEmployeePublic = await EmployeeRepository().all(
+        skip_=skip, limit_=limit
+    )
 
-    return ResponseMulti[EmployeePublic](result=employees)
+    return ResponseMulti[UserEmployeePublic](result=employees)
