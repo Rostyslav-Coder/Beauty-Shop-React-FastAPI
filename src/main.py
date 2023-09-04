@@ -34,6 +34,7 @@ app: FastAPI = application.create(
         rest.authenticate.router,
         rest.users.router,
         rest.employees.router,
+        rest.services.router,
     ),
     startup_tasks=[database.create_tables],
     shutdown_tasks=[],
