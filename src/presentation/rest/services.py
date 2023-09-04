@@ -52,9 +52,9 @@ async def services_add(
 @transaction
 async def services_update(
     _: Request,
-    new_title: str,
-    new_duration: timedelta,
-    new_price: Decimal,
+    new_title: str | None,
+    new_duration: timedelta | None,
+    new_price: Decimal | None,
     user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
 ) -> Response[ServicePublic]:
     """Update values in a service data"""
