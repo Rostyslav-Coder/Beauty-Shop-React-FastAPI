@@ -11,14 +11,17 @@ __all__ = (
     "EmployeePublic",
     "EmployeeUncommited",
     "Employee",
+    "UserEmployee",
+    "UserEmployeePublic",
 )
 
 
 # Public models
 # ------------------------------------------------------
 class _EmployeePublic(PublicModel):
-    """Base class for public user schemas. Defines common fields
-    that are present in all public user schemas.
+    """
+    Base class for public employee schemas. Defines common fields
+    that are present in all public employee schemas.
     """
 
     user_id: int = Field(description="OpenAPI description")
@@ -34,7 +37,13 @@ class EmployeeCreateRequestBody(_EmployeePublic):
 
 
 class EmployeePublic(_EmployeePublic):
-    """The internal application representation."""
+    """The public representation of the employee."""
+
+    id: int
+
+
+class UserEmployeePublic(_EmployeePublic):
+    """The public representation of the employee, enhanced with user data."""
 
     id: int
     user: UserPublic
@@ -52,7 +61,13 @@ class EmployeeUncommited(InternalModel):
 
 
 class Employee(EmployeeUncommited):
-    """Existed product representation."""
+    """Existed employee representation."""
+
+    id: int
+
+
+class UserEmployee(EmployeeUncommited):
+    """Existed employee representation, enhanced with user data."""
 
     id: int
     user: UserPublic
