@@ -5,7 +5,7 @@ from decimal import Decimal
 
 from fastapi import APIRouter, Depends, Request, status
 
-from src.application.authentication import RoleRequired  # , get_current_user
+from src.application.authentication import RoleRequired, get_current_user
 from src.domain.constants import UserRole
 from src.domain.employees import Employee, EmployeeRepository
 from src.domain.services import (
@@ -17,7 +17,8 @@ from src.domain.services import (
 )
 from src.domain.users import User
 from src.infrastructure.database import transaction
-from src.infrastructure.models import Response  # , ResponseMulti
+from src.infrastructure.errors import BadRequestError
+from src.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(prefix="/services", tags=["Services"])
 
@@ -48,12 +49,101 @@ async def services_add(
     return Response[ServicePublic](result=service_public)
 
 
-@router.put("/update", status_code=status.HTTP_202_ACCEPTED)
+@router.get("/all", status_code=status.HTTP_200_OK)
 @transaction
-async def services_update(
+async def services_get_all(
+    _: Request,
+    skip: int,
+    limit: int,
+    user: User = Depends(get_current_user),
+) -> ResponseMulti[ServicePublic]:
+    """Get all services"""
+
+
+@router.put("/update_name", status_code=status.HTTP_202_ACCEPTED)
+@transaction
+async def services_update_name(
+    _: Request,
+    service_id: int,
+    new_name: str | None,
+    user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
+) -> Response[ServicePublic]:
+    """Update values in a service data"""
+
+    # Get the employee associated with the user
+    employee: Employee = await EmployeeRepository().get(
+        key_="user_id", value_=user.id
+    )
+
+    # Check employee permissions
+    raw_service: Service = ServiceRepository().get(
+        key_="id", value_=service_id
+    )
+    if raw_service.employee_id != employee.id:
+        raise BadRequestError
+
+    # Update service from database
+    payload = {"name": new_name}
+    service: Service = ServiceRepository().update(
+        key_="id", value_=service_id, payload_=payload
+    )
+    service_public = ServicePublic.from_orm(service)
+
+    return Response[ServicePublic](result=service_public)
+
+
+@router.put("/update_title", status_code=status.HTTP_202_ACCEPTED)
+@transaction
+async def services_update_title(
     _: Request,
     new_title: str | None,
+    user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
+) -> Response[ServicePublic]:
+    """Update values in a service data"""
+
+    # Get the employee associated with the user
+    employee: Employee = await EmployeeRepository().get(
+        key_="user_id", value_=user.id
+    )
+
+    # Update service from database
+    payload = {"title": new_title}
+    service: Service = ServiceRepository().update(
+        key_="employee_id", value_=employee.id, payload_=payload
+    )
+    service_public = ServicePublic.from_orm(service)
+
+    return Response[ServicePublic](result=service_public)
+
+
+@router.put("/update_duration", status_code=status.HTTP_202_ACCEPTED)
+@transaction
+async def services_update_duration(
+    _: Request,
     new_duration: timedelta | None,
+    user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
+) -> Response[ServicePublic]:
+    """Update values in a service data"""
+
+    # Get the employee associated with the user
+    employee: Employee = await EmployeeRepository().get(
+        key_="user_id", value_=user.id
+    )
+
+    # Update service from database
+    payload = {"duration": new_duration}
+    service: Service = ServiceRepository().update(
+        key_="employee_id", value_=employee.id, payload_=payload
+    )
+    service_public = ServicePublic.from_orm(service)
+
+    return Response[ServicePublic](result=service_public)
+
+
+@router.put("/update_price", status_code=status.HTTP_202_ACCEPTED)
+@transaction
+async def services_update_price(
+    _: Request,
     new_price: Decimal | None,
     user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
 ) -> Response[ServicePublic]:
@@ -64,16 +154,8 @@ async def services_update(
         key_="user_id", value_=user.id
     )
 
-    # Preparing Data for Update
-    payload = {}
-    if new_title:
-        payload["title"] = new_title
-    if new_duration:
-        payload["duration"] = new_duration
-    if new_price:
-        payload["price"] = new_price
-
     # Update service from database
+    payload = {"price": new_price}
     service: Service = ServiceRepository().update(
         key_="employee_id", value_=employee.id, payload_=payload
     )
