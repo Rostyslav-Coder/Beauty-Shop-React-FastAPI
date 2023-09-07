@@ -28,7 +28,13 @@ from src.domain.constants import (
     WorkingShift,
 )
 
-__all__ = ("UsersTable", "EmployeesTable", "ServiceTable", "BookingTable")
+__all__ = (
+    "UsersTable",
+    "EmployeesTable",
+    "ServiceTable",
+    "BookingTable",
+    "ServiceTypeTable",
+)
 
 meta = MetaData(
     naming_convention={
@@ -97,6 +103,9 @@ class ServiceTable(Base):
 
     name: Mapped[str] = mapped_column(String(length=100), nullable=False)
     title: Mapped[str] = mapped_column(String(length=500), nullable=False)
+    service_type: Mapped[str] = mapped_column(
+        String(length=32), nullable=False
+    )
     duration: Mapped[Interval] = mapped_column(Interval, nullable=False)
     price: Mapped[Numeric] = mapped_column(Numeric, nullable=False)
     employee_id: Mapped[int] = mapped_column(
@@ -105,6 +114,15 @@ class ServiceTable(Base):
 
     employee = relationship("EmployeesTable", back_populates="services")
     bookings = relationship("BookingTable", back_populates="services")
+
+
+class ServiceTypeTable(Base):
+    __tablename__ = "service_type"
+
+    profession: Mapped[Enum] = mapped_column(Enum(Profession), nullable=False)
+    service_type: Mapped(str) = mapped_column(
+        String(length=50), nullable=False
+    )
 
 
 class BookingTable(Base):
