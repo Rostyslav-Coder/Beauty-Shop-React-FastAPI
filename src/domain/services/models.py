@@ -2,9 +2,12 @@
 
 from datetime import timedelta
 from decimal import Decimal
+from typing import Any
 
-from pydantic import Field
+from pydantic import Field, validator
 
+from src.domain.constants import Profession
+from src.domain.services_type import ServiceTypePublic, ServiceTypeRepository
 from src.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
@@ -25,6 +28,25 @@ class ServiceCreateRequestBody(PublicModel):
     duration: timedelta = Field(description="OpenAPI description")
     price: Decimal = Field(description="OpenAPI description")
     employee_id: int = Field(description="OpenAPI description")
+    profession: Profession = Field(description="OpenAPI description")
+    service_type: str = Field(description="OpenAPI description")
+
+    @classmethod
+    @validator("service_type")
+    def validate_service_type(cls, value: str, values: dict[str, Any]) -> str:
+        profession = values.get("profession")
+        service_type_names: list[str] = []
+        if profession is not None:
+            service_type = ServiceTypeRepository().all_bu_profession(
+                profession=profession
+            )
+            service_types = ServiceTypePublic.from_orm(service_type)
+            service_type_names.append(service_types.service_type)
+            if value not in service_type_names:
+                raise ValueError(
+                    f"Invalid Service Type for {profession}: {value}"
+                )
+        return value
 
 
 class ServicePublic(ServiceCreateRequestBody):
@@ -43,6 +65,7 @@ class ServiceUncommited(InternalModel):
     duration: timedelta
     price: Decimal
     employee_id: int
+    service_type: str
 
 
 class Service(ServiceUncommited):
