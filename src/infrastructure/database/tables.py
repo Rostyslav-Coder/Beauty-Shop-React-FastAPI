@@ -120,7 +120,7 @@ class ServiceTypeTable(Base):
     __tablename__ = "service_type"
 
     profession: Mapped[Enum] = mapped_column(Enum(Profession), nullable=False)
-    service_type: Mapped(str) = mapped_column(
+    service_type: Mapped[str] = mapped_column(
         String(length=50), nullable=False
     )
 
