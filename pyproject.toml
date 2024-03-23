@@ -32,6 +32,8 @@ exclude = [
     "venv",
     "Makefile",
     "migrations",
+		"src",
+		"node_modules",
 ]
 
 
@@ -68,6 +70,8 @@ exclude = '''
     | build
     | dist
     | migrations
+		| src
+		| node_modules
   )/
                      # the root of the project
 )
@@ -81,7 +85,7 @@ force_grid_wrap = 0
 use_parentheses = true
 line_length = 79
 skip = '.venv,venv,env,anomaly_detector'
-src_paths = ["src"]
+src_paths = ["backend"]
 
 [tool.pytest.ini_options]
 addopts = '-s -v --cache-clear'

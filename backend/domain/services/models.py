@@ -7,7 +7,10 @@ from typing import Any
 from pydantic import Field, validator
 
 from backend.domain.constants import Profession
-from backend.domain.services_type import ServiceTypePublic, ServiceTypeRepository
+from backend.domain.services_type import (
+    ServiceTypePublic,
+    ServiceTypeRepository,
+)
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (

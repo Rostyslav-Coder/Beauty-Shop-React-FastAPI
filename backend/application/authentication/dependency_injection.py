@@ -11,7 +11,10 @@ from backend.config import settings
 from backend.domain.authentication import TokenPayload
 from backend.domain.constants import UserRole
 from backend.domain.users import User, UsersRepository
-from backend.infrastructure.errors import AuthenticationError, AuthorizationError
+from backend.infrastructure.errors import (
+    AuthenticationError,
+    AuthorizationError,
+)
 
 __all__ = (
     "get_current_user",

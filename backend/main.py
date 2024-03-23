@@ -2,13 +2,13 @@
 
 import uvicorn
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
+
+# from fastapi.staticfiles import StaticFiles
 from loguru import logger
 
 from backend.config import settings
 from backend.infrastructure import application, database
 from backend.presentation import rest
-
 
 # Adjust the logging
 # -------------------------------
