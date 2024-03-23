@@ -6,7 +6,13 @@ import Header from './Header';
 import Home from './Home';
 import About from './About';
 import Services from './Services';
+import Employees from './Employees';
 import Contact from './Contact';
+import Registration from './Registration';
+import Authentication from './Authentication';
+import Orders from './Orders';
+import Employee from './Employee';
+import Admin from './Admin';
 import Footer from './Footer';
 import '../styles/App.css';
 
@@ -22,8 +28,20 @@ const App = () => {
 				return <About />;
 			case 'Services':
 				return <Services />;
+			case 'Employees':
+				return <Employees />;
 			case 'Contact':
 				return <Contact />;
+			case 'Registration':
+				return <Registration />;
+			case 'Authentication':
+				return <Authentication />;
+			case 'Orders':
+				return <Orders />;
+			case 'Employee':
+				return <Employee />;
+			case 'Admin':
+				return <Admin />;
 			default:
 				return <Home />;
 		}

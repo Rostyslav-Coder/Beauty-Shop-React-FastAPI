@@ -28,7 +28,7 @@ class APIUrlsSettings(BaseModel):
 class PublicApiSettings(BaseModel):
     """Configure public API settings."""
 
-    name: str = "FastAPI_Beauty_Shop"
+    name: str = "Beauty_Shop"
     urls: APIUrlsSettings = APIUrlsSettings()
 
 
@@ -117,5 +117,5 @@ settings = Settings(
     # NOTE: We would like to hard-code the root and applications directories
     #       to avoid overriding via environment variables
     root_dir=ROOT_PATH,
-    src_dir=ROOT_PATH / "src",
+    src_dir=ROOT_PATH / "backend",
 )
