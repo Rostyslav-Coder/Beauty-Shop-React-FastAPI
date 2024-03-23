@@ -1,4 +1,4 @@
-name: Check my python & fastapi code quality
+name: Check my python-fastapi and javaScript-react.js code quality
 
 on: [push]
 
@@ -7,15 +7,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
       - name: Install dependencies
         run: pip install ruff black isort
+      - name: Install frontend dependencies
+        run: npm install
+
       - name: Run isort formatter
         run: isort --check ./
       - name: Run black formatter
         run: black --check ./
       - name: Run linter
         run: ruff ./
+      - name: Run ESLint
+        run: npm run lint
