@@ -1,8 +1,9 @@
-"""src/presentation/rest/users.py"""
+"""backend/presentation/rest/users.py"""
 
 from fastapi import APIRouter, Depends, Request, status
 
 from backend.application.authentication import get_current_user
+from backend.application.registration import registrationObserver
 from backend.config import ADMIN_KEY, EMPLOYEES_KEY, pwd_context
 from backend.domain.constants import UserRole
 from backend.domain.users import (
@@ -30,6 +31,9 @@ async def user_create(
     # Password hashing
     hashed_password = pwd_context.hash(schema.password)
     schema.password = hashed_password
+
+    # Role definition
+    schema.first_name, schema.role = registrationObserver(schema.first_name)
 
     # Save new user to the database
     user: User = await UsersRepository().create(

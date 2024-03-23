@@ -49,7 +49,7 @@ class UserUncommited(InternalModel):
 
 
 class User(UserUncommited):
-    """Existed product representation."""
+    """Existed user representation."""
 
     id: int
     role: UserRole
