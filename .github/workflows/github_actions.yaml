@@ -1,4 +1,4 @@
-name: Check my python-fastapi and javaScript-react.js code quality
+name: Check my Python-FastAPI and javaScript-React.js code quality
 
 on: [push]
 
