@@ -24,10 +24,10 @@ jobs:
         run: npm install
 
       - name: Run isort formatter
-        run: isort --check ./
+        run: isort --check ./backend
       - name: Run black formatter
-        run: black --check ./
+        run: black --check ./backend
       - name: Run linter
-        run: ruff ./
+        run: ruff ./backend
       - name: Run ESLint
         run: npm run lint
