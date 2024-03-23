@@ -1,1 +1,114 @@
 /* ============ HEADER PAGE STYLE MODULE  ============ */
+
+.navigator__toggler {
+	display: block;
+	position: fixed;
+	bottom: 3rem;
+	right: 3.5rem;
+	width: 5rem;
+	height: 5rem;
+	background-color: #F0F0F0;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #212121;
+	font-family: serif;
+	font-size: 8rem;
+	font-weight: 900;
+	line-height: 1;
+	z-index: 1100;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 70vw;
+	height: 100vh;
+	background-color: #24242424;
+	backdrop-filter: blur(6px);
+	z-index: 1050;
+}
+
+.open {
+	display: block;
+}
+
+.closed {
+	display: none;
+}
+
+.header__wrapper {
+	width: 100%;
+	height: 100%;
+	padding: 20% 5% 40%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header__navBar {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header__navButton {
+	width: 100%;
+	height: 3.5rem;
+	color: #F0F0F0;
+	background-color: #24242424;
+	border: 0.1rem solid #F0F0F0;
+	border-radius: 0.625rem;
+	font-weight: 900;
+	font-size: 2rem;
+	letter-spacing: 0.1rem;
+}
+
+@media screen and (orientation: landscape) {
+	.header__wrapper {
+		padding: 10% 5%;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.navigator__toggler {
+		display: none;
+	}
+
+	.header {
+		display: block;
+		width: 100%;
+		height: 10vh;
+		top: 0;
+	}
+
+	.header__wrapper {
+		flex-direction: row;
+		padding: 0 5%;
+	}
+
+	.header__navBar {
+		height: auto;
+		width: 100%;
+		flex-direction: row;
+	}
+
+	.header__navButton {
+		width: 7rem;
+		height: 2.5rem;
+		font-size: 1rem;
+		transition: 1s;
+		cursor: pointer;
+	}
+
+	.header__navButton:hover {
+		color: #09C4BD;
+		border: 0.1rem solid #09C4BD;
+	}
+}
