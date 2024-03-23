@@ -1,38 +1,43 @@
 // ============ APP COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
-import reactLogo from '../assets/react.svg';
-import viteLogo from '../../public/vite.svg';
+import { ParallaxProvider } from 'react-scroll-parallax';
+import Header from './Header';
+import Home from './Home';
+import About from './About';
+import Services from './Services';
+import Contact from './Contact';
+import Footer from './Footer';
 import '../styles/App.css';
 
 
-function App() {
-	const [count, setCount] = useState(0)
+const App = () => {
+	const [page, setPage] = useState('Home');
+
+	const renderPage = () => {
+		switch (page) {
+			case 'Home':
+				return <Home />;
+			case 'About':
+				return <About />;
+			case 'Services':
+				return <Services />;
+			case 'Contact':
+				return <Contact />;
+			default:
+				return <Home />;
+		}
+	};
 
 	return (
-		<>
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.jsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
-		</>
-	)
-}
+		<div className='application' id='aplication'>
+			<Header setPage={setPage} />
+			<ParallaxProvider className='aplication__wrapper'>
+				{renderPage()}
+			</ParallaxProvider>
+			<Footer />
+		</div>
+	);
+};
 
-export default App
+export default App;
