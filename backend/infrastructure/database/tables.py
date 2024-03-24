@@ -1,4 +1,4 @@
-"""src/infrastructure/database/tables.py"""
+"""backend/infrastructure/database/tables.py"""
 
 from typing import TypeVar
 
@@ -70,9 +70,7 @@ class UsersTable(Base):
     password: Mapped[str] = mapped_column(String(length=1024), nullable=False)
     first_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
     last_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
-    role: Mapped[Enum] = mapped_column(
-        Enum(UserRole), nullable=False, default=UserRole.USER
-    )
+    role: Mapped[Enum] = mapped_column(Enum(UserRole), nullable=False)
 
     employee = relationship(
         "EmployeesTable", back_populates="user", uselist=False

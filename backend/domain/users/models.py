@@ -1,4 +1,4 @@
-"""src/domain/users/models.py"""
+"""backend/domain/users/models.py"""
 
 from typing import Optional
 
@@ -46,10 +46,10 @@ class UserUncommited(InternalModel):
     password: str
     first_name: Optional[str]
     last_name: Optional[str]
+    role: UserRole
 
 
 class User(UserUncommited):
     """Existed user representation."""
 
     id: int
-    role: UserRole

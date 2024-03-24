@@ -1,4 +1,4 @@
-"""src/config/__init__.py"""
+"""backend/config/__init__.py"""
 
 import os
 from pathlib import Path
@@ -81,7 +81,7 @@ class AuthenticationSettings(BaseModel):
     scheme: str = "Bearer"
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["md5_crypt"], deprecated="auto")
 
 
 # Settings are powered by pydantic
