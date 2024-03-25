@@ -1,1 +1,36 @@
 /* ============ REGISTRATION PAGE STYLE MODULE  ============ */
+
+.registration {
+	width: 50%;
+	margin: 15vh auto;
+	padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	border: 1px solid #CDCDCD;
+	border-radius: 1rem;
+}
+
+.registration__form {
+	width: 100%;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+}
+
+.registration__label {
+	width: 100%;
+}
+
+.registration__input {
+	width: 100%;
+}
+
+.registration__button {
+	width: 100%;
+}

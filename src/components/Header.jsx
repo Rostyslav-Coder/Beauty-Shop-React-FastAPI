@@ -76,7 +76,7 @@ const Navigator = ({ setPage, adaptNavigationForScreenSize }) => {
 					</button>
 				</>
 			)}
-			{userRole === 'user' && (
+			{userRole === 'USER' && (
 				<button
 					className='header__navButton'
 					onClick={() => { setPage('Orders'); adaptNavigationForScreenSize() }}
@@ -84,7 +84,7 @@ const Navigator = ({ setPage, adaptNavigationForScreenSize }) => {
 					My Orders
 				</button>
 			)}
-			{userRole === 'employee' && (
+			{userRole === 'EMPLOYEE' && (
 				<button
 					className='header__navButton'
 					onClick={() => { setPage('Employee'); adaptNavigationForScreenSize() }}
@@ -92,7 +92,7 @@ const Navigator = ({ setPage, adaptNavigationForScreenSize }) => {
 					Dashboard
 				</button>
 			)}
-			{userRole === 'admin' && (
+			{userRole === 'ADMIN' && (
 				<button
 					className='header__navButton'
 					onClick={() => { setPage('Admin'); adaptNavigationForScreenSize() }}

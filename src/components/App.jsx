@@ -33,7 +33,7 @@ const App = () => {
 			case 'Contact':
 				return <Contact />;
 			case 'Registration':
-				return <Registration />;
+				return <Registration setPage={setPage} />;
 			case 'Authentication':
 				return <Authentication />;
 			case 'Orders':
