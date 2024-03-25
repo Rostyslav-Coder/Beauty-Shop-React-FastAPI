@@ -25,7 +25,7 @@ const Registration = () => {
 		e.preventDefault();
 		try {
 			const response = await axios.post('http://127.0.0.1:8000/users/create', formData);
-			// console.log(response.data);
+			console.log(response.data);
 			handleReset();
 		} catch (error) {
 			console.error('Error when submitting form:', error);
