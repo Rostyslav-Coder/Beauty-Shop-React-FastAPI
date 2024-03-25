@@ -30,4 +30,4 @@ jobs:
       - name: Run linter
         run: ruff ./backend
       - name: Run ESLint
-        run: npm run lint
+        run: npm run lint -- ./src
