@@ -4,7 +4,7 @@ import '../styles/Orders.css';
 
 
 const Orders = () => {
-	return <div>This is Orders page</div>
+	return <div className='order'>This is Orders page</div>
 };
 
 export default Orders;

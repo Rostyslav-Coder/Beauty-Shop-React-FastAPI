@@ -1,6 +1,7 @@
 // ============ HEADER COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../styles/Header.css';
@@ -11,7 +12,7 @@ const NavButton = ({ toggleMobileNavigation, isOpen }) => {
 		<div
 			className='navigator__toggler'
 			onClick={toggleMobileNavigation}
-			style={{ transform: isOpen ? 'rotate(45deg' : 'rotate(0' }}
+			style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0)' }}
 		>+</div>
 	)
 };
@@ -21,15 +22,22 @@ NavButton.propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 };
 
-const Navigator = ({ setPage, adaptNavigationForScreenSize }) => {
+
+const Navigator = ({ adaptNavigationForMobile }) => {
 	const [userRole, setUserRole] = useState(localStorage.getItem('userRole'));
+	const [token, setToken] = useState(localStorage.getItem('token'));
 
 	useEffect(() => {
 		const token = localStorage.getItem('token');
+		setToken(token);
+	}, []);
+
+	useEffect(() => {
 		if (!token) {
-			setUserRole(null);
+			setUserRole('GUEST');
 			return;
 		}
+
 		if (token) {
 			axios.get('http://127.0.0.1:8000/users/role', {
 				headers: { Authorization: `Bearer ${token}` }
@@ -43,89 +51,107 @@ const Navigator = ({ setPage, adaptNavigationForScreenSize }) => {
 					if (error.response && error.response.status === 401) {
 						localStorage.removeItem('token');
 						localStorage.removeItem('userRole');
-						setUserRole(null);
+						setUserRole('GUEST');
 					}
-					setUserRole(null);
+					setUserRole('GUEST');
 				});
 		}
-	}, [localStorage.getItem('token')]);
+	}, [token]);
+
+	function logout() {
+		window.localStorage.removeItem('token');
+		window.localStorage.removeItem('user');
+		window.localStorage.removeItem('userRole');
+		setUserRole('GUEST');
+		setToken(null);
+	}
 
 	return (
 		<nav className='header__navBar'>
-			<button
+			<Link
+				to={'/'}
 				className='header__navButton'
-				onClick={() => { setPage('Home'); adaptNavigationForScreenSize() }}
+				onClick={() => adaptNavigationForMobile()}
 			>
 				Home
-			</button>
-			<button
+			</Link>
+			<Link
+				to={'/about'}
 				className='header__navButton'
-				onClick={() => { setPage('About'); adaptNavigationForScreenSize() }}
+				onClick={() => adaptNavigationForMobile()}
 			>
 				About
-			</button>
-			<button
+			</Link>
+			<Link
+				to={'/services'}
 				className='header__navButton'
-				onClick={() => { setPage('Services'); adaptNavigationForScreenSize() }}
+				onClick={() => adaptNavigationForMobile()}
 			>
 				Services
-			</button>
-			<button
+			</Link>
+			<Link
+				to={'/employees'}
 				className='header__navButton'
-				onClick={() => { setPage('Employees'); adaptNavigationForScreenSize() }}
+				onClick={() => adaptNavigationForMobile()}
 			>
-				Our Employees
-			</button>
-			<button
+				Employees
+			</Link>
+			<Link
+				to={'/contact'}
 				className='header__navButton'
-				onClick={() => { setPage('Contact'); adaptNavigationForScreenSize() }}
+				onClick={() => adaptNavigationForMobile()}
 			>
 				Contact
-			</button>
-			{userRole === null && (
+			</Link>
+			{userRole === 'GUEST' && (
 				<>
-					<button
+					<Link
+						to={'/registration'}
 						className='header__navButton'
-						onClick={() => { setPage('Registration'); adaptNavigationForScreenSize() }}
+						onClick={() => adaptNavigationForMobile()}
 					>
-						Register
-					</button>
-					<button
+						Sign Up
+					</Link>
+					<Link
+						to={'/authentication'}
 						className='header__navButton'
-						onClick={() => { setPage('Authentication'); adaptNavigationForScreenSize() }}
+						onClick={() => adaptNavigationForMobile()}
 					>
 						Login
-					</button>
+					</Link>
 				</>
 			)}
 			{userRole === 'USER' && (
-				<button
+				<Link
+					to={'/orders'}
 					className='header__navButton'
-					onClick={() => { setPage('Orders'); adaptNavigationForScreenSize() }}
+					onClick={() => adaptNavigationForMobile()}
 				>
-					My Orders
-				</button>
+					Orders
+				</Link>
 			)}
 			{userRole === 'EMPLOYEE' && (
-				<button
+				<Link
+					to={'/employee'}
 					className='header__navButton'
-					onClick={() => { setPage('Employee'); adaptNavigationForScreenSize() }}
+					onClick={() => adaptNavigationForMobile()}
 				>
 					Dashboard
-				</button>
+				</Link>
 			)}
 			{userRole === 'ADMIN' && (
-				<button
+				<Link
+					to={'/admin'}
 					className='header__navButton'
-					onClick={() => { setPage('Admin'); adaptNavigationForScreenSize() }}
+					onClick={() => adaptNavigationForMobile()}
 				>
 					Dashboard
-				</button>
+				</Link>
 			)}
-			{userRole && (
+			{userRole !== 'GUEST' && (
 				<button
 					className='header__navButton'
-					onClick={() => { logout(); adaptNavigationForScreenSize() }}
+					onClick={() => { logout(); adaptNavigationForMobile() }}
 				>
 					Logout
 				</button>
@@ -135,23 +161,18 @@ const Navigator = ({ setPage, adaptNavigationForScreenSize }) => {
 };
 
 Navigator.propTypes = {
-	setPage: PropTypes.func.isRequired,
-	adaptNavigationForScreenSize: PropTypes.func.isRequired,
+	adaptNavigationForMobile: PropTypes.func,
 };
 
-function logout() {
-	window.localStorage.removeItem('access_token');
-	window.sessionStorage.removeItem('access_token');
-}
 
-const Header = ({ setPage }) => {
+const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleMobileNavigation = () => {
 		setIsOpen(!isOpen);
 	};
 
-	const adaptNavigationForScreenSize = () => {
+	const adaptNavigationForMobile = () => {
 		if (!window.matchMedia('(min-width: 1024px)').matches) {
 			setIsOpen(false);
 		}
@@ -162,15 +183,13 @@ const Header = ({ setPage }) => {
 			<NavButton toggleMobileNavigation={toggleMobileNavigation} isOpen={isOpen} />
 			<header className={`header ${isOpen ? 'open' : 'closed'}`}>
 				<div className='header__wrapper'>
-					<Navigator setPage={setPage} adaptNavigationForScreenSize={adaptNavigationForScreenSize} />
+					<Navigator
+						adaptNavigationForScreenSize={adaptNavigationForMobile}
+					/>
 				</div>
 			</header>
 		</>
 	);
-};
-
-Header.propTypes = {
-	setPage: PropTypes.func.isRequired,
 };
 
 export default Header;

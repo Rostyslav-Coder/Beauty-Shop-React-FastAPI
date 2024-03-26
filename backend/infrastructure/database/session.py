@@ -1,4 +1,4 @@
-"""src/infrastructure/database/session.py"""
+"""backend/infrastructure/database/session.py"""
 
 from contextvars import ContextVar
 

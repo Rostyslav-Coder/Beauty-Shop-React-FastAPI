@@ -2,7 +2,10 @@
 
 from fastapi import APIRouter, Depends, Request, status
 
-from backend.application.authentication import get_current_user, create_access_token
+from backend.application.authentication import (
+    create_access_token,
+    get_current_user,
+)
 from backend.application.registration import registrationObserver
 from backend.config import EMPLOYEES_KEY, pwd_context, settings
 from backend.domain.constants import UserRole
@@ -25,7 +28,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
 async def user_create(
     _: Request,
     schema: UserCreateRequestBody,
-# ) -> Response[UserPublic]:
+    # ) -> Response[UserPublic]:
 ):
     """Create new user."""
 
@@ -41,10 +44,13 @@ async def user_create(
         UserUncommited(**schema.dict(), role=role)
     )
 
-		# Atomaticali logining the user
+    # Atomaticali logining the user
     access_token = create_access_token(data={"sub": str(user.id)})
-    token = {"access_token": access_token, "token_type": settings.authentication.schema}
-    
+    token = {
+        "access_token": access_token,
+        "token_type": settings.authentication.schema,
+    }
+
     user_public = UserPublic.from_orm(user)
 
     # return Response[UserPublic](result=user_public)

@@ -1,4 +1,4 @@
-"""src/infrastructure/database/repository.py"""
+"""backend/infrastructure/database/repository.py"""
 
 from typing import Any, AsyncGenerator, Generic, Type
 

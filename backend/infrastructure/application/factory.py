@@ -1,4 +1,4 @@
-"""src/infrastructure/application/factory.py"""
+"""backend/infrastructure/application/factory.py"""
 
 import asyncio
 from functools import partial
@@ -6,6 +6,7 @@ from typing import Callable, Coroutine, Iterable
 
 from fastapi import APIRouter, FastAPI
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import ValidationError
 
 from backend.infrastructure.errors import (
@@ -35,6 +36,21 @@ def create(
     # Include REST API routers
     for router in rest_routers:
         app.include_router(router)
+
+    origins = [
+        "http://localhost.tiangolo.com",
+        "https://localhost.tiangolo.com",
+        "http://localhost",
+        "http://localhost:8080",
+    ]
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     # Extend FastAPI default error handlers
     app.exception_handler(RequestValidationError)(

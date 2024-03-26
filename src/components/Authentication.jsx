@@ -4,7 +4,7 @@ import '../styles/Authentication.css';
 
 
 const Authentication = () => {
-	return <div>This is Authentication page</div>
+	return <div className='authentication'>This is Authentication page</div>
 };
 
 export default Authentication;

@@ -4,7 +4,7 @@ import '../styles/Home.css';
 
 
 const Home = () => {
-	return <div>This is Home page</div>
+	return <div className='home'>This is Home page</div>
 };
 
 export default Home;

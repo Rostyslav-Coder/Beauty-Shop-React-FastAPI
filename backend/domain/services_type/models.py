@@ -1,4 +1,4 @@
-"""src/domain/services_type/models.py"""
+"""backend/domain/services_type/models.py"""
 
 from pydantic import Field
 

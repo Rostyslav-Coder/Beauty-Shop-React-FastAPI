@@ -1,1 +1,10 @@
 /* ============ SERVICES PAGE STYLE MODULE  ============ */
+
+.services {
+	width: 100%;
+	min-height: calc(100vh - 2rem);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

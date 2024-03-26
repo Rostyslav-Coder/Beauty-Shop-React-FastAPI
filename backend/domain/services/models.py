@@ -1,4 +1,4 @@
-"""src/domain/services/models.py"""
+"""backend/domain/services/models.py"""
 
 from datetime import timedelta
 from decimal import Decimal

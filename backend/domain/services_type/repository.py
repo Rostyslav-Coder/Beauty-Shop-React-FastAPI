@@ -1,4 +1,4 @@
-"""src/domain/services_type/repository.py"""
+"""backend/domain/services_type/repository.py"""
 
 from typing import Any, AsyncGenerator
 

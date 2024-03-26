@@ -1,4 +1,4 @@
-"""src/infrastructure/models/response.py"""
+"""backend/infrastructure/models/response.py"""
 
 from collections.abc import Mapping
 from typing import Any, Generic

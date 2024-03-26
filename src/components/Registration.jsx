@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import '../styles/Registration.css';
+import { Link } from 'react-router-dom';
 
 
-const Registration = ({ setPage }) => {
+const Registration = () => {
 	const [formData, setFormData] = useState({
 		email: '',
 		phoneNumber: '',
@@ -132,7 +133,7 @@ const Registration = ({ setPage }) => {
 				<input className='registration__button' id='reset' type='reset' name='reset' onClick={handleReset} />
 				<label className='registration__label' htmlFor='login'>
 					Already registered? Click here to login.
-					<button className='registration__button' id='login' onClick={() => setPage('Authentication')}>Login</button>
+					<Link className='registration__button' to={'/Authentication'} id='login'>Login</Link>
 				</label>
 			</form>
 			<p className='registration__text'>Fields marked with <span>*</span> are required.</p>
@@ -140,8 +141,8 @@ const Registration = ({ setPage }) => {
 	);
 };
 
-Registration.propTypes = {
-	setPage: PropTypes.func.isRequired,
-};
+// Registration.propTypes = {
+// setPage: PropTypes.func.isRequired,
+// };
 
 export default Registration;

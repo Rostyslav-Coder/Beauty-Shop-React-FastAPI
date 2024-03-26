@@ -1,4 +1,4 @@
-"""src/domain/bookings/repository.py"""
+"""backend/domain/bookings/repository.py"""
 
 from typing import Any, AsyncGenerator
 

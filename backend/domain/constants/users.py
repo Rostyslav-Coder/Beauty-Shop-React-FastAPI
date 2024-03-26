@@ -1,4 +1,4 @@
-"""src/domain/constants/users.py"""
+"""backend/domain/constants/users.py"""
 
 from enum import Enum
 

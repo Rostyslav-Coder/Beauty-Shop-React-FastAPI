@@ -1,4 +1,4 @@
-"""src/main.py"""
+"""backend/main.py"""
 
 import uvicorn
 from fastapi import FastAPI
@@ -32,7 +32,7 @@ logger.add(
 app: FastAPI = application.create(
     debug=settings.debug,
     rest_routers=(
-        rest.root_router.router,
+        rest.react_router_dom.router,
         rest.authenticate.router,
         rest.users.router,
         rest.employees.router,
@@ -44,7 +44,7 @@ app: FastAPI = application.create(
 
 
 # Mount static files
-app.mount("/", StaticFiles(directory="dist"), name="frontend")
+app.mount("/", StaticFiles(directory="dist", html=True), name="static")
 
 
 if __name__ == "__main__":

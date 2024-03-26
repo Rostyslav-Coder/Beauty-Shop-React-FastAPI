@@ -1,4 +1,4 @@
-"""src/domain/bookings/models.py"""
+"""backend/domain/bookings/models.py"""
 
 from datetime import timedelta
 

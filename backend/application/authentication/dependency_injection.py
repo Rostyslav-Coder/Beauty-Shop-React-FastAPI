@@ -1,4 +1,4 @@
-"""src/application/authentication/dependency_injection.py"""
+"""backend/application/authentication/dependency_injection.py"""
 
 from datetime import datetime, timedelta
 

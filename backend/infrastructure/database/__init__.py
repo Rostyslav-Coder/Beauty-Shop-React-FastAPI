@@ -1,4 +1,4 @@
-"""src/infrastructure/database/__init__.py"""
+"""backend/infrastructure/database/__init__.py"""
 
 # This module includes all shared utils and tools for the database interaction.
 

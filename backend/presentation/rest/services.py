@@ -1,4 +1,4 @@
-"""src/presentation/rest/services.py"""
+"""backend/presentation/rest/services.py"""
 
 from datetime import timedelta
 from decimal import Decimal

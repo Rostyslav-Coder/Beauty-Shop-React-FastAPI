@@ -4,7 +4,7 @@ import '../styles/Footer.css';
 
 
 const Footer = () => {
-	return <div>This is Footer page</div>
+	return <div className='footer'>This is Footer page</div>
 };
 
 export default Footer;

@@ -1,60 +1,47 @@
 // ============ APP COMPONENT MODULE  ============ //
 
-import { useState } from 'react';
 import { ParallaxProvider } from 'react-scroll-parallax';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+import '../styles/App.css';
+import About from './About';
+import Admin from './Admin';
+import Authentication from './Authentication';
+import Contact from './Contact';
+import Employee from './Employee';
+import Employees from './Employees';
+import Footer from './Footer';
 import Header from './Header';
 import Home from './Home';
-import About from './About';
-import Services from './Services';
-import Employees from './Employees';
-import Contact from './Contact';
 import Registration from './Registration';
-import Authentication from './Authentication';
 import Orders from './Orders';
-import Employee from './Employee';
-import Admin from './Admin';
-import Footer from './Footer';
-import '../styles/App.css';
+import Services from './Services';
 
 
 const App = () => {
-	const [page, setPage] = useState('Home');
-
-	const renderPage = () => {
-		switch (page) {
-			case 'Home':
-				return <Home />;
-			case 'About':
-				return <About />;
-			case 'Services':
-				return <Services />;
-			case 'Employees':
-				return <Employees />;
-			case 'Contact':
-				return <Contact />;
-			case 'Registration':
-				return <Registration setPage={setPage} />;
-			case 'Authentication':
-				return <Authentication />;
-			case 'Orders':
-				return <Orders />;
-			case 'Employee':
-				return <Employee />;
-			case 'Admin':
-				return <Admin />;
-			default:
-				return <Home />;
-		}
-	};
+	const userRole = localStorage.getItem('userRole');
 
 	return (
-		<div className='application' id='aplication'>
-			<Header setPage={setPage} />
-			<ParallaxProvider className='aplication__wrapper'>
-				{renderPage()}
-			</ParallaxProvider>
-			<Footer />
-		</div>
+		<Router>
+			<div className='application' id='aplication'>
+				<Header />
+				<ParallaxProvider className='aplication__wrapper'>
+					<Routes>
+						<Route path='/' element={<Home />} />
+						<Route path='/about' element={<About />} />
+						<Route path='/services' element={<Services />} />
+						<Route path='/employees' element={<Employees />} />
+						<Route path='/contact' element={<Contact />} />
+						<Route path='/registration' element={<Registration />} />
+						<Route path='/authentication' element={<Authentication />} />
+						<Route path='/orders' element={userRole === 'USER' ? <Orders /> : <Navigate to={'/authentication'} replace />} />
+						<Route path='/employee' element={userRole === 'EMPLOYEE' ? <Employee /> : <Navigate to={'/authentication'} replace />} />
+						<Route path='/admin' element={userRole === 'ADMIN' ? <Admin /> : <Navigate to={'/authentication'} replace />} />
+					</Routes>
+				</ParallaxProvider>
+				<Footer />
+			</div>
+		</Router>
 	);
 };
 

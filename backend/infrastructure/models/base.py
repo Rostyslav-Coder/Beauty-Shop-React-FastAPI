@@ -1,4 +1,4 @@
-"""src/infrastructure/models/base.py"""
+"""backend/infrastructure/models/base.py"""
 
 # This model includes basic data models that are used in the whole application.
 

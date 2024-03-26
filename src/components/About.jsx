@@ -4,7 +4,7 @@ import '../styles/About.css';
 
 
 const About = () => {
-	return <div>This is About page</div>
+	return <div className='about'>This is About page</div>
 };
 
 export default About;
