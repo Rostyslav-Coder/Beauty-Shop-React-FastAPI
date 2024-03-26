@@ -22,11 +22,33 @@ NavButton.propTypes = {
 };
 
 const Navigator = ({ setPage, adaptNavigationForScreenSize }) => {
-	const [userRole, setUserRole] = useState(null);
+	const [userRole, setUserRole] = useState(localStorage.getItem('userRole'));
 
 	useEffect(() => {
-		checkUserRole().then(role => setUserRole(role));
-	}, []);
+		const token = localStorage.getItem('token');
+		if (!token) {
+			setUserRole(null);
+			return;
+		}
+		if (token) {
+			axios.get('http://127.0.0.1:8000/users/role', {
+				headers: { Authorization: `Bearer ${token}` }
+			})
+				.then(response => {
+					setUserRole(response.data.role);
+					localStorage.setItem('userRole', response.data.role);
+				})
+				.catch(error => {
+					console.error('Error when getting user role:', error);
+					if (error.response && error.response.status === 401) {
+						localStorage.removeItem('token');
+						localStorage.removeItem('userRole');
+						setUserRole(null);
+					}
+					setUserRole(null);
+				});
+		}
+	}, [localStorage.getItem('token')]);
 
 	return (
 		<nav className='header__navBar'>
@@ -116,30 +138,6 @@ Navigator.propTypes = {
 	setPage: PropTypes.func.isRequired,
 	adaptNavigationForScreenSize: PropTypes.func.isRequired,
 };
-
-async function checkUserRole() {
-	const token = window.localStorage.getItem('access_token') || window.sessionStorage.getItem('access_token');
-
-	if (!token) {
-		return null;
-	}
-
-	try {
-		const response = await axios.get('/check-role', {
-			headers: {
-				'Authorization': `Bearer ${token}`
-			}
-		});
-
-		if (response.status === 200) {
-			return response.data.role;
-		}
-	} catch (error) {
-		return false
-	}
-
-	return null
-}
 
 function logout() {
 	window.localStorage.removeItem('access_token');

@@ -2,9 +2,9 @@
 
 from fastapi import APIRouter, Depends, Request, status
 
-from backend.application.authentication import get_current_user
+from backend.application.authentication import get_current_user, create_access_token
 from backend.application.registration import registrationObserver
-from backend.config import ADMIN_KEY, EMPLOYEES_KEY, pwd_context
+from backend.config import EMPLOYEES_KEY, pwd_context, settings
 from backend.domain.constants import UserRole
 from backend.domain.users import (
     User,
@@ -25,7 +25,8 @@ router = APIRouter(prefix="/users", tags=["Users"])
 async def user_create(
     _: Request,
     schema: UserCreateRequestBody,
-) -> Response[UserPublic]:
+# ) -> Response[UserPublic]:
+):
     """Create new user."""
 
     # Password hashing
@@ -39,9 +40,28 @@ async def user_create(
     user: User = await UsersRepository().create(
         UserUncommited(**schema.dict(), role=role)
     )
+
+		# Atomaticali logining the user
+    access_token = create_access_token(data={"sub": str(user.id)})
+    token = {"access_token": access_token, "token_type": settings.authentication.schema}
+    
     user_public = UserPublic.from_orm(user)
 
-    return Response[UserPublic](result=user_public)
+    # return Response[UserPublic](result=user_public)
+    return {
+        "user": user_public,
+        "token": token,
+    }
+
+
+@router.get("/role", status_code=status.HTTP_200_OK)
+@transaction
+async def user_role(user: User = Depends(get_current_user)):
+    """Get current aythenticate user by JWT token & return users role"""
+
+    role = user.role
+
+    return {"role": role}
 
 
 @router.get("/me", status_code=status.HTTP_200_OK)
@@ -80,26 +100,3 @@ async def user_employee(
     employee = UserPublic.from_orm(user)
 
     return Response[UserPublic](result=employee)
-
-
-@router.put("/admin", status_code=status.HTTP_202_ACCEPTED)
-@transaction
-async def user_admin(
-    _: Request,
-    admin_key: str,
-    user: UserPublic = Depends(get_current_user),
-) -> Response[UserPublic]:
-    """Update users role to admin"""
-
-    # Check admin secret key
-    if admin_key != ADMIN_KEY:
-        raise AuthorizationError
-
-    # Update user to admin
-    user.role = UserRole.ADMIN
-    user: User = await UsersRepository().update(
-        key_="id", value_=user.id, payload_=user
-    )
-    admin = UserPublic.from_orm(user)
-
-    return Response[UserPublic](result=admin)

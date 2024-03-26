@@ -34,8 +34,9 @@ const Registration = ({ setPage }) => {
 		delete dataToSend.confirmPassword;
 
 		try {
-			const response = await axios.post('http://127.0.0.1:8000/users/create', dataToSend);
+			const response = await axios.post('http://127.0.0.1:8000/users/create', dataToSend)
 			console.log(response.data);
+			localStorage.setItem('token', response.data.token.access_token);
 			handleReset();
 		} catch (error) {
 			console.error('Error when submitting form:', error);
@@ -49,6 +50,7 @@ const Registration = ({ setPage }) => {
 			firstName: '',
 			lastName: '',
 			password: '',
+			confirmPassword: '',
 		});
 	};
 
