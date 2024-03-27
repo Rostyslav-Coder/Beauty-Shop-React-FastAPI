@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../styles/Header.css';
-
+import UserRoleProvider from './UserRoleProvider';
 
 const NavButton = ({ toggleMobileNavigation, isOpen }) => {
 	return (
@@ -45,6 +45,7 @@ const Navigator = ({ adaptNavigationForMobile }) => {
 				.then(response => {
 					setUserRole(response.data.role);
 					localStorage.setItem('userRole', response.data.role);
+					console.log(userRole)
 				})
 				.catch(error => {
 					console.error('Error when getting user role:', error);
@@ -56,14 +57,14 @@ const Navigator = ({ adaptNavigationForMobile }) => {
 					setUserRole('GUEST');
 				});
 		}
-	}, [token]);
+	}, [token, userRole]);
 
-	function logout() {
+	const logout = () => {
 		window.localStorage.removeItem('token');
+		setToken(null);
 		window.localStorage.removeItem('user');
 		window.localStorage.removeItem('userRole');
 		setUserRole('GUEST');
-		setToken(null);
 	}
 
 	return (
@@ -183,9 +184,11 @@ const Header = () => {
 			<NavButton toggleMobileNavigation={toggleMobileNavigation} isOpen={isOpen} />
 			<header className={`header ${isOpen ? 'open' : 'closed'}`}>
 				<div className='header__wrapper'>
-					<Navigator
-						adaptNavigationForScreenSize={adaptNavigationForMobile}
-					/>
+					<UserRoleProvider>
+						<Navigator
+							adaptNavigationForScreenSize={adaptNavigationForMobile}
+						/>
+					</UserRoleProvider>
 				</div>
 			</header>
 		</>

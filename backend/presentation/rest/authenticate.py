@@ -16,7 +16,8 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Authenticate user"""
 
     # Get user from the database by email in place of username
-    user = await UsersRepository().get(key_="email", value_=form_data.username)
+    email = form_data.username
+    user = await UsersRepository().get(key_="email", value_=email)
 
     if not user:
         raise NotFoundError

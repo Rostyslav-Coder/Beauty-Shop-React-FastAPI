@@ -1,6 +1,7 @@
 /* ============ REGISTRATION PAGE STYLE MODULE  ============ */
 
-.registration {
+.registration,
+.authentication {
 	width: 50%;
 	margin: 15vh auto;
 	padding: 1rem 0;
@@ -13,7 +14,8 @@
 	border-radius: 1rem;
 }
 
-.registration__form {
+.registration__form,
+.authentication__form {
 	width: 100%;
 	padding: 1rem;
 	display: flex;
@@ -23,14 +25,17 @@
 	gap: 1rem;
 }
 
-.registration__label {
+.registration__label,
+.authentication__label {
 	width: 100%;
 }
 
-.registration__input {
+.registration__input,
+.authentication__input {
 	width: 100%;
 }
 
-.registration__button {
+.registration__button,
+.authentication__button {
 	width: 100%;
 }

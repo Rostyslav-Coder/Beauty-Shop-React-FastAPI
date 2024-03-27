@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 // import PropTypes from 'prop-types';
-import '../styles/Registration.css';
+import '../styles/Auth-Registr.css';
 import { Link } from 'react-router-dom';
 
 
@@ -35,9 +35,12 @@ const Registration = () => {
 		delete dataToSend.confirmPassword;
 
 		try {
-			const response = await axios.post('http://127.0.0.1:8000/users/create', dataToSend)
-			console.log(response.data);
+			const response = (
+				await axios.post('http://127.0.0.1:8000/users/create', dataToSend)
+			)
+			console.log('reg response.data:', response.data);
 			localStorage.setItem('token', response.data.token.access_token);
+			console.log('reg localStorage.token:', localStorage.token);
 			handleReset();
 		} catch (error) {
 			console.error('Error when submitting form:', error);
@@ -129,8 +132,19 @@ const Registration = () => {
 						required
 					/>
 				</label>
-				<input className='registration__button' id='submit' type='submit' name='submit' />
-				<input className='registration__button' id='reset' type='reset' name='reset' onClick={handleReset} />
+				<input
+					className='registration__button'
+					id='submit'
+					type='submit'
+					name='submit'
+				/>
+				<input
+					className='registration__button'
+					id='reset'
+					type='reset'
+					name='reset'
+					onClick={handleReset}
+				/>
 				<label className='registration__label' htmlFor='login'>
 					Already registered? Click here to login.
 					<Link className='registration__button' to={'/Authentication'} id='login'>Login</Link>
@@ -140,9 +154,5 @@ const Registration = () => {
 		</div>
 	);
 };
-
-// Registration.propTypes = {
-// setPage: PropTypes.func.isRequired,
-// };
 
 export default Registration;
