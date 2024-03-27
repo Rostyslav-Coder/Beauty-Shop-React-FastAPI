@@ -57,17 +57,8 @@ async def user_create(
     return {
         "user": user_public,
         "token": token,
+        "token_type": settings.authentication.scheme,
     }
-
-
-@router.get("/role", status_code=status.HTTP_200_OK)
-@transaction
-async def user_role(user: User = Depends(get_current_user)):
-    """Get current aythenticate user by JWT token & return users role"""
-
-    role = user.role
-
-    return {"role": role}
 
 
 @router.get("/me", status_code=status.HTTP_200_OK)

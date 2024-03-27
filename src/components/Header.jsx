@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../styles/Header.css';
-import UserRoleProvider from './UserRoleProvider';
+
 
 const NavButton = ({ toggleMobileNavigation, isOpen }) => {
 	return (
@@ -25,46 +24,17 @@ NavButton.propTypes = {
 
 const Navigator = ({ adaptNavigationForMobile }) => {
 	const [userRole, setUserRole] = useState(localStorage.getItem('userRole'));
-	const [token, setToken] = useState(localStorage.getItem('token'));
 
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-		setToken(token);
+		const userRole = localStorage.getItem('userRole');
+		setUserRole(userRole);
 	}, []);
-
-	useEffect(() => {
-		if (!token) {
-			setUserRole('GUEST');
-			return;
-		}
-
-		if (token) {
-			axios.get('http://127.0.0.1:8000/users/role', {
-				headers: { Authorization: `Bearer ${token}` }
-			})
-				.then(response => {
-					setUserRole(response.data.role);
-					localStorage.setItem('userRole', response.data.role);
-					console.log(userRole)
-				})
-				.catch(error => {
-					console.error('Error when getting user role:', error);
-					if (error.response && error.response.status === 401) {
-						localStorage.removeItem('token');
-						localStorage.removeItem('userRole');
-						setUserRole('GUEST');
-					}
-					setUserRole('GUEST');
-				});
-		}
-	}, [token, userRole]);
 
 	const logout = () => {
 		window.localStorage.removeItem('token');
-		setToken(null);
 		window.localStorage.removeItem('user');
 		window.localStorage.removeItem('userRole');
-		setUserRole('GUEST');
+		setUserRole(null);
 	}
 
 	return (
@@ -104,7 +74,7 @@ const Navigator = ({ adaptNavigationForMobile }) => {
 			>
 				Contact
 			</Link>
-			{userRole === 'GUEST' && (
+			{userRole === null && (
 				<>
 					<Link
 						to={'/registration'}
@@ -149,7 +119,7 @@ const Navigator = ({ adaptNavigationForMobile }) => {
 					Dashboard
 				</Link>
 			)}
-			{userRole !== 'GUEST' && (
+			{userRole !== null && (
 				<button
 					className='header__navButton'
 					onClick={() => { logout(); adaptNavigationForMobile() }}
@@ -184,11 +154,9 @@ const Header = () => {
 			<NavButton toggleMobileNavigation={toggleMobileNavigation} isOpen={isOpen} />
 			<header className={`header ${isOpen ? 'open' : 'closed'}`}>
 				<div className='header__wrapper'>
-					<UserRoleProvider>
-						<Navigator
-							adaptNavigationForScreenSize={adaptNavigationForMobile}
-						/>
-					</UserRoleProvider>
+					<Navigator
+						adaptNavigationForScreenSize={adaptNavigationForMobile}
+					/>
 				</div>
 			</header>
 		</>

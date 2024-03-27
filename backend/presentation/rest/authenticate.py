@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from backend.application.authentication import create_access_token
 from backend.config import settings
-from backend.domain.users import UsersRepository
+from backend.domain.users import UserPublic, UsersRepository
 from backend.infrastructure.errors import NotFoundError
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -22,10 +22,13 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if not user:
         raise NotFoundError
 
+    user_public = UserPublic.from_orm(user)
+
     # Creating user token
     access_token = create_access_token(data={"sub": str(user.id)})
 
     return {
+        "user": user_public,
         "access_token": access_token,
         "token_type": settings.authentication.scheme,
     }

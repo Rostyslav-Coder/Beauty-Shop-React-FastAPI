@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-// import PropTypes from 'prop-types';
 import '../styles/Auth-Registr.css';
 import { Link } from 'react-router-dom';
 
@@ -38,9 +37,9 @@ const Registration = () => {
 			const response = (
 				await axios.post('http://127.0.0.1:8000/users/create', dataToSend)
 			)
-			console.log('reg response.data:', response.data);
 			localStorage.setItem('token', response.data.token.access_token);
-			console.log('reg localStorage.token:', localStorage.token);
+			localStorage.setItem('user', response.data.user);
+			localStorage.setItem('userRole', response.data.user.role);
 			handleReset();
 		} catch (error) {
 			console.error('Error when submitting form:', error);

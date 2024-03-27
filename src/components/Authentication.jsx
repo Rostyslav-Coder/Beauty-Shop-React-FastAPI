@@ -36,10 +36,10 @@ const Authentication = () => {
 			const response = (
 				await axios.post('http://127.0.0.1:8000/auth/login', dataToSend)
 			);
-			console.log('auth response.data:', response.data);
-			if (response.data && response.data.access_token) {
+			if (response.data) {
 				localStorage.setItem('token', response.data.access_token);
-				console.log('auth localStorage.token:', localStorage.token);
+				localStorage.setItem('user', response.data.user);
+				localStorage.setItem('userRole', response.data.user.role);
 				handleReset();
 			}
 		} catch (error) {
