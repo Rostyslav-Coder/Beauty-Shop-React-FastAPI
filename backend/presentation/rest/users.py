@@ -7,8 +7,7 @@ from backend.application.authentication import (
     get_current_user,
 )
 from backend.application.registration import registrationObserver
-from backend.config import EMPLOYEES_KEY, pwd_context, settings
-from backend.domain.constants import UserRole
+from backend.config import pwd_context, settings
 from backend.domain.users import (
     User,
     UserCreateRequestBody,
@@ -17,7 +16,6 @@ from backend.domain.users import (
     UserUncommited,
 )
 from backend.infrastructure.database import transaction
-from backend.infrastructure.errors import AuthorizationError
 from backend.infrastructure.models import Response  # ResponseMulti
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -74,26 +72,3 @@ async def user_me(
     user_public = UserPublic.from_orm(user)
 
     return Response[UserPublic](result=user_public)
-
-
-@router.put("/employee", status_code=status.HTTP_202_ACCEPTED)
-@transaction
-async def user_employee(
-    _: Request,
-    employee_key: str,
-    user: UserPublic = Depends(get_current_user),
-) -> Response[UserPublic]:
-    """Update users role to employee"""
-
-    # Check employee secret key
-    if employee_key != str(EMPLOYEES_KEY):
-        raise AuthorizationError
-
-    # Update user to employee
-    user.role = UserRole.EMPLOYEE
-    user: User = await UsersRepository().update(
-        key_="id", value_=user.id, payload_=user.dict()
-    )
-    employee = UserPublic.from_orm(user)
-
-    return Response[UserPublic](result=employee)

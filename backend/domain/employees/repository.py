@@ -31,6 +31,23 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
         ]
         return employees
 
+    async def _all_by(
+        self, key_: str, value_: Any, skip_: int = 0, limit_: int = 10
+    ) -> list[UserEmployee]:
+        query = (
+            select(self.schema_class)
+            .options(joinedload(EmployeesTable.user))
+            .where(getattr(self.schema_class, key_) == value_)
+            .offset(skip_)
+            .limit(limit_)
+        )
+        result: Result = await self.execute(query)
+        employees = [
+            UserEmployee.from_orm(employee)
+            for employee in result.scalars().all()
+        ]
+        return employees
+
     async def get(self, key_: str, value_: Any) -> UserEmployee:
         query = (
             select(self.schema_class)

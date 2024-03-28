@@ -120,6 +120,19 @@ class BaseRepository(Session, Generic[ConcreteTable]):  # type: ignore
         for schema in schemas:
             yield schema
 
+    async def _all_by(
+        self, key: str, value: Any
+    ) -> AsyncGenerator[ConcreteTable, None]:
+        result: Result = await self.execute(
+            select(self.schema_class).where(
+                getattr(self.schema_class, key) == value
+            )
+        )
+        schemas = result.scalars().all()
+
+        for schema in schemas:
+            yield schema
+
     async def delete(self, id_: int) -> None:
         await self.execute(
             delete(self.schema_class).where(self.schema_class.id == id_)

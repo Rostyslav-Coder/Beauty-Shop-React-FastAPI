@@ -38,13 +38,19 @@ const Authentication = () => {
 			);
 			if (response.data) {
 				localStorage.setItem('token', response.data.access_token);
-				localStorage.setItem('user', response.data.user);
+				localStorage.setItem('user', JSON.stringify(response.data.user));
 				localStorage.setItem('userRole', response.data.user.role);
 				handleReset();
 			}
 		} catch (error) {
 			console.log('Error when submitting form:', error);
 		}
+	};
+
+	const updateHeader = () => {
+		setTimeout(() => {
+			window.location.reload();
+		}, 3000);
 	};
 
 	return (
@@ -80,6 +86,7 @@ const Authentication = () => {
 					id='submit'
 					type='submit'
 					name='submit'
+					onClick={updateHeader}
 				/>
 				<input
 					className='authentication__button'

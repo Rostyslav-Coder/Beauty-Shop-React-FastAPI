@@ -38,12 +38,18 @@ const Registration = () => {
 				await axios.post('http://127.0.0.1:8000/users/create', dataToSend)
 			)
 			localStorage.setItem('token', response.data.token.access_token);
-			localStorage.setItem('user', response.data.user);
+			localStorage.setItem('user', JSON.stringify(response.data.user));
 			localStorage.setItem('userRole', response.data.user.role);
 			handleReset();
 		} catch (error) {
 			console.error('Error when submitting form:', error);
 		}
+	};
+
+	const updateHeader = () => {
+		setTimeout(() => {
+			window.location.reload();
+		}, 3000);
 	};
 
 	const handleReset = () => {
@@ -136,6 +142,7 @@ const Registration = () => {
 					id='submit'
 					type='submit'
 					name='submit'
+					onClick={updateHeader}
 				/>
 				<input
 					className='registration__button'

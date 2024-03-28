@@ -4,6 +4,7 @@ from typing import TypeVar
 
 from sqlalchemy import (
     DATETIME,
+    Boolean,
     Column,
     Enum,
     ForeignKey,
@@ -90,6 +91,7 @@ class EmployeesTable(Base):
     working_shift: Mapped[Enum] = mapped_column(
         Enum(WorkingShift), nullable=False
     )
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     user = relationship("UsersTable", back_populates="employee")
     services = relationship("ServiceTable", back_populates="employee")

@@ -6,6 +6,7 @@
 import json
 from typing import TypeVar
 
+import numpy as np
 from pydantic import BaseModel, Extra
 
 __all__ = (
@@ -28,7 +29,7 @@ def to_camelcase(string: str) -> str:
 
 
 _json_encoders = {
-    # np.float32: lambda v: float(v) if v else None,
+    np.float32: lambda v: float(v) if v else None,
 }
 
 
