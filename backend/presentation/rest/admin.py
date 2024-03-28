@@ -13,10 +13,7 @@ from backend.domain.employees import (
 from backend.domain.employees.models import UserEmployee
 from backend.domain.users import User, UserPublic, UsersRepository
 from backend.infrastructure.database import transaction
-from backend.infrastructure.models import (
-    Response,
-    ResponseMulti,
-)
+from backend.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(prefix="/admin", tags=["Administration"])
 
@@ -129,7 +126,7 @@ async def employee_delete(
     user: UserPublic = User.from_orm(raw_user)
 
     # mesage = """
-		# Employee isn`t active, status updated to False
-		# """
+    # Employee isn`t active, status updated to False
+    # """
 
     return Response[UserPublic](result=user)
