@@ -6,9 +6,10 @@ import axios from 'axios';
 
 const AdminGetUserEmployee = () => {
 	const [userEmail, setUserEmail] = useState('');
+	const [userData, setUserData] = useState(null);
 
 	const handleInputChange = (e) => {
-		setUserEmail(e.target.valut);
+		setUserEmail(e.target.value);
 	};
 
 	const handleSubmit = async (e) => {
@@ -17,29 +18,41 @@ const AdminGetUserEmployee = () => {
 		const token = localStorage.getItem('token');
 
 		try {
-			const response = await axios.get('http://127.0.0.1:8000/admin/employee/user', {
+			const response = await axios.get(`http://127.0.0.1:8000/admin/employee/user?user_email=${userEmail}`, {
 				headers: { Authorization: `Bearer ${token}` },
-				params: { user_email: userEmail },
 			});
-			console.log(response.data);
+			setUserData(response.data.result);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label htmlFor=''>
-				Add User Email:
-				<input
-					type='email'
-					value={userEmail}
-					onChange={handleInputChange}
-					required
-				/>
-			</label>
-			<button type='submit'>Get Users Data</button>
-		</form>
+		<div>
+			<form onSubmit={handleSubmit}>
+				<label htmlFor=''>
+					Add User Email:
+					<input
+						type='email'
+						value={userEmail}
+						onChange={handleInputChange}
+						required
+					/>
+				</label>
+				<button type='submit'>Get Users Data</button>
+			</form>
+			{userData && (
+				<div>
+					<h2>User Data:</h2>
+					{userData.id && <p>User ID: {userData.id}</p>}
+					{userData.firstName && <p>User First Name: {userData.firstName}</p>}
+					{userData.lastName && <p>User Last Name: {userData.lastName}</p>}
+					{userData.email && <p>User Email: {userData.email}</p>}
+					{userData.phoneNumber && <p>User Phone Number: {userData.phoneNumber}</p>}
+					{userData.role && <p>User Role: {userData.role}</p>}
+				</div>
+			)}
+		</div>
 	);
 };
 
