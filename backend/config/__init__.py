@@ -14,7 +14,6 @@ load_dotenv()
 # =====================================
 # Employees variables
 ADMIN_KEY = os.environ.get("ADMIN_KEY")
-EMPLOYEES_KEY = os.environ.get("EMPLOYEES_KEY")
 
 
 # API Settings
