@@ -1,4 +1,4 @@
-// ============ ADMIN-EMPLOYEES COMPONENT MODULE  ============ //
+// ============ ADMIN-GET-USER-EMPLOYEE COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const AdminGetUserEmployee = () => {
 		const token = localStorage.getItem('token');
 
 		try {
-			const response = await axios.get(`http://127.0.0.1:8000/admin/employee/user?user_email=${userEmail}`, {
+			const response = await axios.get(`http://127.0.0.1:8000/admin/employee/user/${userEmail}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 			setUserData(response.data.result);

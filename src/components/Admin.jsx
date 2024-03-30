@@ -1,6 +1,7 @@
 // ============ ADMIN PAGE COMPONENT MODULE  ============ //
 
-import AdminEmployees from './AdminEmployees';
+import AdminGetUserEmployee from './admin/AdminGetUserEmployee';
+import AdminCreateEmployee from './admin/AdminCreateEmployee';
 import '../styles/Admin.css';
 
 
@@ -11,7 +12,8 @@ const Admin = () => {
 	return (
 		<div className='admin'>
 			<h1 className='admin__title'>Hi {adminName}</h1>
-			<AdminEmployees />
+			<AdminGetUserEmployee />
+			<AdminCreateEmployee />
 		</div>
 	);
 };
