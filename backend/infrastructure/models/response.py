@@ -11,7 +11,7 @@ from backend.infrastructure.models.base import PublicModel, _PublicModel
 __all__ = (
     "ResponseMulti",
     "Response",
-    "ResponseWithMesage",
+    "ResponseWithMessage",
     "_Response",
     "ErrorResponse",
     "ErrorResponseMulti",
@@ -30,10 +30,9 @@ class Response(PublicModel, GenericModel, Generic[_PublicModel]):
     result: _PublicModel
 
 
-class ResponseWithMesage(PublicModel, GenericModel, Generic[_PublicModel]):
+class ResponseWithMessage(PublicModel, GenericModel, Generic[_PublicModel]):
     """Response model that consist result and mesage."""
 
-    result: _PublicModel
     message: str = Field(description="This field represent the message")
 
 

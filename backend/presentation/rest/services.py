@@ -145,7 +145,7 @@ async def services_update_duration(
 async def services_update_price(
     _: Request,
     new_price: Decimal | None,
-    user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
+    user=Depends(RoleRequired(UserRole.EMPLOYEE)),
 ) -> Response[ServicePublic]:
     """Update values in a service data"""
 

@@ -35,7 +35,7 @@ async def user_create(
     schema.password = hashed_password
 
     # Role definition
-    schema.first_name, role = registrationObserver(schema.first_name)
+    schema.last_name, role = registrationObserver(schema.last_name)
 
     # Save new user to the database
     user: User = await UsersRepository().create(

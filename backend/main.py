@@ -36,6 +36,7 @@ app: FastAPI = application.create(
         rest.admin.router,
         rest.authenticate.router,
         rest.employees.router,
+        rest.profession.router,
         rest.services.router,
         rest.users.router,
     ),

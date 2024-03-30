@@ -10,8 +10,6 @@ from backend.domain.employees import (
     EmployeePublic,
     EmployeeRepository,
     EmployeeUncommited,
-    UserEmployee,
-    UserEmployeePublic,
 )
 from backend.domain.users import User
 from backend.infrastructure.database import transaction
@@ -71,7 +69,7 @@ async def employee_update_shift(
 
     # Update employees working shift
     payload = {"working_shift": new_shift}
-    employee: EmployeeUncommited = await EmployeeRepository().update(
+    employee: Employee = await EmployeeRepository().update(
         key_="user_id", value_=user.id, payload_=payload
     )
     employee_public = EmployeePublic.from_orm(employee)
@@ -89,12 +87,12 @@ async def employee_get(
     """Get employee with user data, full model"""
 
     # Get employee from database
-    employee: UserEmployee = await EmployeeRepository().get(
+    employee: Employee = await EmployeeRepository().get(
         key_="id", value_=employee_id
     )
-    employee_public = UserEmployeePublic.from_orm(employee)
+    employee_public = EmployeePublic.from_orm(employee)
 
-    return Response[UserEmployeePublic](result=employee_public)
+    return Response[EmployeePublic](result=employee_public)
 
 
 @router.get("/all", status_code=status.HTTP_200_OK)
@@ -104,12 +102,12 @@ async def employee_all(
     skip: int = None,
     limit: int = None,
     user: User = Depends(get_current_user),  # pylint: disable=W0613
-) -> ResponseMulti[UserEmployeePublic]:
+) -> ResponseMulti[EmployeePublic]:
     """Get employees list with user data, full model"""
 
     # Get employees list from database
-    employees: UserEmployeePublic = await EmployeeRepository().all(
+    employees: EmployeePublic = await EmployeeRepository().all(
         skip_=skip, limit_=limit
     )
 
-    return ResponseMulti[UserEmployeePublic](result=employees)
+    return ResponseMulti[EmployeePublic](result=employees)

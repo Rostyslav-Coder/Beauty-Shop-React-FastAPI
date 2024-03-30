@@ -1,8 +1,8 @@
 """backend/domain/employees/models.py"""
 
-from pydantic import Field
+from pydantic import Field, validator
 
-from backend.domain.constants import Profession, WorkingDays, WorkingShift
+from backend.domain.constants import WorkingDays, WorkingShift
 from backend.domain.users import UserPublic
 from backend.infrastructure.models import InternalModel, PublicModel
 
@@ -11,8 +11,6 @@ __all__ = (
     "EmployeePublic",
     "EmployeeUncommited",
     "Employee",
-    "UserEmployee",
-    "UserEmployeePublic",
 )
 
 
@@ -24,28 +22,38 @@ class _EmployeePublic(PublicModel):
     that are present in all public employee schemas.
     """
 
-    user_id: int = Field(description="OpenAPI description")
-    profession: Profession = Field(description="OpenAPI description")
-    working_days: WorkingDays = Field(description="OpenAPI description")
-    working_shift: WorkingShift = Field(description="OpenAPI description")
+    user_id: int = Field(description="Linked User ID")
 
 
 class EmployeeCreateRequestBody(_EmployeePublic):
-    """Employee create request body."""
+    """
+    Request body to create Employee.
+    """
 
-    pass
+    profession_id: int = Field(description="Employee Profession ID")
+    working_days: WorkingDays = Field(description="Employee Working Days")
+    working_shift: WorkingShift = Field(description="Employee Working Shift")
+
+    @validator("working_days", pre=True)
+    def pars_working_days(cls, value):
+        if isinstance(value, str):
+            return WorkingDays(value)
+        return value
+
+    @validator("working_shift", pre=True)
+    def pars_working_shift(cls, value):
+        if isinstance(value, str):
+            return WorkingShift(value)
+        return value
 
 
 class EmployeePublic(_EmployeePublic):
     """The public representation of the employee."""
 
     id: int
-
-
-class UserEmployeePublic(_EmployeePublic):
-    """The public representation of the employee, enhanced with user data."""
-
-    id: int
+    profession_id: int
+    working_days: WorkingDays
+    working_shift: WorkingShift
     user: UserPublic
 
 
@@ -55,7 +63,7 @@ class EmployeeUncommited(InternalModel):
     """This schema is used for creating instance in the database."""
 
     user_id: int
-    profession: Profession
+    profession_id: int
     working_days: WorkingDays
     working_shift: WorkingShift
 
@@ -64,10 +72,4 @@ class Employee(EmployeeUncommited):
     """Existed employee representation."""
 
     id: int
-
-
-class UserEmployee(EmployeeUncommited):
-    """Existed employee representation, enhanced with user data."""
-
-    id: int
-    user: UserPublic
+    is_active: bool

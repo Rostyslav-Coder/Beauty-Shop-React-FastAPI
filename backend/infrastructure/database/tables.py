@@ -32,6 +32,7 @@ from backend.domain.constants import (
 __all__ = (
     "UsersTable",
     "EmployeesTable",
+    "ProfessionTable",
     "ServiceTable",
     "BookingTable",
     "ServiceTypeTable",
@@ -84,7 +85,9 @@ class EmployeesTable(Base):
     user_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("users.id"), nullable=False
     )
-    profession: Mapped[Enum] = mapped_column(Enum(Profession), nullable=False)
+    profession_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("professions.id"), nullable=False
+    )
     working_days: Mapped[Enum] = mapped_column(
         Enum(WorkingDays), nullable=False
     )
@@ -94,8 +97,25 @@ class EmployeesTable(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     user = relationship("UsersTable", back_populates="employee")
+    profession = relationship(
+        "ProfessionTable",
+        back_populates="employee",
+        foreign_keys=[profession_id],
+    )
     services = relationship("ServiceTable", back_populates="employee")
     bookings = relationship("BookingTable", back_populates="employee")
+
+
+class ProfessionTable(Base):
+    __tablename__ = "professions"
+
+    profession: Mapped[str] = mapped_column(String(length=50), nullable=False)
+    description: Mapped[str] = mapped_column(String(length=200), nullable=True)
+    # employee_id: Mapped[int] = mapped_column(
+    #     Integer, ForeignKey("employees.id"), nullable=False
+    # )
+
+    employee = relationship("EmployeesTable", back_populates="profession")
 
 
 class ServiceTable(Base):

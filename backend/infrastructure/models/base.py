@@ -69,7 +69,8 @@ class PublicModel(BaseModel):
         arbitrary_types_allowed = True
 
     def encoded_dict(self, by_alias=True):
-        """This method might be useful is the data should be passed
+        """
+        This method might be useful is the data should be passed
         only with primitives that are allowed by JSON format.
         The regular .dict() does not return the ISO datetime format
         but the .json() - does. This method is a combination of them.

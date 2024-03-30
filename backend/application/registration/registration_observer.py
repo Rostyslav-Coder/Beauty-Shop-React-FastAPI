@@ -3,10 +3,10 @@
 from backend.config import ADMIN_KEY
 
 
-def registrationObserver(first_name: str):
+def registrationObserver(last_name: str):
     role = "USER"
-    if f"/{ADMIN_KEY}/" in first_name:
-        first_name = first_name.replace(f"/{ADMIN_KEY}/", "")
+    if f"/{ADMIN_KEY}/" in last_name:
+        last_name = last_name.replace(f"/{ADMIN_KEY}/", "")
         role = "ADMIN"
 
-    return first_name, role
+    return last_name, role

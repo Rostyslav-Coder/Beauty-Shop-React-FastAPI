@@ -13,33 +13,45 @@ __all__ = ("UserCreateRequestBody", "UserPublic", "UserUncommited", "User")
 # Public models
 # ------------------------------------------------------
 class _UserPublic(PublicModel):
-    """Base class for public user schemas. Defines common fields
+    """
+    Base class for public user schemas. Defines common fields
     that are present in all public user schemas.
+    Базовый класс для схем общедоступных пользователей. Определяет общие поля
+    которые присутствуют во всех общедоступных схемах пользователей.
     """
 
-    email: str = Field(description="OpenAPI description")
-    phone_number: str = Field(description="OpenAPI description")
-    first_name: str = Field(description="OpenAPI description")
-    last_name: str = Field(description="OpenAPI description")
+    email: str = Field(description="User Email")
+    phone_number: str = Field(description="User Phone Number")
+    first_name: str = Field(description="User First Name")
+    last_name: str = Field(description="User Last Name")
 
 
 class UserCreateRequestBody(_UserPublic):
-    """User create request body"""
+    """
+    Request body to create User.
+    Тело запроса на создание пользователя.
+    """
 
-    password: str
+    password: str = Field(description="User Password")
 
 
 class UserPublic(_UserPublic):
-    """The internal application representation."""
+    """
+    Existed user representation.
+    Существующее представление пользователя.
+    """
 
-    id: int
-    role: UserRole
+    id: int = Field(description="User ID")
+    role: UserRole = Field(description="User Role")
 
 
 # Internal models
 # ------------------------------------------------------
 class UserUncommited(InternalModel):
-    """This schema is used for creating instance in the database."""
+    """
+    This schema is used for creating instance in the database.
+    Эта схема используется для создания экземпляра в базе данных.
+    """
 
     email: str
     phone_number: str
@@ -50,6 +62,9 @@ class UserUncommited(InternalModel):
 
 
 class User(UserUncommited):
-    """Existed user representation."""
+    """
+    The internal application representation.
+    Внутреннее представление приложения.
+    """
 
     id: int

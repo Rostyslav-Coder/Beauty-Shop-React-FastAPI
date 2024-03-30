@@ -7,10 +7,10 @@ from backend.domain.constants import UserRole
 from backend.domain.employees import (
     Employee,
     EmployeeCreateRequestBody,
+    EmployeePublic,
     EmployeeRepository,
     EmployeeUncommited,
 )
-from backend.domain.employees.models import UserEmployee
 from backend.domain.users import User, UserPublic, UsersRepository
 from backend.infrastructure.database import transaction
 from backend.infrastructure.models import Response, ResponseMulti
@@ -39,16 +39,22 @@ async def employee_create(
     _: Request,
     schema: EmployeeCreateRequestBody,
     user: User = Depends(RoleRequired(UserRole.ADMIN)),
-) -> Response[UserEmployee]:
+) -> Response[EmployeePublic]:
     """Creates an addition to the user, as for an employee"""
 
     employee: Employee = await EmployeeRepository().create(
         EmployeeUncommited(schema.dict())
     )
+    user_employee = Employee.from_orm(employee)
 
-    employee_public = UserEmployee.from_orm(employee)
+    user_employee_updated = await EmployeeRepository().update(
+        key_="id",
+        value_=employee.id,
+        payload_={user_employee.user.role: UserRole.EMPLOYEE},
+    )
+    user_employee_public = EmployeePublic.from_orm(user_employee_updated)
 
-    return Response[UserEmployee](result=employee_public)
+    return Response[EmployeePublic](result=user_employee_public)
 
 
 @router.get("/employee/get", status_code=status.HTTP_200_OK)
@@ -57,14 +63,14 @@ async def employee_get(
     _: Request,
     user_employee_id: str,
     user: User = Depends(RoleRequired(UserRole.ADMIN)),
-) -> Response[UserEmployee]:
+) -> Response[EmployeePublic]:
     """Get current employee by id masked by name in frontend"""
 
-    user_employee: UserEmployee = await UsersRepository().get(
+    user_employee: EmployeePublic = await UsersRepository().get(
         key_="id", value_=user_employee_id
     )
 
-    return Response[UserEmployee](result=user_employee)
+    return Response[EmployeePublic](result=user_employee)
 
 
 @router.get("/employee/all", status_code=status.HTTP_200_OK)
@@ -74,14 +80,14 @@ async def employee_get_all(
     skip: int,
     limit: int,
     user: User = Depends(RoleRequired(UserRole.ADMIN)),
-) -> ResponseMulti[list[UserEmployee]]:
+) -> ResponseMulti[list[EmployeePublic]]:
     """Get all employees"""
 
-    user_employees: list[UserEmployee] = await EmployeeRepository().all(
+    user_employees: list[EmployeePublic] = await EmployeeRepository().all(
         skip_=skip, limit_=limit
     )
 
-    return ResponseMulti[list[UserEmployee]](result=user_employees)
+    return ResponseMulti[list[EmployeePublic]](result=user_employees)
 
 
 @router.get("/employee/profession", status_code=status.HTTP_200_OK)
@@ -92,16 +98,16 @@ async def employee_profession(
     limit: int,
     profession: str,
     user: User = Depends(RoleRequired(UserRole.ADMIN)),
-) -> ResponseMulti[list[UserEmployee]]:
+) -> ResponseMulti[list[EmployeePublic]]:
     """Get all employees by profession"""
 
     employees_by_profession: list[
-        UserEmployee
+        EmployeePublic
     ] = await EmployeeRepository()._all_by(
         key_="profession", value_=profession, skip_=skip, limit_=limit
     )
 
-    return ResponseMulti[list[UserEmployee]](result=employees_by_profession)
+    return ResponseMulti[list[EmployeePublic]](result=employees_by_profession)
 
 
 @router.put("/emplotee/delate", status_code=status.HTTP_202_ACCEPTED)
@@ -124,9 +130,5 @@ async def employee_delete(
     )
 
     user: UserPublic = User.from_orm(raw_user)
-
-    # mesage = """
-    # Employee isn`t active, status updated to False
-    # """
 
     return Response[UserPublic](result=user)

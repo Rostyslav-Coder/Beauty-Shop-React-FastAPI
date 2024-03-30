@@ -5,7 +5,7 @@ from typing import Any
 from sqlalchemy import Result, select
 from sqlalchemy.orm import joinedload
 
-from backend.domain.employees import Employee, EmployeeUncommited, UserEmployee
+from backend.domain.employees import Employee, EmployeeUncommited
 from backend.infrastructure.database import BaseRepository, EmployeesTable
 from backend.infrastructure.errors import NotFoundError
 
@@ -15,40 +15,38 @@ __all__ = ("EmployeeRepository",)
 class EmployeeRepository(BaseRepository[EmployeesTable]):
     schema_class = EmployeesTable
 
-    async def all(
-        self, skip_: int = 0, limit_: int = 10
-    ) -> list[UserEmployee]:
+    async def all(self, skip_: int = 0, limit_: int = 10) -> list[Employee]:
         query = (
             select(self.schema_class)
             .options(joinedload(EmployeesTable.user))
+            .options(joinedload(EmployeesTable.profession))
             .offset(skip_)
             .limit(limit_)
         )
         result: Result = await self.execute(query)
         employees = [
-            UserEmployee.from_orm(employee)
-            for employee in result.scalars().all()
+            Employee.from_orm(employee) for employee in result.scalars().all()
         ]
         return employees
 
     async def _all_by(
         self, key_: str, value_: Any, skip_: int = 0, limit_: int = 10
-    ) -> list[UserEmployee]:
+    ) -> list[Employee]:
         query = (
             select(self.schema_class)
             .options(joinedload(EmployeesTable.user))
+            .options(joinedload(EmployeesTable.profession))
             .where(getattr(self.schema_class, key_) == value_)
             .offset(skip_)
             .limit(limit_)
         )
         result: Result = await self.execute(query)
         employees = [
-            UserEmployee.from_orm(employee)
-            for employee in result.scalars().all()
+            Employee.from_orm(employee) for employee in result.scalars().all()
         ]
         return employees
 
-    async def get(self, key_: str, value_: Any) -> UserEmployee:
+    async def get(self, key_: str, value_: Any) -> Employee:
         query = (
             select(self.schema_class)
             .options(joinedload(EmployeesTable.user))
@@ -59,7 +57,7 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
         if not (_result := result.scalars().one_or_none()):
             raise NotFoundError
 
-        return UserEmployee.from_orm(_result)
+        return Employee.from_orm(_result)
 
     async def create(self, schema: EmployeeUncommited) -> Employee:
         instance: EmployeesTable = await self._save(schema.dict())
