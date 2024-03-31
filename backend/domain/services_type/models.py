@@ -2,7 +2,7 @@
 
 from pydantic import Field
 
-from backend.domain.constants import Profession
+# from backend.domain.constants import Profession
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
@@ -18,7 +18,7 @@ __all__ = (
 class ServiceTypeCreateRequestBody(PublicModel):
     """Service type create request body."""
 
-    profession: Profession = Field(description="OpenAPI description")
+    profession_id: int = Field(description="OpenAPI description")
     service_type: str = Field(description="OpenAPI description")
 
 
@@ -33,7 +33,7 @@ class ServiceTypePublic(ServiceTypeCreateRequestBody):
 class ServiceTypeUncommited(InternalModel):
     """This schema is used for creating instance in the database."""
 
-    profession: Profession
+    profession_id: int
     service_type: str
 
 

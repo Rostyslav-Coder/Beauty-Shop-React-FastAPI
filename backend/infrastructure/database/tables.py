@@ -23,7 +23,6 @@ from sqlalchemy.orm import (
 
 from backend.domain.constants import (
     BookingStatus,
-    Profession,
     UserRole,
     WorkingDays,
     WorkingShift,
@@ -136,7 +135,7 @@ class ServiceTable(Base):
 class ServiceTypeTable(Base):
     __tablename__ = "service_type"
 
-    profession: Mapped[Enum] = mapped_column(Enum(Profession), nullable=False)
+    profession_id: Mapped[int] = mapped_column(Integer, nullable=False)
     service_type: Mapped[str] = mapped_column(
         String(length=50), nullable=False
     )

@@ -1,9 +1,8 @@
 """backend/domain/employees/models.py"""
 
-from pydantic import Field, validator
+from pydantic import Field
 
 from backend.domain.constants import WorkingDays, WorkingShift
-from backend.domain.users import UserPublic
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
@@ -22,7 +21,10 @@ class _EmployeePublic(PublicModel):
     that are present in all public employee schemas.
     """
 
-    user_id: int = Field(description="Linked User ID")
+    user_id: int = Field(description="User")
+    profession_id: int = Field(description="Profession")
+    working_days: WorkingDays = Field(description="Working Days")
+    working_shift: WorkingShift = Field(description="Working Shift")
 
 
 class EmployeeCreateRequestBody(_EmployeePublic):
@@ -30,37 +32,23 @@ class EmployeeCreateRequestBody(_EmployeePublic):
     Request body to create Employee.
     """
 
-    profession_id: int = Field(description="Employee Profession ID")
-    working_days: WorkingDays = Field(description="Employee Working Days")
-    working_shift: WorkingShift = Field(description="Employee Working Shift")
-
-    @validator("working_days", pre=True)
-    def pars_working_days(cls, value):
-        if isinstance(value, str):
-            return WorkingDays(value)
-        return value
-
-    @validator("working_shift", pre=True)
-    def pars_working_shift(cls, value):
-        if isinstance(value, str):
-            return WorkingShift(value)
-        return value
+    pass
 
 
 class EmployeePublic(_EmployeePublic):
-    """The public representation of the employee."""
+    """
+    Existed employee representation.
+    """
 
-    id: int
-    profession_id: int
-    working_days: WorkingDays
-    working_shift: WorkingShift
-    user: UserPublic
+    id: int = Field(description="Employee ID")
 
 
 # Internal models
 # ------------------------------------------------------
 class EmployeeUncommited(InternalModel):
-    """This schema is used for creating instance in the database."""
+    """
+    This schema is used for creating instance in the database.
+    """
 
     user_id: int
     profession_id: int
@@ -69,7 +57,9 @@ class EmployeeUncommited(InternalModel):
 
 
 class Employee(EmployeeUncommited):
-    """Existed employee representation."""
+    """
+    The internal application representation.
+    """
 
     id: int
-    is_active: bool
+    is_active: bool = Field(description="Is Active")
