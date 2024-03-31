@@ -111,9 +111,6 @@ class ProfessionTable(Base):
 
     profession: Mapped[str] = mapped_column(String(length=50), nullable=False)
     description: Mapped[str] = mapped_column(String(length=200), nullable=True)
-    # employee_id: Mapped[int] = mapped_column(
-    #     Integer, ForeignKey("employees.id"), nullable=False
-    # )
 
     employee = relationship("EmployeesTable", back_populates="profession")
 

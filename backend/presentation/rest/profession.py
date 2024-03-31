@@ -45,7 +45,12 @@ async def profession_all(_: Request) -> ResponseMulti[ProfessionPublic]:
     """Get all current profession"""
 
     # Get professions list from database
-    professions: ProfessionPublic = await ProfessionRepository().all()
+    raw_professions: ProfessionPublic = ProfessionRepository().all()
+
+    # Comvert generator to a list
+    professions: list[ProfessionPublic] = [
+        profession async for profession in raw_professions
+    ]
 
     return ResponseMulti[ProfessionPublic](result=professions)
 

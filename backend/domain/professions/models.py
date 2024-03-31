@@ -31,7 +31,7 @@ class ProfessionCreateRequestBody(_ProfessionPublic):
     Request body to create Profession.
     """
 
-    employee_id: int = Field(description="Employee ID")
+    pass
 
 
 class ProfessionPublic(_ProfessionPublic):
@@ -40,7 +40,6 @@ class ProfessionPublic(_ProfessionPublic):
     """
 
     id: int = Field(description="Profession ID")
-    employee_id: int = Field(description="Employee ID")
 
 
 # Internal models
@@ -52,7 +51,6 @@ class ProfessionUncommited(InternalModel):
 
     profession: str
     description: Optional[str]
-    employee_id: int
 
 
 class Profession(ProfessionUncommited):
