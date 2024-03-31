@@ -3,8 +3,46 @@
 .admin {
 	width: 100%;
 	min-height: calc(100vh - 2rem);
+	padding-top: 13vh;
+	text-align: center;
+}
+
+.admin__wrapper {
+	width: 100%;
+	min-height: calc(100vh - 2rem);
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
+}
+
+.admin__tools {
+	width: 25%;
+	padding: 1rem 2rem;
+	min-height: calc(100vh - 2rem);
+	border: 1px solid #09C4BD;
+}
+
+.admin__tools h2 {
+	color: #09C4BD;
+	text-align: center;
+}
+
+.admin__tools label {
+	text-align: left;
+}
+
+.admin__tools label,
+.admin__tools input,
+.admin__tools select,
+.admin__tools button {
+	width: 100%;
+}
+
+.admin__tools button {
+	background-color: #09C4BD;
+}
+
+.adminDesktop {
+	width: 75%;
+	min-height: calc(100vh - 2rem);
 }

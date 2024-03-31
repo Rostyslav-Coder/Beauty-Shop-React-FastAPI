@@ -22,7 +22,6 @@ const ProfessionSelect = ({ setProfession }) => {
 					}
 				})
 				setOptions(response.data.result)
-				console.log('response.data.result:', response.data.result)
 			} catch (error) {
 				console.log(error);
 			}
@@ -34,8 +33,6 @@ const ProfessionSelect = ({ setProfession }) => {
 	const handleProfessionChange = (e) => {
 		setProfession(e.target.value);
 	};
-
-	console.log(options)
 
 	return (
 		<label htmlFor='profession'>

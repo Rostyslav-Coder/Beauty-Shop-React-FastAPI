@@ -44,6 +44,7 @@ const AdminProfessionManager = () => {
 
 	return (
 		<div>
+			<h2>Add New Profession</h2>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor='profession'>
 					Add new profession:

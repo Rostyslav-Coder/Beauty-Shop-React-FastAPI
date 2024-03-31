@@ -30,7 +30,7 @@ const AdminCreateEmployee = () => {
 		const token = localStorage.getItem('token');
 		const schema = {
 			user_id: userId,
-			profession: profession,
+			profession_id: profession,
 			working_days: workingDays,
 			working_shift: workingShift,
 		}
@@ -38,7 +38,7 @@ const AdminCreateEmployee = () => {
 		try {
 			const response = await axios({
 				method: 'post',
-				url: 'http://127.0.0.1:8000/admin/employee/create/',
+				url: 'http://127.0.0.1:8000/admin/employee/create',
 				data: schema,
 				headers: {
 					'Authorization': `Bearer ${token}`,
@@ -53,6 +53,7 @@ const AdminCreateEmployee = () => {
 
 	return (
 		<div>
+			<h2>Create New Employee</h2>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor='userId'>
 					Add User ID:
@@ -73,9 +74,9 @@ const AdminCreateEmployee = () => {
 						required
 					>
 						<option value={null}>Select One:</option>
-						<option value='EVEN DAYS'>EVEN DAYS</option>
-						<option value='ODD DAYS'>ODD DAYS</option>
-						<option value='WEEK DAYS'>WEEK DAYS</option>
+						<option value='EVEN_DAYS'>EVEN DAYS</option>
+						<option value='ODD_DAYS'>ODD DAYS</option>
+						<option value='WEEK_DAYS'>WEEK DAYS</option>
 					</select>
 				</label>
 				<label htmlFor='workingShift'>
@@ -86,8 +87,8 @@ const AdminCreateEmployee = () => {
 						required
 					>
 						<option value={null}>Select One:</option>
-						<option value='MORNING SHIFT'>MORNING SHIFT</option>
-						<option value='AFTERNOON SHIFT'>AFTERNOON SHIFT</option>
+						<option value='MORNING_SHIFT'>MORNING SHIFT</option>
+						<option value='AFTERNOON_SHIFT'>AFTERNOON SHIFT</option>
 					</select>
 				</label>
 				<button type='submit'>Create Employee</button>
