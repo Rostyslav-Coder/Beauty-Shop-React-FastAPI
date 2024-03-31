@@ -2,6 +2,7 @@
 
 import AdminGetUserEmployee from './admin/AdminGetUserEmployee';
 import AdminCreateEmployee from './admin/AdminCreateEmployee';
+import AdminProfessionManager from './admin/AdminProfessionManager';
 import '../styles/Admin.css';
 
 
@@ -14,6 +15,7 @@ const Admin = () => {
 			<h1 className='admin__title'>Hi {adminName}</h1>
 			<AdminGetUserEmployee />
 			<AdminCreateEmployee />
+			<AdminProfessionManager />
 		</div>
 	);
 };

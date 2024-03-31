@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import ProfessionSelect from '../official/ProfessionSelect';
 
 
 const AdminCreateEmployee = () => {
@@ -13,10 +14,6 @@ const AdminCreateEmployee = () => {
 
 	const handleInputIdChange = (e) => {
 		setUserId(e.target.value);
-	};
-
-	const handleInputProfessionChange = (e) => {
-		setProfession(e.target.value);
 	};
 
 	const handleInputWorkingDaysChange = (e) => {
@@ -45,7 +42,7 @@ const AdminCreateEmployee = () => {
 				data: schema,
 				headers: {
 					'Authorization': `Bearer ${token}`,
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
 				}
 			})
 			setEmployeeData(response.data.result);
@@ -67,37 +64,33 @@ const AdminCreateEmployee = () => {
 						required
 					/>
 				</label>
-				<label htmlFor='profession'>
-					Add Employee Profession:
-					<input
-						id='profession'
-						type='text'
-						value={profession}
-						onChange={handleInputProfessionChange}
-						required
-					/>
-				</label>
+				<ProfessionSelect setProfession={setProfession} />
 				<label htmlFor='workingDays'>
-					Add Employee Working Days:
-					<input
+					Select Employee Working Days:
+					<select
 						id='workingDays'
-						type='text'
-						value={workingDays}
 						onChange={handleInputWorkingDaysChange}
 						required
-					/>
+					>
+						<option value={null}>Select One:</option>
+						<option value='EVEN DAYS'>EVEN DAYS</option>
+						<option value='ODD DAYS'>ODD DAYS</option>
+						<option value='WEEK DAYS'>WEEK DAYS</option>
+					</select>
 				</label>
 				<label htmlFor='workingShift'>
-					Add Employee Working Shift:
-					<input
+					Select Employee Working Shift:
+					<select
 						id='workingShift'
-						type='text'
-						value={workingShift}
 						onChange={handleInputWorkingShiftChange}
 						required
-					/>
+					>
+						<option value={null}>Select One:</option>
+						<option value='MORNING SHIFT'>MORNING SHIFT</option>
+						<option value='AFTERNOON SHIFT'>AFTERNOON SHIFT</option>
+					</select>
 				</label>
-				<button type="submit">Create Employee</button>
+				<button type='submit'>Create Employee</button>
 			</form>
 			{employeeData && (
 				<div>
