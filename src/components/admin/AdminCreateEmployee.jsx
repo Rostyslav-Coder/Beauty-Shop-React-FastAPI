@@ -96,10 +96,87 @@ const AdminCreateEmployee = () => {
 			{employeeData && (
 				<div>
 					<h2>Created Employee Data:</h2>
-					{employeeData.id && <p>Employee ID: {employeeData.id}</p>}
-					{employeeData.profession && <p>Employee Profession: {employeeData.profession}</p>}
-					{employeeData.workingDays && <p>Employee Working Days: {employeeData.workingDays}</p>}
-					{employeeData.workingShift && <p>Employee Working Shift: {employeeData.workingShift}</p>}
+					<table>
+						<caption>Created Employee Data:</caption>
+						{employeeData.id && (
+							<tr>
+								<th>Employee ID:</th>
+								<th>{employeeData.id}</th>
+							</tr>
+						)}
+						{employeeData.user.id && (
+							<tr>
+								<th>Employee User ID:</th>
+								<th>{employeeData.user.id}</th>
+							</tr>
+						)}
+						{employeeData.user.firstName && (
+							<tr>
+								<th>Employee First Name:</th>
+								<th>{employeeData.user.firstName}</th>
+							</tr>
+						)}
+						{employeeData.user.lastName && (
+							<tr>
+								<th>Employee Last Name:</th>
+								<th>{employeeData.user.lastName}</th>
+							</tr>
+						)}
+						{employeeData.user.email && (
+							<tr>
+								<th>Employee Email:</th>
+								<th>{employeeData.user.email}</th>
+							</tr>
+						)}
+						{employeeData.user.phoneNumber && (
+							<tr>
+								<th>Employee Phone Number:</th>
+								<th>{employeeData.user.phoneNumber}</th>
+							</tr>
+						)}
+						{employeeData.user.role && (
+							<tr>
+								<th>Employee Role</th>
+								<th>{employeeData.user.role}</th>
+							</tr>
+						)}
+						{employeeData.profession.profession && (
+							<tr>
+								<th>Employee Profession:</th>
+								<th>{employeeData.profession.profession}</th>
+							</tr>
+						)}
+						{employeeData.profession.description && (
+							<tr>
+								<th>Employee Profession Description:</th>
+								<th>{employeeData.profession.description}</th>
+							</tr>
+						)}
+						{employeeData.professionId && (
+							<tr>
+								<th>Employee Professio ID:</th>
+								<th>{employeeData.professionId}</th>
+							</tr>
+						)}
+						{employeeData.workingDays && (
+							<tr>
+								<th>Employee Working Days:</th>
+								<th>{employeeData.workingDays}</th>
+							</tr>
+						)}
+						{employeeData.workingShift && (
+							<tr>
+								<th>Employee Working Shift:</th>
+								<th>{employeeData.workingShift}</th>
+							</tr>
+						)}
+						{employeeData.isActive && (
+							<tr>
+								<th>Employee Is Active:</th>
+								<th>{employeeData.isActive ? 'TRUE' : 'FALSE'}</th>
+							</tr>
+						)}
+					</table>
 				</div>
 			)}
 		</div>
