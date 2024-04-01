@@ -12,7 +12,7 @@ __all__ = ("UserCreateRequestBody", "UserPublic", "UserUncommited", "User")
 
 # Public models
 # ------------------------------------------------------
-class _UserPublic(PublicModel):
+class UserPublicBase(PublicModel):
     """
     Base class for public user schemas. Defines common fields
     that are present in all public user schemas.
@@ -26,7 +26,7 @@ class _UserPublic(PublicModel):
     last_name: str = Field(description="User Last Name")
 
 
-class UserCreateRequestBody(_UserPublic):
+class UserCreateRequestBody(UserPublicBase):
     """
     Request body to create User.
     Тело запроса на создание пользователя.
@@ -35,7 +35,7 @@ class UserCreateRequestBody(_UserPublic):
     password: str = Field(description="User Password")
 
 
-class UserPublic(_UserPublic):
+class UserPublic(UserPublicBase):
     """
     Existed user representation.
     Существующее представление пользователя.

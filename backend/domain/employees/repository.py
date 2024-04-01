@@ -5,7 +5,11 @@ from typing import Any
 from sqlalchemy import Result, select
 from sqlalchemy.orm import joinedload
 
-from backend.domain.employees import Employee, EmployeeUncommited
+from backend.domain.employees import (
+    Employee,
+    EmployeeUncommited,
+    EmployeeUnexpanded,
+)
 from backend.infrastructure.database import BaseRepository, EmployeesTable
 from backend.infrastructure.errors import NotFoundError
 
@@ -50,18 +54,19 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
         query = (
             select(self.schema_class)
             .options(joinedload(EmployeesTable.user))
+            .options(joinedload(EmployeesTable.profession))
             .where(getattr(self.schema_class, key_) == value_)
         )
         result: Result = await self.execute(query)
-
         if not (_result := result.scalars().one_or_none()):
             raise NotFoundError
-
-        return Employee.from_orm(_result)
+        employee = Employee.from_orm(_result)
+        return employee
 
     async def create(self, schema: EmployeeUncommited) -> Employee:
         instance: EmployeesTable = await self._save(schema.dict())
-        return Employee.from_orm(instance)
+        employee = EmployeeUnexpanded.from_orm(instance)
+        return employee
 
     async def update(
         self, key_: str, value_: Any, payload_: dict[str, Any]
@@ -70,5 +75,5 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
             key=key_, value=value_, payload=payload_
         )
         await self._session.refresh(instance)
-
-        return Employee.from_orm(instance)
+        employee = Employee.from_orm(instance)
+        return employee

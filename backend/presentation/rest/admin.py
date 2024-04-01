@@ -11,6 +11,7 @@ from backend.domain.employees import (
     EmployeeRepository,
     EmployeeUncommited,
 )
+from backend.domain.employees.models import EmployeeUnexpanded
 from backend.domain.users import User, UserPublic, UsersRepository
 from backend.infrastructure.database import transaction
 from backend.infrastructure.models import Response, ResponseMulti
@@ -38,21 +39,25 @@ async def get_user_by_email(
 async def employee_create(
     _: Request,
     schema: EmployeeCreateRequestBody,
-    user_: User = Depends(RoleRequired(UserRole.ADMIN)),
-) -> Response[EmployeePublic]:
+    user: User = Depends(RoleRequired(UserRole.ADMIN)),
+):
     """Creates an addition to the user, as for an employee"""
-
-    # Create the Employee object
-    employee: Employee = await EmployeeRepository().create(
-        EmployeeUncommited(**schema.dict())
-    )
 
     # Update user role
     await UsersRepository().update(
         key_="id", value_=schema.user_id, payload_={"role": UserRole.EMPLOYEE}
     )
 
-    employee_public = EmployeePublic.from_orm(employee)
+    # Create the Employee object
+    employee: EmployeeUnexpanded = await EmployeeRepository().create(
+        EmployeeUncommited(**schema.dict())
+    )
+
+    # Get full employee from DB
+    employee_full: Employee = await EmployeeRepository().get(
+        key_="id", value_=employee.id
+    )
+    employee_public = EmployeePublic.from_orm(employee_full)
 
     return Response[EmployeePublic](result=employee_public)
 
@@ -61,16 +66,16 @@ async def employee_create(
 @transaction
 async def employee_get(
     _: Request,
-    user_employee_id: str,
+    employee_id: str,
     user: User = Depends(RoleRequired(UserRole.ADMIN)),
 ) -> Response[EmployeePublic]:
     """Get current employee by id masked by name in frontend"""
 
-    user_employee: EmployeePublic = await UsersRepository().get(
-        key_="id", value_=user_employee_id
+    employee_public: EmployeePublic = await EmployeeRepository().get(
+        key_="id", value_=employee_id
     )
 
-    return Response[EmployeePublic](result=user_employee)
+    return Response[EmployeePublic](result=employee_public)
 
 
 @router.get("/employee/all", status_code=status.HTTP_200_OK)

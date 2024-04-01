@@ -16,7 +16,7 @@ __all__ = (
 
 # Public models
 # ------------------------------------------------------
-class _ProfessionPublic(PublicModel):
+class ProfessionPublicBase(PublicModel):
     """
     Base class for public profession schemas. Defines common fields
     that are present in all public profession schemas.
@@ -26,7 +26,7 @@ class _ProfessionPublic(PublicModel):
     description: Optional[str] = Field(description="Profession Description")
 
 
-class ProfessionCreateRequestBody(_ProfessionPublic):
+class ProfessionCreateRequestBody(ProfessionPublicBase):
     """
     Request body to create Profession.
     """
@@ -34,7 +34,7 @@ class ProfessionCreateRequestBody(_ProfessionPublic):
     pass
 
 
-class ProfessionPublic(_ProfessionPublic):
+class ProfessionPublic(ProfessionPublicBase):
     """
     Existed profession representation.
     """

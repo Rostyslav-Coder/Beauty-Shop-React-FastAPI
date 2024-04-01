@@ -3,19 +3,22 @@
 from pydantic import Field
 
 from backend.domain.constants import WorkingDays, WorkingShift
+from backend.domain.professions import Profession, ProfessionPublic
+from backend.domain.users import User, UserPublic
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "EmployeeCreateRequestBody",
     "EmployeePublic",
     "EmployeeUncommited",
+    "EmployeeUnexpanded",
     "Employee",
 )
 
 
 # Public models
 # ------------------------------------------------------
-class _EmployeePublic(PublicModel):
+class EmployeePublicBase(PublicModel):
     """
     Base class for public employee schemas. Defines common fields
     that are present in all public employee schemas.
@@ -27,7 +30,7 @@ class _EmployeePublic(PublicModel):
     working_shift: WorkingShift = Field(description="Working Shift")
 
 
-class EmployeeCreateRequestBody(_EmployeePublic):
+class EmployeeCreateRequestBody(EmployeePublicBase):
     """
     Request body to create Employee.
     """
@@ -35,12 +38,15 @@ class EmployeeCreateRequestBody(_EmployeePublic):
     pass
 
 
-class EmployeePublic(_EmployeePublic):
+class EmployeePublic(EmployeePublicBase):
     """
     Existed employee representation.
     """
 
     id: int = Field(description="Employee ID")
+    is_active: bool = Field(description="Is Active")
+    user: UserPublic
+    profession: ProfessionPublic
 
 
 # Internal models
@@ -56,10 +62,21 @@ class EmployeeUncommited(InternalModel):
     working_shift: WorkingShift
 
 
+class EmployeeUnexpanded(EmployeeUncommited):
+    """
+    Representation without related tables
+    """
+
+    id: int
+    is_active: bool
+
+
 class Employee(EmployeeUncommited):
     """
     The internal application representation.
     """
 
     id: int
-    is_active: bool = Field(description="Is Active")
+    is_active: bool
+    user: User
+    profession: Profession
