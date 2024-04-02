@@ -4,148 +4,148 @@ import PropTypes from 'prop-types';
 
 
 const AdminDesktop = (
-	{ userData, createdEmployeeData, createdProfessionData }
+	{ searchedUserData, newEmployeeData, newProfessionData }
 ) => {
 	return (
 		<section className="adminDesktop">
-			{userData && (
+			{searchedUserData && (
 				<div>
 					<h2>User Data:</h2>
 					<table>
 						<caption>User Data</caption>
 					</table>
-					{userData.id && (
+					{searchedUserData.id && (
 						<tr>
 							<th>User ID:</th>
-							<th>{userData.id}</th>
+							<th>{searchedUserData.id}</th>
 						</tr>
 					)}
-					{userData.firstName && (
+					{searchedUserData.firstName && (
 						<tr>
 							<th>User First Name:</th>
-							<th>{userData.firstName}</th>
+							<th>{searchedUserData.firstName}</th>
 						</tr>
 					)}
-					{userData.lastName && (
+					{searchedUserData.lastName && (
 						<tr>
 							<th>User Last Name:</th>
-							<th>{userData.lastName}</th>
+							<th>{searchedUserData.lastName}</th>
 						</tr>
 					)}
-					{userData.email && (
+					{searchedUserData.email && (
 						<tr>
 							<th>User Email:</th>
-							<th>{userData.email}</th>
+							<th>{searchedUserData.email}</th>
 						</tr>
 					)}
-					{userData.phoneNumber && (
+					{searchedUserData.phoneNumber && (
 						<tr>
 							<th>User Phone Number:</th>
-							<th>{userData.phoneNumber}</th>
+							<th>{searchedUserData.phoneNumber}</th>
 						</tr>
 					)}
-					{userData.role && (
+					{searchedUserData.role && (
 						<tr>
 							<th>User Role:</th>
-							<th>{userData.role}</th>
+							<th>{searchedUserData.role}</th>
 						</tr>
 					)}
 				</div>
 			)}
-			{createdEmployeeData && (
+			{newEmployeeData && (
 				<div>
 					<h2>Created Employee Data:</h2>
 					<table>
 						<caption>Created Employee Data</caption>
-						{createdEmployeeData.id && (
+						{newEmployeeData.id && (
 							<tr>
 								<th>Employee ID:</th>
-								<th>{createdEmployeeData.id}</th>
+								<th>{newEmployeeData.id}</th>
 							</tr>
 						)}
-						{createdEmployeeData.user.id && (
+						{newEmployeeData.user.id && (
 							<tr>
 								<th>Employee User ID:</th>
-								<th>{createdEmployeeData.user.id}</th>
+								<th>{newEmployeeData.user.id}</th>
 							</tr>
 						)}
-						{createdEmployeeData.user.firstName && (
+						{newEmployeeData.user.firstName && (
 							<tr>
 								<th>Employee First Name:</th>
-								<th>{createdEmployeeData.user.firstName}</th>
+								<th>{newEmployeeData.user.firstName}</th>
 							</tr>
 						)}
-						{createdEmployeeData.user.lastName && (
+						{newEmployeeData.user.lastName && (
 							<tr>
 								<th>Employee Last Name:</th>
-								<th>{createdEmployeeData.user.lastName}</th>
+								<th>{newEmployeeData.user.lastName}</th>
 							</tr>
 						)}
-						{createdEmployeeData.user.email && (
+						{newEmployeeData.user.email && (
 							<tr>
 								<th>Employee Email:</th>
-								<th>{createdEmployeeData.user.email}</th>
+								<th>{newEmployeeData.user.email}</th>
 							</tr>
 						)}
-						{createdEmployeeData.user.phoneNumber && (
+						{newEmployeeData.user.phoneNumber && (
 							<tr>
 								<th>Employee Phone Number:</th>
-								<th>{createdEmployeeData.user.phoneNumber}</th>
+								<th>{newEmployeeData.user.phoneNumber}</th>
 							</tr>
 						)}
-						{createdEmployeeData.user.role && (
+						{newEmployeeData.user.role && (
 							<tr>
 								<th>Employee Role</th>
-								<th>{createdEmployeeData.user.role}</th>
+								<th>{newEmployeeData.user.role}</th>
 							</tr>
 						)}
-						{createdEmployeeData.profession.profession && (
+						{newEmployeeData.profession.profession && (
 							<tr>
 								<th>Employee Profession:</th>
-								<th>{createdEmployeeData.profession.profession}</th>
+								<th>{newEmployeeData.profession.profession}</th>
 							</tr>
 						)}
-						{createdEmployeeData.profession.description && (
+						{newEmployeeData.profession.description && (
 							<tr>
 								<th>Employee Profession Description:</th>
-								<th>{createdEmployeeData.profession.description}</th>
+								<th>{newEmployeeData.profession.description}</th>
 							</tr>
 						)}
-						{createdEmployeeData.professionId && (
+						{newEmployeeData.professionId && (
 							<tr>
 								<th>Employee Professio ID:</th>
-								<th>{createdEmployeeData.professionId}</th>
+								<th>{newEmployeeData.professionId}</th>
 							</tr>
 						)}
-						{createdEmployeeData.workingDays && (
+						{newEmployeeData.workingDays && (
 							<tr>
 								<th>Employee Working Days:</th>
-								<th>{createdEmployeeData.workingDays}</th>
+								<th>{newEmployeeData.workingDays}</th>
 							</tr>
 						)}
-						{createdEmployeeData.workingShift && (
+						{newEmployeeData.workingShift && (
 							<tr>
 								<th>Employee Working Shift:</th>
-								<th>{createdEmployeeData.workingShift}</th>
+								<th>{newEmployeeData.workingShift}</th>
 							</tr>
 						)}
-						{createdEmployeeData.isActive && (
+						{newEmployeeData.isActive && (
 							<tr>
 								<th>Employee Is Active:</th>
-								<th>{createdEmployeeData.isActive ? 'TRUE' : 'FALSE'}</th>
+								<th>{newEmployeeData.isActive ? 'TRUE' : 'FALSE'}</th>
 							</tr>
 						)}
 					</table>
 				</div>
 			)}
-			{createdProfessionData && (
+			{newProfessionData && (
 				<div>
 					<h2>Created Profession Data:</h2>
-					{createdProfessionData.profession && (
-						<p>New Profession: {createdProfessionData.profession}</p>
+					{newProfessionData.profession && (
+						<p>New Profession: {newProfessionData.profession}</p>
 					)}
-					{createdProfessionData.description && (
-						<p>Profession description: {createdProfessionData.description}</p>
+					{newProfessionData.description && (
+						<p>Profession description: {newProfessionData.description}</p>
 					)}
 				</div>
 			)}
@@ -154,9 +154,9 @@ const AdminDesktop = (
 };
 
 AdminDesktop.propTypes = {
-	userData: PropTypes.object,
-	createdEmployeeData: PropTypes.object,
-	createdProfessionData: PropTypes.object,
+	searchedUserData: PropTypes.object,
+	newEmployeeData: PropTypes.object,
+	newProfessionData: PropTypes.object,
 };
 
 export default AdminDesktop;

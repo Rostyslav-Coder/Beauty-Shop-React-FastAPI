@@ -1,4 +1,4 @@
-// ============ ADMIN-CREATE-EMPLOYEE COMPONENT MODULE  ============ //
+// ============ EMPLOYEE-CREATOR COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
 import axios from 'axios';
@@ -6,22 +6,22 @@ import PropTypes from 'prop-types';
 import ProfessionSelect from '../official/ProfessionSelect';
 
 
-const AdminCreateEmployee = ({ setCreatedEmployeeData }) => {
-	const [createUserById, setCreateUserById] = useState('');
-	const [createUserProfession, setCreateUserProfession] = useState('');
-	const [createUserWorkingDays, setCreateUserWorkingDays] = useState('');
-	const [createUserWorkingShift, setCreateUserWorkingShift] = useState('');
+const EmployeeCreator = ({ setNewEmployeeData }) => {
+	const [newEmployeeId, setNewEmployeeId] = useState('');
+	const [newEmployeeProfession, setNewEmployeeProfession] = useState('');
+	const [newEmployeeWorkingDays, setNewEmployeeWorkingDays] = useState('');
+	const [newEmployeeWorkingShift, setNewEmployeeWorkingShift] = useState('');
 
-	const handleInputIdChange = (e) => {
-		setCreateUserById(e.target.value);
+	const handleEmployeeIdChange = (e) => {
+		setNewEmployeeId(e.target.value);
 	};
 
-	const handleInputWorkingDaysChange = (e) => {
-		setCreateUserWorkingDays(e.target.value);
+	const handleWorkingDaysChange = (e) => {
+		setNewEmployeeWorkingDays(e.target.value);
 	};
 
-	const handleInputWorkingShiftChange = (e) => {
-		setCreateUserWorkingShift(e.target.value);
+	const handleWorkingShiftChange = (e) => {
+		setNewEmployeeWorkingShift(e.target.value);
 	};
 
 	const handleSubmit = async (e) => {
@@ -29,10 +29,10 @@ const AdminCreateEmployee = ({ setCreatedEmployeeData }) => {
 
 		const token = localStorage.getItem('token');
 		const schema = {
-			user_id: createUserById,
-			profession_id: createUserProfession,
-			working_days: createUserWorkingDays,
-			working_shift: createUserWorkingShift,
+			user_id: newEmployeeId,
+			profession_id: newEmployeeProfession,
+			working_days: newEmployeeWorkingDays,
+			working_shift: newEmployeeWorkingShift,
 		}
 
 		try {
@@ -45,7 +45,7 @@ const AdminCreateEmployee = ({ setCreatedEmployeeData }) => {
 					'Content-Type': 'application/json',
 				}
 			})
-			setCreatedEmployeeData(response.data.result);
+			setNewEmployeeData(response.data.result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -60,17 +60,17 @@ const AdminCreateEmployee = ({ setCreatedEmployeeData }) => {
 					<input
 						id='userId'
 						type='text'
-						value={createUserById}
-						onChange={handleInputIdChange}
+						value={newEmployeeId}
+						onChange={handleEmployeeIdChange}
 						required
 					/>
 				</label>
-				<ProfessionSelect setProfession={setCreateUserProfession} />
+				<ProfessionSelect setProfession={setNewEmployeeProfession} />
 				<label htmlFor='workingDays'>
 					Select Employee Working Days:
 					<select
 						id='workingDays'
-						onChange={handleInputWorkingDaysChange}
+						onChange={handleWorkingDaysChange}
 						required
 					>
 						<option value={null}>Select One:</option>
@@ -83,7 +83,7 @@ const AdminCreateEmployee = ({ setCreatedEmployeeData }) => {
 					Select Employee Working Shift:
 					<select
 						id='workingShift'
-						onChange={handleInputWorkingShiftChange}
+						onChange={handleWorkingShiftChange}
 						required
 					>
 						<option value={null}>Select One:</option>
@@ -97,9 +97,8 @@ const AdminCreateEmployee = ({ setCreatedEmployeeData }) => {
 	)
 };
 
-AdminCreateEmployee.propTypes = {
-	createdEmployeeData: PropTypes.object,
-	setCreatedEmployeeData: PropTypes.func,
+EmployeeCreator.propTypes = {
+	setNewEmployeeData: PropTypes.func,
 };
 
-export default AdminCreateEmployee;
+export default EmployeeCreator;

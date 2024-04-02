@@ -1,12 +1,12 @@
-// ============ ADMIN-GET-USER-BY-EMAIL COMPONENT MODULE  ============ //
+// ============ USER-EMAIL-SEARCH COMPONENT MODULE  ============ //
 
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
 
-const AdminGetUserByEmail = ({ userEmail, setUserEmail, setUserData }) => {
-	const handleInputEmailChange = (e) => {
-		setUserEmail(e.target.value);
+const UserEmailSearch = ({ searchedUserEmail, setSearchedUserEmail, setSearchedUserData }) => {
+	const handleUserEmailChange = (e) => {
+		setSearchedUserEmail(e.target.value);
 	};
 
 	const handleSubmit = async (e) => {
@@ -17,13 +17,12 @@ const AdminGetUserByEmail = ({ userEmail, setUserEmail, setUserData }) => {
 		try {
 			const response = await axios({
 				method: 'get',
-				url: `http://127.0.0.1:8000/admin/employee/user?user_email=${userEmail}`,
+				url: `http://127.0.0.1:8000/admin/employee/user?user_email=${searchedUserEmail}`,
 				headers: {
 					'Authorization': `Bearer ${token}`,
-					// 'Content-Type': 'application/json',
 				},
 			});
-			setUserData(response.data.result);
+			setSearchedUserData(response.data.result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -38,8 +37,8 @@ const AdminGetUserByEmail = ({ userEmail, setUserEmail, setUserData }) => {
 					<input
 						id='email'
 						type='email'
-						value={userEmail}
-						onChange={handleInputEmailChange}
+						value={searchedUserEmail}
+						onChange={handleUserEmailChange}
 						required
 					/>
 				</label>
@@ -49,10 +48,10 @@ const AdminGetUserByEmail = ({ userEmail, setUserEmail, setUserData }) => {
 	);
 };
 
-AdminGetUserByEmail.propTypes = {
-	userEmail: PropTypes.string,
-	setUserEmail: PropTypes.func.isRequired,
-	setUserData: PropTypes.func.isRequired,
+UserEmailSearch.propTypes = {
+	searchedUserEmail: PropTypes.string,
+	setSearchedUserEmail: PropTypes.func.isRequired,
+	setSearchedUserData: PropTypes.func.isRequired,
 }
 
-export default AdminGetUserByEmail;
+export default UserEmailSearch;

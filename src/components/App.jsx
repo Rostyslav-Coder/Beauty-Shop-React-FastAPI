@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import '../styles/App.css';
 import About from './About';
-import Admin from './Admin';
+import AdminPanel from './AdminPanel';
 import Authentication from './Authentication';
 import Contact from './Contact';
 import Employee from './Employee';
@@ -36,7 +36,7 @@ const App = () => {
 						<Route path='/authentication' element={<Authentication />} />
 						<Route path='/orders' element={userRole === 'USER' ? <Orders /> : <Navigate to={'/authentication'} replace />} />
 						<Route path='/employee' element={userRole === 'EMPLOYEE' ? <Employee /> : <Navigate to={'/authentication'} replace />} />
-						<Route path='/admin' element={userRole === 'ADMIN' ? <Admin /> : <Navigate to={'/authentication'} replace />} />
+						<Route path='/admin' element={userRole === 'ADMIN' ? <AdminPanel /> : <Navigate to={'/authentication'} replace />} />
 					</Routes>
 				</ParallaxProvider>
 				<Footer />

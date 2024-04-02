@@ -1,19 +1,19 @@
-// ============ ADMIN-PROFESSION-MANAGER COMPONENT MODULE  ============ //
+// ============ PROFESSION-MANAGER COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
 
-const AdminProfessionManager = ({ setCreatedProfessionData }) => {
+const ProfessionManager = ({ setNewProfessionData }) => {
 	const [profession, setProfession] = useState('');
 	const [description, setDescription] = useState('');
 
-	const handleInputChangeProfession = (e) => {
+	const handleProfessionChange = (e) => {
 		setProfession(e.target.value);
 	};
 
-	const handleInputChangeDescription = (e) => {
+	const handleDescriptionChange = (e) => {
 		setDescription(e.target.value);
 	};
 
@@ -36,7 +36,7 @@ const AdminProfessionManager = ({ setCreatedProfessionData }) => {
 					'Content-Type': 'application/json',
 				}
 			})
-			setCreatedProfessionData(response.data.result);
+			setNewProfessionData(response.data.result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -52,7 +52,7 @@ const AdminProfessionManager = ({ setCreatedProfessionData }) => {
 						id='profession'
 						type='text'
 						value={profession}
-						onChange={handleInputChangeProfession}
+						onChange={handleProfessionChange}
 						required
 					/>
 				</label>
@@ -62,7 +62,7 @@ const AdminProfessionManager = ({ setCreatedProfessionData }) => {
 						id='description'
 						type='text'
 						value={description}
-						onChange={handleInputChangeDescription}
+						onChange={handleDescriptionChange}
 					/>
 				</label>
 				<button type='submit'>Create Profession</button>
@@ -71,8 +71,8 @@ const AdminProfessionManager = ({ setCreatedProfessionData }) => {
 	);
 };
 
-AdminProfessionManager.propTypes = {
-	setCreatedProfessionData: PropTypes.func,
+ProfessionManager.propTypes = {
+	setNewProfessionData: PropTypes.func,
 };
 
-export default AdminProfessionManager;
+export default ProfessionManager;
