@@ -18,7 +18,7 @@ const ProfessionSelect = ({ setProfession }) => {
 					url: 'http://127.0.0.1:8000/profession/all',
 					headers: {
 						'Authorization': `Bearer ${token}`,
-						'Content-Type': 'application/json',
+						// 'Content-Type': 'application/json',
 					}
 				})
 				setOptions(response.data.result)

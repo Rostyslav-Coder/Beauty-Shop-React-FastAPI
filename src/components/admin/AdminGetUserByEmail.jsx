@@ -33,9 +33,10 @@ const AdminGetUserByEmail = ({ userEmail, setUserEmail, setUserData }) => {
 		<div className='adminGetUserEmployees'>
 			<h2>Get User Info By Email</h2>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor=''>
+				<label htmlFor='email'>
 					Add User Email:
 					<input
+						id='email'
 						type='email'
 						value={userEmail}
 						onChange={handleInputEmailChange}

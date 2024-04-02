@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import AdminDesktop from './admin/AdminDesktop';
 import AdminGetUserByEmail from './admin/AdminGetUserByEmail';
+import EmployeeListByProfession from './admin/EmployeeListByProfession';
 import AdminCreateEmployee from './admin/AdminCreateEmployee';
 import AdminProfessionManager from './admin/AdminProfessionManager';
 import '../styles/Admin.css';
@@ -26,6 +27,7 @@ const Admin = () => {
 						setUserEmail={setGetUserByEmail}
 						setUserData={setUserDataByEmail}
 					/>
+					<EmployeeListByProfession />
 					<AdminCreateEmployee
 						setCreatedEmployeeData={setCreatedEmployeeData}
 					/>
