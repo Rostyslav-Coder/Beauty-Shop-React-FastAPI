@@ -101,18 +101,23 @@ async def employee_profession(
     _: Request,
     skip: int,
     limit: int,
-    profession: str,
+    profession_id: str,
     user: User = Depends(RoleRequired(UserRole.ADMIN)),
-) -> ResponseMulti[list[EmployeePublic]]:
+) -> ResponseMulti[EmployeePublic]:
     """Get all employees by profession"""
 
-    employees_by_profession: list[
-        EmployeePublic
+    employees_by_professon: list[
+        Employee
     ] = await EmployeeRepository()._all_by(
-        key_="profession", value_=profession, skip_=skip, limit_=limit
+        key_="profession_id", value_=profession_id, skip_=skip, limit_=limit
     )
 
-    return ResponseMulti[list[EmployeePublic]](result=employees_by_profession)
+    employees_public = [
+        EmployeePublic.from_orm(employee)
+        for employee in employees_by_professon
+    ]
+
+    return ResponseMulti[EmployeePublic](result=employees_public)
 
 
 @router.put("/emplotee/delate", status_code=status.HTTP_202_ACCEPTED)

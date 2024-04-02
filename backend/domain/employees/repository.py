@@ -19,7 +19,9 @@ __all__ = ("EmployeeRepository",)
 class EmployeeRepository(BaseRepository[EmployeesTable]):
     schema_class = EmployeesTable
 
-    async def all(self, skip_: int = 0, limit_: int = 10) -> list[Employee]:
+    async def all(
+        self, skip_: int = 0, limit_: int = 10
+    ) -> list[EmployeeUnexpanded]:
         query = (
             select(self.schema_class)
             .options(joinedload(EmployeesTable.user))
@@ -28,8 +30,10 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
             .limit(limit_)
         )
         result: Result = await self.execute(query)
+        if not (_result := result.scalars().all()):
+            raise NotFoundError
         employees = [
-            Employee.from_orm(employee) for employee in result.scalars().all()
+            EmployeeUnexpanded.from_orm(employee) for employee in _result
         ]
         return employees
 
@@ -45,9 +49,9 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
             .limit(limit_)
         )
         result: Result = await self.execute(query)
-        employees = [
-            Employee.from_orm(employee) for employee in result.scalars().all()
-        ]
+        if not (_result := result.scalars().all()):
+            raise NotFoundError
+        employees = [Employee.from_orm(employee) for employee in _result]
         return employees
 
     async def get(self, key_: str, value_: Any) -> Employee:
