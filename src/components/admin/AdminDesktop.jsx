@@ -3,7 +3,9 @@
 import PropTypes from 'prop-types';
 
 
-const AdminDesktop = ({ userData, createdEmployeeData }) => {
+const AdminDesktop = (
+	{ userData, createdEmployeeData, createdProfessionData }
+) => {
 	return (
 		<section className="adminDesktop">
 			{userData && (
@@ -136,6 +138,17 @@ const AdminDesktop = ({ userData, createdEmployeeData }) => {
 					</table>
 				</div>
 			)}
+			{createdProfessionData && (
+				<div>
+					<h2>Created Profession Data:</h2>
+					{createdProfessionData.profession && (
+						<p>New Profession: {createdProfessionData.profession}</p>
+					)}
+					{createdProfessionData.description && (
+						<p>Profession description: {createdProfessionData.description}</p>
+					)}
+				</div>
+			)}
 		</section>
 	);
 };
@@ -143,5 +156,7 @@ const AdminDesktop = ({ userData, createdEmployeeData }) => {
 AdminDesktop.propTypes = {
 	userData: PropTypes.object,
 	createdEmployeeData: PropTypes.object,
-}
+	createdProfessionData: PropTypes.object,
+};
+
 export default AdminDesktop;

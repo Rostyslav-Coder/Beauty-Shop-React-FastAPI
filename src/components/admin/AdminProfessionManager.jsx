@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 
-const AdminProfessionManager = () => {
+const AdminProfessionManager = ({ setCreatedProfessionData }) => {
 	const [profession, setProfession] = useState('');
 	const [description, setDescription] = useState('');
-	const [professionData, setProfessionData] = useState(null);
 
 	const handleInputChangeProfession = (e) => {
 		setProfession(e.target.value);
@@ -36,7 +36,7 @@ const AdminProfessionManager = () => {
 					'Content-Type': 'application/json',
 				}
 			})
-			setProfessionData(response.data.result);
+			setCreatedProfessionData(response.data.result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -67,19 +67,12 @@ const AdminProfessionManager = () => {
 				</label>
 				<button type='submit'>Create Profession</button>
 			</form>
-			{professionData && (
-				<div>
-					<h2>Created Profession Data:</h2>
-					{professionData.profession && (
-						<p>New Profession: {professionData.profession}</p>
-					)}
-					{professionData.description && (
-						<p>Profession description: {professionData.description}</p>
-					)}
-				</div>
-			)}
 		</div>
-	)
+	);
+};
+
+AdminProfessionManager.propTypes = {
+	setCreatedProfessionData: PropTypes.func,
 };
 
 export default AdminProfessionManager;

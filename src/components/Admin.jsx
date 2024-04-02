@@ -14,6 +14,7 @@ const Admin = () => {
 	const [getUserByEmail, setGetUserByEmail] = useState('');
 	const [userDataByEmail, setUserDataByEmail] = useState(null);
 	const [createdEmployeeData, setCreatedEmployeeData] = useState(null);
+	const [createdProfessionData, setCreatedProfessionData] = useState(null);
 
 	return (
 		<section className='admin'>
@@ -28,11 +29,14 @@ const Admin = () => {
 					<AdminCreateEmployee
 						setCreatedEmployeeData={setCreatedEmployeeData}
 					/>
-					<AdminProfessionManager />
+					<AdminProfessionManager
+						setCreatedProfessionData={setCreatedProfessionData}
+					/>
 				</section>
 				<AdminDesktop
 					userData={userDataByEmail}
 					createdEmployeeData={createdEmployeeData}
+					createdProfessionData={createdProfessionData}
 				/>
 			</div>
 		</section>
