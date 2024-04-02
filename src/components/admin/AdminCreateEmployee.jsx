@@ -2,26 +2,26 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import ProfessionSelect from '../official/ProfessionSelect';
 
 
-const AdminCreateEmployee = () => {
-	const [userId, setUserId] = useState('');
-	const [profession, setProfession] = useState('');
-	const [workingDays, setWorkingDays] = useState('');
-	const [workingShift, setWorkingShift] = useState('');
-	const [employeeData, setEmployeeData] = useState(null);
+const AdminCreateEmployee = ({ setCreatedEmployeeData }) => {
+	const [createUserById, setCreateUserById] = useState('');
+	const [createUserProfession, setCreateUserProfession] = useState('');
+	const [createUserWorkingDays, setCreateUserWorkingDays] = useState('');
+	const [createUserWorkingShift, setCreateUserWorkingShift] = useState('');
 
 	const handleInputIdChange = (e) => {
-		setUserId(e.target.value);
+		setCreateUserById(e.target.value);
 	};
 
 	const handleInputWorkingDaysChange = (e) => {
-		setWorkingDays(e.target.value);
+		setCreateUserWorkingDays(e.target.value);
 	};
 
 	const handleInputWorkingShiftChange = (e) => {
-		setWorkingShift(e.target.value);
+		setCreateUserWorkingShift(e.target.value);
 	};
 
 	const handleSubmit = async (e) => {
@@ -29,10 +29,10 @@ const AdminCreateEmployee = () => {
 
 		const token = localStorage.getItem('token');
 		const schema = {
-			user_id: userId,
-			profession_id: profession,
-			working_days: workingDays,
-			working_shift: workingShift,
+			user_id: createUserById,
+			profession_id: createUserProfession,
+			working_days: createUserWorkingDays,
+			working_shift: createUserWorkingShift,
 		}
 
 		try {
@@ -45,7 +45,7 @@ const AdminCreateEmployee = () => {
 					'Content-Type': 'application/json',
 				}
 			})
-			setEmployeeData(response.data.result);
+			setCreatedEmployeeData(response.data.result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -60,12 +60,12 @@ const AdminCreateEmployee = () => {
 					<input
 						id='userId'
 						type='text'
-						value={userId}
+						value={createUserById}
 						onChange={handleInputIdChange}
 						required
 					/>
 				</label>
-				<ProfessionSelect setProfession={setProfession} />
+				<ProfessionSelect setProfession={setCreateUserProfession} />
 				<label htmlFor='workingDays'>
 					Select Employee Working Days:
 					<select
@@ -93,94 +93,13 @@ const AdminCreateEmployee = () => {
 				</label>
 				<button type='submit'>Create Employee</button>
 			</form>
-			{employeeData && (
-				<div>
-					<h2>Created Employee Data:</h2>
-					<table>
-						<caption>Created Employee Data:</caption>
-						{employeeData.id && (
-							<tr>
-								<th>Employee ID:</th>
-								<th>{employeeData.id}</th>
-							</tr>
-						)}
-						{employeeData.user.id && (
-							<tr>
-								<th>Employee User ID:</th>
-								<th>{employeeData.user.id}</th>
-							</tr>
-						)}
-						{employeeData.user.firstName && (
-							<tr>
-								<th>Employee First Name:</th>
-								<th>{employeeData.user.firstName}</th>
-							</tr>
-						)}
-						{employeeData.user.lastName && (
-							<tr>
-								<th>Employee Last Name:</th>
-								<th>{employeeData.user.lastName}</th>
-							</tr>
-						)}
-						{employeeData.user.email && (
-							<tr>
-								<th>Employee Email:</th>
-								<th>{employeeData.user.email}</th>
-							</tr>
-						)}
-						{employeeData.user.phoneNumber && (
-							<tr>
-								<th>Employee Phone Number:</th>
-								<th>{employeeData.user.phoneNumber}</th>
-							</tr>
-						)}
-						{employeeData.user.role && (
-							<tr>
-								<th>Employee Role</th>
-								<th>{employeeData.user.role}</th>
-							</tr>
-						)}
-						{employeeData.profession.profession && (
-							<tr>
-								<th>Employee Profession:</th>
-								<th>{employeeData.profession.profession}</th>
-							</tr>
-						)}
-						{employeeData.profession.description && (
-							<tr>
-								<th>Employee Profession Description:</th>
-								<th>{employeeData.profession.description}</th>
-							</tr>
-						)}
-						{employeeData.professionId && (
-							<tr>
-								<th>Employee Professio ID:</th>
-								<th>{employeeData.professionId}</th>
-							</tr>
-						)}
-						{employeeData.workingDays && (
-							<tr>
-								<th>Employee Working Days:</th>
-								<th>{employeeData.workingDays}</th>
-							</tr>
-						)}
-						{employeeData.workingShift && (
-							<tr>
-								<th>Employee Working Shift:</th>
-								<th>{employeeData.workingShift}</th>
-							</tr>
-						)}
-						{employeeData.isActive && (
-							<tr>
-								<th>Employee Is Active:</th>
-								<th>{employeeData.isActive ? 'TRUE' : 'FALSE'}</th>
-							</tr>
-						)}
-					</table>
-				</div>
-			)}
 		</div>
 	)
+};
+
+AdminCreateEmployee.propTypes = {
+	createdEmployeeData: PropTypes.object,
+	setCreatedEmployeeData: PropTypes.func,
 };
 
 export default AdminCreateEmployee;

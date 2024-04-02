@@ -11,8 +11,9 @@ import '../styles/Admin.css';
 const Admin = () => {
 	const user = JSON.parse(localStorage.getItem('user'));
 	const adminName = user.firstName ? user.firstName : user.email;
-	const [userEmail, setUserEmail] = useState('');
-	const [userData, setUserData] = useState(null);
+	const [getUserByEmail, setGetUserByEmail] = useState('');
+	const [userDataByEmail, setUserDataByEmail] = useState(null);
+	const [createdEmployeeData, setCreatedEmployeeData] = useState(null);
 
 	return (
 		<section className='admin'>
@@ -20,15 +21,18 @@ const Admin = () => {
 			<div className="admin__wrapper">
 				<section className="admin__tools">
 					<AdminGetUserByEmail
-						userEmail={userEmail}
-						setUserEmail={setUserEmail}
-						setUserData={setUserData}
+						userEmail={getUserByEmail}
+						setUserEmail={setGetUserByEmail}
+						setUserData={setUserDataByEmail}
 					/>
-					<AdminCreateEmployee />
+					<AdminCreateEmployee
+						setCreatedEmployeeData={setCreatedEmployeeData}
+					/>
 					<AdminProfessionManager />
 				</section>
 				<AdminDesktop
-					userData={userData}
+					userData={userDataByEmail}
+					createdEmployeeData={createdEmployeeData}
 				/>
 			</div>
 		</section>
