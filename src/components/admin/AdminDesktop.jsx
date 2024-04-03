@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 
 const AdminDesktop = (
-	{ searchedUserData, newEmployeeData, newProfessionData, employeeList, error }
+	{ searchedUserData, searchedEmployeeData, newEmployeeData, newProfessionData, employeeList, error }
 ) => {
 	return (
 		<section className='adminDesktop'>
@@ -46,6 +46,61 @@ const AdminDesktop = (
 							<tr>
 								<th>User Role:</th>
 								<th>{searchedUserData.role}</th>
+							</tr>
+						)}
+					</table>
+				</div>
+			)}
+			{searchedEmployeeData && (
+				<div className='admin__data'>
+					<h2>Employee Data:</h2>
+					<table>
+						{searchedEmployeeData.user.firstName && (
+							<tr>
+								<th>Employee First Name:</th>
+								<th>{searchedEmployeeData.user.firstName}</th>
+							</tr>
+						)}
+						{searchedEmployeeData.user.lastName && (
+							<tr>
+								<th>Employee Last Name:</th>
+								<th>{searchedEmployeeData.user.lastName}</th>
+							</tr>
+						)}
+						{searchedEmployeeData.profession.profession && (
+							<tr>
+								<th>Employee Profession:</th>
+								<th>{searchedEmployeeData.profession.profession}</th>
+							</tr>
+						)}
+						{searchedEmployeeData.workingDays && (
+							<tr>
+								<th>Employee Working Days:</th>
+								<th>{searchedEmployeeData.workingDays}</th>
+							</tr>
+						)}
+						{searchedEmployeeData.workingShift && (
+							<tr>
+								<th>Employee Working Shift:</th>
+								<th>{searchedEmployeeData.workingShift}</th>
+							</tr>
+						)}
+						{searchedEmployeeData.user.email && (
+							<tr>
+								<th>Employee Email:</th>
+								<th>{searchedEmployeeData.user.email}</th>
+							</tr>
+						)}
+						{searchedEmployeeData.user.phoneNumber && (
+							<tr>
+								<th>Employee Phone Number:</th>
+								<th>{searchedEmployeeData.user.phoneNumber}</th>
+							</tr>
+						)}
+						{searchedEmployeeData.id && (
+							<tr>
+								<th>Employee ID:</th>
+								<th>{searchedEmployeeData.id}</th>
 							</tr>
 						)}
 					</table>
@@ -190,6 +245,7 @@ const AdminDesktop = (
 					)}
 				</div>
 			)}
+
 			{error && <p>{error}</p>}
 		</section>
 	);
@@ -197,6 +253,7 @@ const AdminDesktop = (
 
 AdminDesktop.propTypes = {
 	searchedUserData: PropTypes.object,
+	searchedEmployeeData: PropTypes.object,
 	newEmployeeData: PropTypes.object,
 	newProfessionData: PropTypes.object,
 	employeeList: PropTypes.array,

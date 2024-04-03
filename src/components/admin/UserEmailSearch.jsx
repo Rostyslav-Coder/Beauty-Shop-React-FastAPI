@@ -29,11 +29,11 @@ const UserEmailSearch = ({ searchedUserEmail, setSearchedUserEmail, setSearchedU
 	};
 
 	return (
-		<div className='adminGetUserEmployees'>
+		<div className='userEmailSearch'>
 			<h2>Get User Info</h2>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor='email'>
-					Add User Email:
+					Enter User Email:
 					<input
 						id='email'
 						type='email'

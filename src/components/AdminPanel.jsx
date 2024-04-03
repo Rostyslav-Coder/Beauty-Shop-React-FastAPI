@@ -2,16 +2,19 @@
 
 import { useState } from 'react';
 import AdminDesktop from './admin/AdminDesktop';
-import UserEmailSearch from './admin/UserEmailSearch';
-import EmployeeListByProfession from './admin/EmployeeListByProfession';
+import EmployeeNameSearch from './admin/EmployeeNameSearch';
 import EmployeeCreator from './admin/EmployeeCreator';
+import EmployeeListByProfession from './admin/EmployeeListByProfession';
 import ProfessionManager from './admin/ProfessionManager';
+import UserEmailSearch from './admin/UserEmailSearch';
 import '../styles/Admin.css';
 
 
 const AdminPanel = () => {
 	const [searchedUserEmail, setSearchedUserEmail] = useState('');
 	const [searchedUserData, setSearchedUserData] = useState(null);
+	const [searchedEmployeeName, setSearchedEmployeeName] = useState('');
+	const [searchedEmployeeData, setSearchedEmployeeData] = useState(null);
 	const [newEmployeeData, setNewEmployeeData] = useState(null);
 	const [newProfessionData, setNewProfessionData] = useState(null);
 	const [employeeList, setEmployeeList] = useState([]);
@@ -29,6 +32,12 @@ const AdminPanel = () => {
 						setSearchedUserEmail={setSearchedUserEmail}
 						setSearchedUserData={setSearchedUserData}
 					/>
+					<EmployeeNameSearch
+						searchedEmployeeName={searchedEmployeeName}
+						setSearchedEmployeeName={setSearchedEmployeeName}
+						setSearchedEmployeeData={setSearchedEmployeeData}
+						setError={setError}
+					/>
 					<EmployeeListByProfession
 						setEmployeeList={setEmployeeList}
 						setError={setError}
@@ -42,6 +51,7 @@ const AdminPanel = () => {
 				</section>
 				<AdminDesktop
 					searchedUserData={searchedUserData}
+					searchedEmployeeData={searchedEmployeeData}
 					newEmployeeData={newEmployeeData}
 					newProfessionData={newProfessionData}
 					employeeList={employeeList}
