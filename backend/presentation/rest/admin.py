@@ -22,7 +22,7 @@ router = APIRouter(prefix="/admin", tags=["Administration"])
 @router.get("/employee/user", status_code=status.HTTP_200_OK)
 @transaction
 async def get_user_by_email(
-    _: Request, user_email: str, user=Depends(RoleRequired(UserRole.ADMIN))
+    _: Request, user_email: str, user_=Depends(RoleRequired(UserRole.ADMIN))
 ) -> Response[UserPublic]:
     """Obtaining user data for registration as an employee"""
 
@@ -39,7 +39,7 @@ async def get_user_by_email(
 async def employee_create(
     _: Request,
     schema: EmployeeCreateRequestBody,
-    user: User = Depends(RoleRequired(UserRole.ADMIN)),
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
 ):
     """Creates an addition to the user, as for an employee"""
 
@@ -66,14 +66,20 @@ async def employee_create(
 @transaction
 async def employee_get(
     _: Request,
-    employee_id: str,
-    user: User = Depends(RoleRequired(UserRole.ADMIN)),
+    employee_name: str,
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
 ) -> Response[EmployeePublic]:
     """Get current employee by id masked by name in frontend"""
 
-    employee_public: EmployeePublic = await EmployeeRepository().get(
-        key_="id", value_=employee_id
+    user: User = await UsersRepository().get(
+        key_="first_name", value_=employee_name
     )
+    user_public = UserPublic.from_orm(user)
+
+    employee: Employee = await EmployeeRepository().get(
+        key_="user_id", value_=user_public.id
+    )
+    employee_public = EmployeePublic.from_orm(employee)
 
     return Response[EmployeePublic](result=employee_public)
 
