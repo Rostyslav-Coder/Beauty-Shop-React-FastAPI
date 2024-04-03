@@ -19,9 +19,7 @@ __all__ = ("EmployeeRepository",)
 class EmployeeRepository(BaseRepository[EmployeesTable]):
     schema_class = EmployeesTable
 
-    async def all(
-        self, skip_: int = 0, limit_: int = 10
-    ) -> list[EmployeeUnexpanded]:
+    async def all(self, skip_: int = 0, limit_: int = 10) -> list[Employee]:
         query = (
             select(self.schema_class)
             .options(joinedload(EmployeesTable.user))
@@ -32,9 +30,7 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
         result: Result = await self.execute(query)
         if not (_result := result.scalars().all()):
             raise NotFoundError
-        employees = [
-            EmployeeUnexpanded.from_orm(employee) for employee in _result
-        ]
+        employees = [Employee.from_orm(employee) for employee in _result]
         return employees
 
     async def _all_by(

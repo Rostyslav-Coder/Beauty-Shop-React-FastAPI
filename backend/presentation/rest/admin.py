@@ -91,14 +91,17 @@ async def employee_get_all(
     skip: int,
     limit: int,
     user: User = Depends(RoleRequired(UserRole.ADMIN)),
-) -> ResponseMulti[list[EmployeePublic]]:
+) -> ResponseMulti[EmployeePublic]:
     """Get all employees"""
 
-    user_employees: list[EmployeePublic] = await EmployeeRepository().all(
+    employees: list[EmployeePublic] = await EmployeeRepository().all(
         skip_=skip, limit_=limit
     )
+    employees_public = [
+        EmployeePublic.from_orm(employee) for employee in employees
+    ]
 
-    return ResponseMulti[list[EmployeePublic]](result=user_employees)
+    return ResponseMulti[EmployeePublic](result=employees_public)
 
 
 @router.get("/employee/profession", status_code=status.HTTP_200_OK)
