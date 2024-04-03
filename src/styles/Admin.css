@@ -18,7 +18,7 @@
 .admin__tools {
 	width: 25%;
 	padding: 1rem 2rem;
-	min-height: calc(100vh - 2rem);
+	margin-bottom: auto;
 	border: 1px solid #09C4BD;
 }
 
@@ -36,6 +36,7 @@
 .admin__tools select,
 .admin__tools button {
 	width: 100%;
+	border: none;
 }
 
 .admin__tools button {
@@ -45,4 +46,39 @@
 .adminDesktop {
 	width: 75%;
 	min-height: calc(100vh - 2rem);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.adminDesktop .admin__data {
+	width: 80%;
+	border: 1px solid #09C4BD;
+}
+
+.adminDesktop h2 {
+	color: #09C4BD;
+}
+
+.adminDesktop table {
+	width: 100%;
+	border-top: 1px solid #09C4BD;
+}
+
+.adminDesktop table tr:nth-child(odd) {
+	background-color: #363636;
+}
+
+.adminDesktop table th:nth-child(odd) {
+	width: 35%;
+	text-align: left;
+	padding: 0.25rem 1rem;
+}
+
+.adminDesktop table th:nth-child(even) {
+	width: 65%;
+	text-align: right;
+	padding: 0.25rem 1rem;
 }

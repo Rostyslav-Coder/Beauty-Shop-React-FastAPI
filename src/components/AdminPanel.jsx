@@ -14,6 +14,8 @@ const AdminPanel = () => {
 	const [searchedUserData, setSearchedUserData] = useState(null);
 	const [newEmployeeData, setNewEmployeeData] = useState(null);
 	const [newProfessionData, setNewProfessionData] = useState(null);
+	const [employeeList, setEmployeeList] = useState([]);
+	const [error, setError] = useState(null);
 	const user = JSON.parse(localStorage.getItem('user'));
 	const adminName = user.firstName ? user.firstName : user.email;
 
@@ -27,7 +29,10 @@ const AdminPanel = () => {
 						setSearchedUserEmail={setSearchedUserEmail}
 						setSearchedUserData={setSearchedUserData}
 					/>
-					<EmployeeListByProfession />
+					<EmployeeListByProfession
+						setEmployeeList={setEmployeeList}
+						setError={setError}
+					/>
 					<EmployeeCreator
 						setNewEmployeeData={setNewEmployeeData}
 					/>
@@ -39,6 +44,8 @@ const AdminPanel = () => {
 					searchedUserData={searchedUserData}
 					newEmployeeData={newEmployeeData}
 					newProfessionData={newProfessionData}
+					employeeList={employeeList}
+					error={error}
 				/>
 			</div>
 		</section>

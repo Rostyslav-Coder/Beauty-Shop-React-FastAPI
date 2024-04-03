@@ -53,7 +53,7 @@ const EmployeeCreator = ({ setNewEmployeeData }) => {
 
 	return (
 		<div>
-			<h2>Create New Employee</h2>
+			<h2>Add New Employee</h2>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor='userId'>
 					Add User ID:

@@ -4,59 +4,57 @@ import PropTypes from 'prop-types';
 
 
 const AdminDesktop = (
-	{ searchedUserData, newEmployeeData, newProfessionData }
+	{ searchedUserData, newEmployeeData, newProfessionData, employeeList, error }
 ) => {
 	return (
-		<section className="adminDesktop">
+		<section className='adminDesktop'>
 			{searchedUserData && (
-				<div>
+				<div className='admin__data'>
 					<h2>User Data:</h2>
 					<table>
-						<caption>User Data</caption>
+						{searchedUserData.id && (
+							<tr>
+								<th>User ID:</th>
+								<th>{searchedUserData.id}</th>
+							</tr>
+						)}
+						{searchedUserData.firstName && (
+							<tr>
+								<th>User First Name:</th>
+								<th>{searchedUserData.firstName}</th>
+							</tr>
+						)}
+						{searchedUserData.lastName && (
+							<tr>
+								<th>User Last Name:</th>
+								<th>{searchedUserData.lastName}</th>
+							</tr>
+						)}
+						{searchedUserData.email && (
+							<tr>
+								<th>User Email:</th>
+								<th>{searchedUserData.email}</th>
+							</tr>
+						)}
+						{searchedUserData.phoneNumber && (
+							<tr>
+								<th>User Phone Number:</th>
+								<th>{searchedUserData.phoneNumber}</th>
+							</tr>
+						)}
+						{searchedUserData.role && (
+							<tr>
+								<th>User Role:</th>
+								<th>{searchedUserData.role}</th>
+							</tr>
+						)}
 					</table>
-					{searchedUserData.id && (
-						<tr>
-							<th>User ID:</th>
-							<th>{searchedUserData.id}</th>
-						</tr>
-					)}
-					{searchedUserData.firstName && (
-						<tr>
-							<th>User First Name:</th>
-							<th>{searchedUserData.firstName}</th>
-						</tr>
-					)}
-					{searchedUserData.lastName && (
-						<tr>
-							<th>User Last Name:</th>
-							<th>{searchedUserData.lastName}</th>
-						</tr>
-					)}
-					{searchedUserData.email && (
-						<tr>
-							<th>User Email:</th>
-							<th>{searchedUserData.email}</th>
-						</tr>
-					)}
-					{searchedUserData.phoneNumber && (
-						<tr>
-							<th>User Phone Number:</th>
-							<th>{searchedUserData.phoneNumber}</th>
-						</tr>
-					)}
-					{searchedUserData.role && (
-						<tr>
-							<th>User Role:</th>
-							<th>{searchedUserData.role}</th>
-						</tr>
-					)}
 				</div>
 			)}
 			{newEmployeeData && (
-				<div>
+				<div className='admin__data'>
 					<h2>Created Employee Data:</h2>
 					<table>
-						<caption>Created Employee Data</caption>
 						{newEmployeeData.id && (
 							<tr>
 								<th>Employee ID:</th>
@@ -138,8 +136,51 @@ const AdminDesktop = (
 					</table>
 				</div>
 			)}
+			{employeeList.length > 0 && (
+				<div className='admin__data'>
+					<h2>Employee with Professon: {employeeList[0].profession.profession}</h2>
+					{employeeList.map((employee, index) => {
+						return (
+							<table key={`table${index}`}>
+								<tr key={`firstName${index}`}>
+									<th>First Name</th>
+									<th>{employee.user.firstName}</th>
+								</tr>
+								<tr key={`lastName${index}`}>
+									<th>Last Name</th>
+									<th>{employee.user.lastName}</th>
+								</tr>
+								<tr key={`email${index}`}>
+									<th>Email</th>
+									<th>{employee.user.email}</th>
+								</tr>
+								<tr key={`phoneNumber${index}`}>
+									<th>Phone Number</th>
+									<th>{employee.user.phoneNumber}</th>
+								</tr>
+								<tr key={`workingDays${index}`}>
+									<th>Working Days</th>
+									<th>{employee.workingDays}</th>
+								</tr>
+								<tr key={`workingSift${index}`}>
+									<th>Working Shift</th>
+									<th>{employee.workingShift}</th>
+								</tr>
+								<tr key={`employeeId${index}`}>
+									<th>Employee Id</th>
+									<th>{employee.id}</th>
+								</tr>
+								<tr key={`userId${index}`}>
+									<th>User Id</th>
+									<th>{employee.user.id}</th>
+								</tr>
+							</table>
+						)
+					})}
+				</div>
+			)}
 			{newProfessionData && (
-				<div>
+				<div className='admin__data'>
 					<h2>Created Profession Data:</h2>
 					{newProfessionData.profession && (
 						<p>New Profession: {newProfessionData.profession}</p>
@@ -149,6 +190,7 @@ const AdminDesktop = (
 					)}
 				</div>
 			)}
+			{error && <p>{error}</p>}
 		</section>
 	);
 };
@@ -157,6 +199,8 @@ AdminDesktop.propTypes = {
 	searchedUserData: PropTypes.object,
 	newEmployeeData: PropTypes.object,
 	newProfessionData: PropTypes.object,
+	employeeList: PropTypes.array,
+	error: PropTypes.string,
 };
 
 export default AdminDesktop;

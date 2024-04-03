@@ -30,7 +30,7 @@ const UserEmailSearch = ({ searchedUserEmail, setSearchedUserEmail, setSearchedU
 
 	return (
 		<div className='adminGetUserEmployees'>
-			<h2>Get User Info By Email</h2>
+			<h2>Get User Info</h2>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor='email'>
 					Add User Email:

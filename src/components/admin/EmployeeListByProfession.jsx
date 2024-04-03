@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import ProfessionSelect from '../official/ProfessionSelect';
 
 
-const EmployeeListByProfession = () => {
+const EmployeeListByProfession = ({ setEmployeeList, setError }) => {
 	const [selectedProfession, setSelectedProfession] = useState('');
-	const [employeeList, setEmployeeList] = useState([]);
-	const [error, setError] = useState(null);
 	const [start, setStart] = useState(0);
 	const [count, setCount] = useState(10);
 
@@ -48,57 +47,18 @@ const EmployeeListByProfession = () => {
 
 	return (
 		<div>
-			<h2>Get Employees By Professin</h2>
+			<h2>Get Employees Info</h2>
 			<form onSubmit={handleSubmit}>
 				<ProfessionSelect setProfession={setSelectedProfession} />
 				<button type='submit'>{start === 0 ? 'Get All Employees' : 'Next'}</button>
 			</form>
-			{error && <p>{error}</p>}
-			{employeeList.length > 0 && (
-				<div>
-					<h2>Employee with Professon: {employeeList[0].profession.profession}</h2>
-					{employeeList.map((employee, index) => {
-						return (
-							<table key={`table${index}`}>
-								<tr key={`firstName${index}`}>
-									<th>First Name</th>
-									<th>{employee.user.firstName}</th>
-								</tr>
-								<tr key={`lastName${index}`}>
-									<th>Last Name</th>
-									<th>{employee.user.lastName}</th>
-								</tr>
-								<tr key={`email${index}`}>
-									<th>Email</th>
-									<th>{employee.user.email}</th>
-								</tr>
-								<tr key={`phoneNumber${index}`}>
-									<th>Phone Number</th>
-									<th>{employee.user.phoneNumber}</th>
-								</tr>
-								<tr key={`workingDays${index}`}>
-									<th>Working Days</th>
-									<th>{employee.workingDays}</th>
-								</tr>
-								<tr key={`workingSift${index}`}>
-									<th>Working Sift</th>
-									<th>{employee.workingShift}</th>
-								</tr>
-								<tr key={`employeeId${index}`}>
-									<th>Employee Id</th>
-									<th>{employee.id}</th>
-								</tr>
-								<tr key={`userId${index}`}>
-									<th>User Id</th>
-									<th>{employee.user.id}</th>
-								</tr>
-							</table>
-						)
-					})}
-				</div>
-			)}
 		</div>
-	)
+	);
+};
+
+EmployeeListByProfession.propTypes = {
+	setEmployeeList: PropTypes.func,
+	setError: PropTypes.func,
 };
 
 export default EmployeeListByProfession;
