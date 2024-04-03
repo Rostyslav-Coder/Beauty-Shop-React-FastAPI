@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 import ProfessionSelect from '../official/ProfessionSelect';
 
 
-const EmployeeListByProfession = ({ setEmployeeList, setError }) => {
+const EmployeeListByProfession = ({ setEmployeeListProf, setError }) => {
 	const [selectedProfession, setSelectedProfession] = useState('');
 	const [start, setStart] = useState(0);
-	const [count, setCount] = useState(10);
+	const [count, setCount] = useState(3);
 
 	useEffect(() => {
 		setStart(0);
-		setCount(10);
+		setCount(3);
 	}, [selectedProfession]);
 
 	const handleSubmit = async (e) => {
@@ -33,13 +33,13 @@ const EmployeeListByProfession = ({ setEmployeeList, setError }) => {
 				url: BASE_URL + REQUEST_URL + request,
 				headers: auth,
 			});
-			setEmployeeList(response.data.result);
+			setEmployeeListProf(response.data.result);
 			setError(null);
-			setStart(start + 10);
-			setCount(count + 10);
+			setStart(start + 3);
+			setCount(count + 3);
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
-				setError('Unauthorized request')
+				setError('Unauthorized request');
 			} else if (error.response && error.response.status === 404) {
 				setError('There are no more employees');
 			} else {
@@ -60,7 +60,7 @@ const EmployeeListByProfession = ({ setEmployeeList, setError }) => {
 };
 
 EmployeeListByProfession.propTypes = {
-	setEmployeeList: PropTypes.func,
+	setEmployeeListProf: PropTypes.func,
 	setError: PropTypes.func,
 };
 

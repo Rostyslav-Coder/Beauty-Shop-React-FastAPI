@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 
 
 const AdminDesktop = (
-	{ searchedUserData, searchedEmployeeData, newEmployeeData, newProfessionData, employeeList, error }
+	{ searchedUserData,
+		searchedEmployeeData,
+		newEmployeeData,
+		newProfessionData,
+		employeeListProf,
+		employeeListAll,
+		error
+	}
 ) => {
 	return (
 		<section className='adminDesktop'>
@@ -191,10 +198,53 @@ const AdminDesktop = (
 					</table>
 				</div>
 			)}
-			{employeeList.length > 0 && (
+			{employeeListAll.length > 0 && (
 				<div className='admin__data'>
-					<h2>Employee with Professon: {employeeList[0].profession.profession}</h2>
-					{employeeList.map((employee, index) => {
+					<h2>Employees</h2>
+					{employeeListAll.map((employee, index) => {
+						return (
+							<table key={`table${index}`}>
+								<tr key={`firstName${index}`}>
+									<th>First Name</th>
+									<th>{employee.user.firstName}</th>
+								</tr>
+								<tr key={`lastName${index}`}>
+									<th>Last Name</th>
+									<th>{employee.user.lastName}</th>
+								</tr>
+								<tr key={`email${index}`}>
+									<th>Email</th>
+									<th>{employee.user.email}</th>
+								</tr>
+								<tr key={`phoneNumber${index}`}>
+									<th>Phone Number</th>
+									<th>{employee.user.phoneNumber}</th>
+								</tr>
+								<tr key={`workingDays${index}`}>
+									<th>Working Days</th>
+									<th>{employee.workingDays}</th>
+								</tr>
+								<tr key={`workingSift${index}`}>
+									<th>Working Shift</th>
+									<th>{employee.workingShift}</th>
+								</tr>
+								<tr key={`employeeId${index}`}>
+									<th>Employee Id</th>
+									<th>{employee.id}</th>
+								</tr>
+								<tr key={`userId${index}`}>
+									<th>User Id</th>
+									<th>{employee.user.id}</th>
+								</tr>
+							</table>
+						)
+					})}
+				</div>
+			)}
+			{employeeListProf.length > 0 && (
+				<div className='admin__data'>
+					<h2>Employee with Professon: {employeeListProf[0].profession.profession}</h2>
+					{employeeListProf.map((employee, index) => {
 						return (
 							<table key={`table${index}`}>
 								<tr key={`firstName${index}`}>
@@ -256,7 +306,8 @@ AdminDesktop.propTypes = {
 	searchedEmployeeData: PropTypes.object,
 	newEmployeeData: PropTypes.object,
 	newProfessionData: PropTypes.object,
-	employeeList: PropTypes.array,
+	employeeListProf: PropTypes.array,
+	employeeListAll: PropTypes.array,
 	error: PropTypes.string,
 };
 

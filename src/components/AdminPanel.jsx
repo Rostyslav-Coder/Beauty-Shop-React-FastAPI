@@ -4,6 +4,7 @@ import { useState } from 'react';
 import AdminDesktop from './admin/AdminDesktop';
 import EmployeeNameSearch from './admin/EmployeeNameSearch';
 import EmployeeCreator from './admin/EmployeeCreator';
+import EmployeeListAll from './admin/EmployeeListAll';
 import EmployeeListByProfession from './admin/EmployeeListByProfession';
 import ProfessionManager from './admin/ProfessionManager';
 import UserEmailSearch from './admin/UserEmailSearch';
@@ -17,7 +18,8 @@ const AdminPanel = () => {
 	const [searchedEmployeeData, setSearchedEmployeeData] = useState(null);
 	const [newEmployeeData, setNewEmployeeData] = useState(null);
 	const [newProfessionData, setNewProfessionData] = useState(null);
-	const [employeeList, setEmployeeList] = useState([]);
+	const [employeeListAll, setEmployeeListAll] = useState([]);
+	const [employeeListProf, setEmployeeListProf] = useState([]);
 	const [error, setError] = useState(null);
 	const user = JSON.parse(localStorage.getItem('user'));
 	const adminName = user.firstName ? user.firstName : user.email;
@@ -39,8 +41,12 @@ const AdminPanel = () => {
 						setSearchedEmployeeData={setSearchedEmployeeData}
 						setError={setError}
 					/>
+					<EmployeeListAll
+						setEmployeeListAll={setEmployeeListAll}
+						setError={setError}
+					/>
 					<EmployeeListByProfession
-						setEmployeeList={setEmployeeList}
+						setEmployeeListProf={setEmployeeListProf}
 						setError={setError}
 					/>
 					<EmployeeCreator
@@ -57,7 +63,8 @@ const AdminPanel = () => {
 					searchedEmployeeData={searchedEmployeeData}
 					newEmployeeData={newEmployeeData}
 					newProfessionData={newProfessionData}
-					employeeList={employeeList}
+					employeeListProf={employeeListProf}
+					employeeListAll={employeeListAll}
 					error={error}
 				/>
 			</div>
