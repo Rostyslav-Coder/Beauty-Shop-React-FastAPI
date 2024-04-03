@@ -25,7 +25,6 @@ const EmployeeNameSearch = (
 		const auth = { 'Authorization': `Bearer ${token}`, };
 		let request = `?employee_name=${searchedEmployeeName}`;
 
-		console.log(BASE_URL + REQUEST_URL + request)
 		try {
 			const response = await axios({
 				method: 'get',
@@ -33,7 +32,6 @@ const EmployeeNameSearch = (
 				headers: auth,
 			});
 			setSearchedEmployeeData(response.data.result);
-			console.log('response.data.result:', response.data.result);
 			setError(null);
 		} catch (error) {
 			if (error.response && error.response.status === 401) {

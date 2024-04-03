@@ -19,25 +19,28 @@ const EmployeeListByProfession = ({ setEmployeeList, setError }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+		const REQUEST_URL = '/admin/employee/profession';
 		const token = localStorage.getItem('token');
-		let reques = (
+		const auth = { 'Authorization': `Bearer ${token}`, };
+		let request = (
 			`?skip=${start}&limit=${count}&profession_id=${selectedProfession}`
 		);
 
 		try {
 			const response = await axios({
 				method: 'get',
-				url: `http://127.0.0.1:8000/admin/employee/profession${reques}`,
-				headers: {
-					'Authorization': `Bearer ${token}`,
-				},
+				url: BASE_URL + REQUEST_URL + request,
+				headers: auth,
 			});
 			setEmployeeList(response.data.result);
 			setError(null);
 			setStart(start + 10);
 			setCount(count + 10);
 		} catch (error) {
-			if (error.response && error.response.status === 404) {
+			if (error.response && error.response.status === 401) {
+				setError('Unauthorized request')
+			} else if (error.response && error.response.status === 404) {
 				setError('There are no more employees');
 			} else {
 				setError('An error occurred while receiving data');

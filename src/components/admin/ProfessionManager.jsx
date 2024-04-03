@@ -5,7 +5,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 
-const ProfessionManager = ({ setNewProfessionData }) => {
+const ProfessionManager = ({ setNewProfessionData, setError }) => {
 	const [profession, setProfession] = useState('');
 	const [description, setDescription] = useState('');
 
@@ -20,8 +20,14 @@ const ProfessionManager = ({ setNewProfessionData }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+		const REQUEST_URL = '/profession/add';
 		const token = localStorage.getItem('token');
-		const shema = {
+		const auth = {
+			'Authorization': `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		};
+		const schema = {
 			profession: profession,
 			description: description,
 		}
@@ -29,16 +35,18 @@ const ProfessionManager = ({ setNewProfessionData }) => {
 		try {
 			const response = await axios({
 				method: 'post',
-				url: 'http://127.0.0.1:8000/profession/add',
-				data: shema,
-				headers: {
-					'Authorization': `Bearer ${token}`,
-					'Content-Type': 'application/json',
-				}
-			})
+				url: BASE_URL + REQUEST_URL,
+				data: schema,
+				headers: auth,
+			});
 			setNewProfessionData(response.data.result);
+			setError(null);
 		} catch (error) {
-			console.log(error);
+			if (error.response && error.response.status === 401) {
+				setError('Unauthorized request')
+			} else {
+				setError('An error occurred while receiving data');
+			}
 		}
 	};
 
@@ -73,6 +81,7 @@ const ProfessionManager = ({ setNewProfessionData }) => {
 
 ProfessionManager.propTypes = {
 	setNewProfessionData: PropTypes.func,
+	setError: PropTypes.func,
 };
 
 export default ProfessionManager;

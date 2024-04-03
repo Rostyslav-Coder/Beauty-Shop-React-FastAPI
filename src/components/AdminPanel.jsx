@@ -31,6 +31,7 @@ const AdminPanel = () => {
 						searchedUserEmail={searchedUserEmail}
 						setSearchedUserEmail={setSearchedUserEmail}
 						setSearchedUserData={setSearchedUserData}
+						setError={setError}
 					/>
 					<EmployeeNameSearch
 						searchedEmployeeName={searchedEmployeeName}
@@ -44,9 +45,11 @@ const AdminPanel = () => {
 					/>
 					<EmployeeCreator
 						setNewEmployeeData={setNewEmployeeData}
+						setError={setError}
 					/>
 					<ProfessionManager
 						setNewProfessionData={setNewProfessionData}
+						setError={setError}
 					/>
 				</section>
 				<AdminDesktop

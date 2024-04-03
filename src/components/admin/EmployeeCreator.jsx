@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import ProfessionSelect from '../official/ProfessionSelect';
 
 
-const EmployeeCreator = ({ setNewEmployeeData }) => {
+const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 	const [newEmployeeId, setNewEmployeeId] = useState('');
 	const [newEmployeeProfession, setNewEmployeeProfession] = useState('');
 	const [newEmployeeWorkingDays, setNewEmployeeWorkingDays] = useState('');
@@ -27,27 +27,36 @@ const EmployeeCreator = ({ setNewEmployeeData }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+		const REQUEST_URL = '/admin/employee/create';
 		const token = localStorage.getItem('token');
+		const auth = {
+			'Authorization': `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		};
 		const schema = {
 			user_id: newEmployeeId,
 			profession_id: newEmployeeProfession,
 			working_days: newEmployeeWorkingDays,
 			working_shift: newEmployeeWorkingShift,
-		}
+		};
 
 		try {
 			const response = await axios({
 				method: 'post',
-				url: 'http://127.0.0.1:8000/admin/employee/create',
+				url: BASE_URL + REQUEST_URL,
 				data: schema,
-				headers: {
-					'Authorization': `Bearer ${token}`,
-					'Content-Type': 'application/json',
-				}
-			})
+				headers: auth,
+			});
+			console.log('response.data.result: ', response.data.result)
 			setNewEmployeeData(response.data.result);
+			setError(null);
 		} catch (error) {
-			console.log(error);
+			if (error.response && error.response.status === 401) {
+				setError('Unauthorized request')
+			} else {
+				setError('An error occurred while receiving data');
+			}
 		}
 	};
 
@@ -99,6 +108,7 @@ const EmployeeCreator = ({ setNewEmployeeData }) => {
 
 EmployeeCreator.propTypes = {
 	setNewEmployeeData: PropTypes.func,
+	setError: PropTypes.func,
 };
 
 export default EmployeeCreator;
