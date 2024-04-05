@@ -16,28 +16,6 @@ from backend.infrastructure.models import Response, ResponseMulti
 router = APIRouter(prefix="/admin", tags=["Administration"])
 
 
-@router.get("/employee/get", status_code=status.HTTP_200_OK)
-@transaction
-async def employee_get(
-    _: Request,
-    employee_name: str,
-    user_=Depends(RoleRequired(UserRole.ADMIN)),
-) -> Response[EmployeePublic]:
-    """Get current employee by id masked by name in frontend"""
-
-    user: User = await UsersRepository().get(
-        key_="first_name", value_=employee_name
-    )
-    user_public = UserPublic.from_orm(user)
-
-    employee: Employee = await EmployeeRepository().get(
-        key_="user_id", value_=user_public.id
-    )
-    employee_public = EmployeePublic.from_orm(employee)
-
-    return Response[EmployeePublic](result=employee_public)
-
-
 @router.get("/employee/all", status_code=status.HTTP_200_OK)
 @transaction
 async def employee_get_all(

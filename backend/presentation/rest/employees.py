@@ -12,13 +12,14 @@ from backend.domain.employees import (
     EmployeeUncommited,
     EmployeeUnexpanded,
 )
-from backend.domain.users import User, UsersRepository
+from backend.domain.users import User, UserPublic, UsersRepository
 from backend.infrastructure.database import transaction
 from backend.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
 
+# Updated function
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 @transaction
 async def employee_create(
@@ -43,6 +44,29 @@ async def employee_create(
         key_="id", value_=employee.id
     )
     employee_public = EmployeePublic.from_orm(employee_full)
+
+    return Response[EmployeePublic](result=employee_public)
+
+
+# Updated function
+@router.get("/get", status_code=status.HTTP_200_OK)
+@transaction
+async def employee_get(
+    _: Request,
+    employee_name: str,
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
+) -> Response[EmployeePublic]:
+    """Get current employee by id"""
+
+    user: User = await UsersRepository().get(
+        key_="first_name", value_=employee_name
+    )
+    user_public = UserPublic.from_orm(user)
+
+    employee: Employee = await EmployeeRepository().get(
+        key_="user_id", value_=user_public.id
+    )
+    employee_public = EmployeePublic.from_orm(employee)
 
     return Response[EmployeePublic](result=employee_public)
 
@@ -79,24 +103,6 @@ async def employee_update_shift(
     payload = {"working_shift": new_shift}
     employee: Employee = await EmployeeRepository().update(
         key_="user_id", value_=user.id, payload_=payload
-    )
-    employee_public = EmployeePublic.from_orm(employee)
-
-    return Response[EmployeePublic](result=employee_public)
-
-
-@router.get("/get", status_code=status.HTTP_200_OK)
-@transaction
-async def employee_get(
-    _: Request,
-    employee_id: int,
-    user_=Depends(get_current_user),  # pylint: disable=W0613
-) -> Response[EmployeePublic]:
-    """Get employee with user data, full model"""
-
-    # Get employee from database
-    employee: Employee = await EmployeeRepository().get(
-        key_="id", value_=employee_id
     )
     employee_public = EmployeePublic.from_orm(employee)
 
