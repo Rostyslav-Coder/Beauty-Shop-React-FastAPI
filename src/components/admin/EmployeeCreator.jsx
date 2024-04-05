@@ -1,9 +1,9 @@
 // ============ EMPLOYEE-CREATOR COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import ProfessionSelect from '../official/ProfessionSelect';
+import sendRequest from '../../request/request';
 
 
 const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
@@ -27,13 +27,7 @@ const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-		const REQUEST_URL = '/admin/employee/create';
-		const token = localStorage.getItem('token');
-		const auth = {
-			'Authorization': `Bearer ${token}`,
-			'Content-Type': 'application/json',
-		};
+		const REQUEST_URL = '/employees/create';
 		const schema = {
 			user_id: newEmployeeId,
 			profession_id: newEmployeeProfession,
@@ -42,20 +36,15 @@ const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 		};
 
 		try {
-			const response = await axios({
-				method: 'post',
-				url: BASE_URL + REQUEST_URL,
-				data: schema,
-				headers: auth,
-			});
-			setNewEmployeeData(response.data.result);
-			setError(null);
-		} catch (error) {
-			if (error.response && error.response.status === 401) {
-				setError('Unauthorized request')
+			const result = await sendRequest('post', REQUEST_URL, schema);
+			if (result.error) {
+				setError(result.error)
 			} else {
-				setError('An error occurred while receiving data');
+				setNewEmployeeData(result.result);
+				setError(null);
 			}
+		} catch (error) {
+			setError(error);
 		}
 	};
 
