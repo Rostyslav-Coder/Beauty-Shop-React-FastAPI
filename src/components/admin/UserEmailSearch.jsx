@@ -30,7 +30,7 @@ const UserEmailSearch = (
 				setError(null);
 			}
 		} catch (error) {
-			setError('User is not found');
+			setError(error);
 		}
 	};
 
