@@ -3,7 +3,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
 SQLAlchemy = {version = "~=2.0", extras=["asyncio", "mypy"]}
 aiosqlite = "~=0.19"
@@ -13,13 +12,11 @@ greenlet = "~=2.0" # required by SQLAlchemy: https://docs.sqlalchemy.org/en/20/o
 gunicorn = "~=20.1"
 loguru = "~=0.6"
 numpy = "~=1.26.0"
-passlib = "~=1.7"
+types-passlib = "~=1.7"
 pydantic = {version = "~=1.10", extras=["dotenv"]}
-python-jose = {version = "~=3.3", extras = ["cryptography"]}
+types-python-jose = {version = "~=3.3", extras = ["cryptography"]}
 uvicorn = "~=0.21.0"
 websockets = "~=11.0"
-
-
 
 [dev-packages]
 black = "~=23.1"
@@ -38,7 +35,6 @@ ruff = "~=0.0.261"
 sqlalchemy-stubs = "~=0.4"
 types-passlib = "~=1.7"
 types-python-jose = "~=3.3"
-
 
 [requires]
 python_version = "3.11"
