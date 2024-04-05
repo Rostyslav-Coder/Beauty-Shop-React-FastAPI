@@ -90,7 +90,7 @@ async def employee_get_all(
     _: Request,
     skip: int,
     limit: int,
-    user: User = Depends(RoleRequired(UserRole.ADMIN)),
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
 ) -> ResponseMulti[EmployeePublic]:
     """Get all employees"""
 
@@ -111,7 +111,7 @@ async def employee_profession(
     skip: int,
     limit: int,
     profession_id: str,
-    user: User = Depends(RoleRequired(UserRole.ADMIN)),
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
 ) -> ResponseMulti[EmployeePublic]:
     """Get all employees by profession"""
 
@@ -129,25 +129,27 @@ async def employee_profession(
     return ResponseMulti[EmployeePublic](result=employees_public)
 
 
-@router.put("/emplotee/delate", status_code=status.HTTP_202_ACCEPTED)
+@router.put("/employee/delete", status_code=status.HTTP_202_ACCEPTED)
 @transaction
 async def employee_delete(
     _: Request,
-    user_employee_id: str,
-    user: User = Depends(RoleRequired(UserRole.ADMIN)),
+    employee_id: str,
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
 ) -> Response[UserPublic]:
     """Update employee to user"""
 
-    raw_employee: Employee = await EmployeeRepository().update(
-        key_="id", value_=user_employee_id, payload_={"is_active": False}
+    payload = {"role": UserRole.USER}
+    employee: Employee = await EmployeeRepository().update(
+        key_="id", value_=employee_id, payload_=payload
     )
-
-    raw_user: User = await UsersRepository().update(
+    print(employee)
+    payload = {"is_active": employee_id}
+    user: User = await UsersRepository().update(
         key_="id",
-        value_=raw_employee.user_id,
-        payload_={"role": UserRole.USER},
+        value_=employee.user_id,
+        payload_=payload,
     )
-
-    user: UserPublic = User.from_orm(raw_user)
-
-    return Response[UserPublic](result=user)
+    print(user)
+    user_public = UserPublic.from_orm(user)
+    print(user_public)
+    return Response[UserPublic](result=user_public)

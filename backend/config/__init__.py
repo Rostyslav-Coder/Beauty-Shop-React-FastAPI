@@ -12,7 +12,6 @@ load_dotenv()
 
 # Virtual environment variables
 # =====================================
-# Employees variables
 ADMIN_KEY = os.environ.get("ADMIN_KEY")
 
 
@@ -70,7 +69,7 @@ class AccessTokenSettings(BaseModel):
 
 class RefreshTokenSettings(BaseModel):
     secret_key: str = "invaliad"
-    ttl: int = 3600  # seconds
+    ttl: int = 86400  # seconds
 
 
 class AuthenticationSettings(BaseModel):

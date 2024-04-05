@@ -2,12 +2,9 @@
 
 from fastapi import APIRouter, Depends, Request, status
 
-from backend.application.authentication import (
-    create_access_token,
-    get_current_user,
-)
+from backend.application.authentication import get_current_user
 from backend.application.registration import registrationObserver
-from backend.config import pwd_context, settings
+from backend.config import pwd_context
 from backend.domain.users import (
     User,
     UserCreateRequestBody,
@@ -16,7 +13,7 @@ from backend.domain.users import (
     UserUncommited,
 )
 from backend.infrastructure.database import transaction
-from backend.infrastructure.models import Response  # ResponseMulti
+from backend.infrastructure.models import Response
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -26,8 +23,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
 async def user_create(
     _: Request,
     schema: UserCreateRequestBody,
-    # ) -> Response[UserPublic]:
-):
+) -> Response[UserPublic]:
     """Create new user."""
 
     # Password hashing
@@ -35,40 +31,27 @@ async def user_create(
     schema.password = hashed_password
 
     # Role definition
-    schema.last_name, role = registrationObserver(schema.last_name)
+    schema = registrationObserver(schema)
 
     # Save new user to the database
     user: User = await UsersRepository().create(
-        UserUncommited(**schema.dict(), role=role)
+        UserUncommited(**schema.dict())
     )
-
-    # Atomaticali logining the user
-    access_token = create_access_token(data={"sub": str(user.id)})
-    token = {
-        "access_token": access_token,
-        "token_type": settings.authentication.schema,
-    }
 
     user_public = UserPublic.from_orm(user)
 
-    # return Response[UserPublic](result=user_public)
-    return {
-        "user": user_public,
-        "token": token,
-        "token_type": settings.authentication.scheme,
-    }
+    return Response[UserPublic](result=user_public)
 
 
 @router.get("/me", status_code=status.HTTP_200_OK)
 @transaction
 async def user_me(
     _: Request,
-    current_user: User = Depends(get_current_user),
+    user: User = Depends(get_current_user),
 ) -> Response[UserPublic]:
     """Get current aythenticate user by JWT token"""
 
-    # Get user by JWT from database
-    user: User = await UsersRepository().get(key_="id", value_=current_user.id)
+    # Get user by JWT from ORM
     user_public = UserPublic.from_orm(user)
 
     return Response[UserPublic](result=user_public)

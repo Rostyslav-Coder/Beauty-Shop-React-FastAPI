@@ -44,7 +44,7 @@ async def employee_create(
 async def employee_update_days(
     _: Request,
     new_days: WorkingDays,
-    user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
+    user=Depends(RoleRequired(UserRole.EMPLOYEE)),
 ) -> Response[EmployeePublic]:
     """Update employees working days"""
 
@@ -63,7 +63,7 @@ async def employee_update_days(
 async def employee_update_shift(
     _: Request,
     new_shift: WorkingShift,
-    user: User = Depends(RoleRequired(UserRole.EMPLOYEE)),
+    user=Depends(RoleRequired(UserRole.EMPLOYEE)),
 ) -> Response[EmployeePublic]:
     """Update employees working shift"""
 
@@ -82,7 +82,7 @@ async def employee_update_shift(
 async def employee_get(
     _: Request,
     employee_id: int,
-    user: User = Depends(get_current_user),  # pylint: disable=W0613
+    user_=Depends(get_current_user),  # pylint: disable=W0613
 ) -> Response[EmployeePublic]:
     """Get employee with user data, full model"""
 

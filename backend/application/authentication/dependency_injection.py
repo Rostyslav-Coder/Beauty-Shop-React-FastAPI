@@ -17,18 +17,21 @@ from backend.infrastructure.errors import (
 )
 
 __all__ = (
-    "get_current_user",
     "create_access_token",
+    "create_refresh_token",
+    "get_current_user",
     "RoleRequired",
 )
 
 oauth2_oauth = OAuth2PasswordBearer(
-    tokenUrl="/auth/openapi",
+    tokenUrl="/auth/token",
     scheme_name=settings.authentication.scheme,
 )
 
 
-async def get_current_user(token: str = Depends(oauth2_oauth)) -> User:
+def decode_jwt(token: str) -> dict:
+    """Function to decode JWT and return payload"""
+
     try:
         payload = jwt.decode(
             token,
@@ -42,22 +45,14 @@ async def get_current_user(token: str = Depends(oauth2_oauth)) -> User:
     except (JWTError, ValidationError):
         raise AuthenticationError
 
-    user = await UsersRepository().get(key_="id", value_=token_payload.sub)
-
-    # TODO: Check if the token is in the blacklist
-
-    return user
+    return token_payload
 
 
-# TODO: Create token blacklist & Logout f-tion
+def encod_jwt(to_encode) -> str:
+    """Function to encode JWT"""
 
-
-def create_access_token(data: dict) -> str:
-    """function create & return access token"""
-
-    to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(
-        seconds=settings.authentication.access_token.ttl
+        seconds=settings.authentication.refresh_token.ttl
     )
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
@@ -65,7 +60,45 @@ def create_access_token(data: dict) -> str:
         settings.authentication.access_token.secret_key,
         algorithm=settings.authentication.algorithm,
     )
+
     return encoded_jwt
+
+
+def create_access_token(data: dict) -> str:
+    """function create & return access token"""
+
+    to_encode = data.copy()
+
+    encoded_jwt = encod_jwt(to_encode)
+
+    return encoded_jwt
+
+
+def create_refresh_token(data: dict) -> str:
+    """function create & return refresh token"""
+
+    to_encode = data.copy()
+
+    encoded_jwt = encod_jwt(to_encode)
+
+    return encoded_jwt
+
+
+async def get_current_user(token: str = Depends(oauth2_oauth)) -> User:
+    """Get current user from user token"""
+
+    token_payload = decode_jwt(token)
+
+    user: User = await UsersRepository().get(
+        key_="id", value_=token_payload.sub
+    )
+
+    # TODO: Check if the token is in the blacklist
+
+    return user
+
+
+# TODO: Create token blacklist & Logout f-tion
 
 
 class RoleRequired:
