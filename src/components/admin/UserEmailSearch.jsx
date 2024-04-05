@@ -1,8 +1,7 @@
 // ============ USER-EMAIL-SEARCH COMPONENT MODULE  ============ //
 
-import axios from 'axios';
 import PropTypes from 'prop-types';
-
+import sendRequest from '../../request/request';
 
 const UserEmailSearch = (
 	{
@@ -19,27 +18,19 @@ const UserEmailSearch = (
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-		const REQUEST_URL = '/admin/employee/user';
-		const token = localStorage.getItem('token');
-		const auth = { 'Authorization': `Bearer ${token}`, };
-
-		let request = `?user_email=${searchedUserEmail}`;
+		const REQUEST_URL = '/users/get_by_email';
+		const data = { user_email: searchedUserEmail };
 
 		try {
-			const response = await axios({
-				method: 'get',
-				url: BASE_URL + REQUEST_URL + request,
-				headers: auth,
-			});
-			setSearchedUserData(response.data.result);
-			setError(null);
-		} catch (error) {
-			if (error.response && error.response.status === 401) {
-				setError('Unauthorized request')
+			const result = await sendRequest('get', REQUEST_URL, data);
+			if (result.error) {
+				setError(result.error)
 			} else {
-				setError('An error occurred while receiving data');
+				setSearchedUserData(result.result);
+				setError(null);
 			}
+		} catch (error) {
+			setError('User is not found');
 		}
 	};
 

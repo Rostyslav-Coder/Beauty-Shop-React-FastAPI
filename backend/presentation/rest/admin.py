@@ -19,21 +19,6 @@ from backend.infrastructure.models import Response, ResponseMulti
 router = APIRouter(prefix="/admin", tags=["Administration"])
 
 
-@router.get("/employee/user", status_code=status.HTTP_200_OK)
-@transaction
-async def get_user_by_email(
-    _: Request, user_email: str, user_=Depends(RoleRequired(UserRole.ADMIN))
-) -> Response[UserPublic]:
-    """Obtaining user data for registration as an employee"""
-
-    found_user: User = await UsersRepository().get(
-        key_="email", value_=user_email
-    )
-    user_public = UserPublic.from_orm(found_user)
-
-    return Response[UserPublic](result=user_public)
-
-
 @router.post("/employee/create", status_code=status.HTTP_201_CREATED)
 @transaction
 async def employee_create(
