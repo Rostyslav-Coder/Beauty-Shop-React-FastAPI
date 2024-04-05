@@ -6,6 +6,7 @@ import EmployeeNameSearch from './admin/EmployeeNameSearch';
 import EmployeeCreator from './admin/EmployeeCreator';
 import EmployeeListAll from './admin/EmployeeListAll';
 import EmployeeListByProfession from './admin/EmployeeListByProfession';
+import EmployeeNotActive from './admin/EmployeeNotActive';
 import ProfessionManager from './admin/ProfessionManager';
 import UserEmailSearch from './admin/UserEmailSearch';
 import '../styles/Admin.css';
@@ -20,6 +21,7 @@ const AdminPanel = () => {
 	const [newProfessionData, setNewProfessionData] = useState(null);
 	const [employeeListAll, setEmployeeListAll] = useState([]);
 	const [employeeListProf, setEmployeeListProf] = useState([]);
+	const [formerEmployee, setFormerEmployee] = useState('');
 	const [error, setError] = useState(null);
 	const user = JSON.parse(localStorage.getItem('user'));
 	const adminName = user.firstName ? user.firstName : user.email;
@@ -53,6 +55,10 @@ const AdminPanel = () => {
 						setNewEmployeeData={setNewEmployeeData}
 						setError={setError}
 					/>
+					<EmployeeNotActive
+						setFormerEmployee={setFormerEmployee}
+						setError={setError}
+					/>
 					<ProfessionManager
 						setNewProfessionData={setNewProfessionData}
 						setError={setError}
@@ -65,6 +71,7 @@ const AdminPanel = () => {
 					newProfessionData={newProfessionData}
 					employeeListProf={employeeListProf}
 					employeeListAll={employeeListAll}
+					formerEmployee={formerEmployee}
 					error={error}
 				/>
 			</div>

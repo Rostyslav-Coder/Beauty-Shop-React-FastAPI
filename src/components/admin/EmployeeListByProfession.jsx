@@ -23,6 +23,7 @@ const EmployeeListByProfession = ({ setEmployeeListProf, setError }) => {
 		const REQUEST_URL = '/admin/employee/profession';
 		const token = localStorage.getItem('token');
 		const auth = { 'Authorization': `Bearer ${token}`, };
+
 		let request = (
 			`?skip=${start}&limit=${count}&profession_id=${selectedProfession}`
 		);

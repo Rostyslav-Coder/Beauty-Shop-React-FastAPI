@@ -27,19 +27,28 @@ const Authentication = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const dataToSend = new URLSearchParams();
-		dataToSend.append('username', formData.email);
-		dataToSend.append('password', formData.password);
-		console.log('auth dataToSend:', dataToSend)
+		const form_data = new URLSearchParams();
+		form_data.append('username', formData.email);
+		form_data.append('password', formData.password);
 
 		try {
 			const response = (
-				await axios.post('http://127.0.0.1:8000/auth/login', dataToSend)
+				await axios.post('http://127.0.0.1:8000/auth/token', form_data)
 			);
 			if (response.data) {
+				console.log('token: ', response.data.access_token);
 				localStorage.setItem('token', response.data.access_token);
-				localStorage.setItem('user', JSON.stringify(response.data.user));
-				localStorage.setItem('userRole', response.data.user.role);
+				const userResponse = await axios.get('http://127.0.0.1:8000/users/me', {
+					headers: {
+						Authorization: `Bearer ${response.data.access_token}`
+					}
+				});
+				if (userResponse.data) {
+					console.log('user :', JSON.stringify(userResponse.data.result));
+					localStorage.setItem('user', JSON.stringify(userResponse.data.result));
+					console.log('userRole :', userResponse.data.result.role);
+					localStorage.setItem('userRole', userResponse.data.result.role);
+				}
 				handleReset();
 			}
 		} catch (error) {

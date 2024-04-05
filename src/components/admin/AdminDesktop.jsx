@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 
 
 const AdminDesktop = (
-	{ searchedUserData,
-		searchedEmployeeData,
+	{
+		employeeListAll,
+		employeeListProf,
+		formerEmployee,
 		newEmployeeData,
 		newProfessionData,
-		employeeListProf,
-		employeeListAll,
+		searchedEmployeeData,
+		searchedUserData,
 		error
 	}
 ) => {
@@ -295,19 +297,62 @@ const AdminDesktop = (
 					)}
 				</div>
 			)}
-
+			{formerEmployee && (
+				<div className='admin__data'>
+					<h2>Dismissed Employee:</h2>
+					<table>
+						{formerEmployee.firstName && (
+							<tr>
+								<th>User First Name:</th>
+								<th>{formerEmployee.firstName}</th>
+							</tr>
+						)}
+						{formerEmployee.lastName && (
+							<tr>
+								<th>User Last Name:</th>
+								<th>{formerEmployee.lastName}</th>
+							</tr>
+						)}
+						{formerEmployee.email && (
+							<tr>
+								<th>User Email:</th>
+								<th>{formerEmployee.email}</th>
+							</tr>
+						)}
+						{formerEmployee.phoneNumber && (
+							<tr>
+								<th>User Phone Number:</th>
+								<th>{formerEmployee.phoneNumber}</th>
+							</tr>
+						)}
+						{formerEmployee.id && (
+							<tr>
+								<th>User ID:</th>
+								<th>{formerEmployee.id}</th>
+							</tr>
+						)}
+						{formerEmployee.role && (
+							<tr>
+								<th>User Role:</th>
+								<th>{formerEmployee.role}</th>
+							</tr>
+						)}
+					</table>
+				</div>
+			)}
 			{error && <p>{error}</p>}
 		</section>
 	);
 };
 
 AdminDesktop.propTypes = {
-	searchedUserData: PropTypes.object,
-	searchedEmployeeData: PropTypes.object,
+	employeeListAll: PropTypes.array,
+	employeeListProf: PropTypes.array,
+	formerEmployee: PropTypes.object,
 	newEmployeeData: PropTypes.object,
 	newProfessionData: PropTypes.object,
-	employeeListProf: PropTypes.array,
-	employeeListAll: PropTypes.array,
+	searchedEmployeeData: PropTypes.object,
+	searchedUserData: PropTypes.object,
 	error: PropTypes.string,
 };
 

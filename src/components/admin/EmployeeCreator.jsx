@@ -48,7 +48,6 @@ const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 				data: schema,
 				headers: auth,
 			});
-			console.log('response.data.result: ', response.data.result)
 			setNewEmployeeData(response.data.result);
 			setError(null);
 		} catch (error) {

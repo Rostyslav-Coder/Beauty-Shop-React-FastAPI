@@ -23,6 +23,7 @@ const EmployeeNameSearch = (
 		const REQUEST_URL = '/admin/employee/get';
 		const token = localStorage.getItem('token');
 		const auth = { 'Authorization': `Bearer ${token}`, };
+
 		let request = `?employee_name=${searchedEmployeeName}`;
 
 		try {

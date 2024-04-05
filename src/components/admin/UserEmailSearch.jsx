@@ -23,6 +23,7 @@ const UserEmailSearch = (
 		const REQUEST_URL = '/admin/employee/user';
 		const token = localStorage.getItem('token');
 		const auth = { 'Authorization': `Bearer ${token}`, };
+
 		let request = `?user_email=${searchedUserEmail}`;
 
 		try {
