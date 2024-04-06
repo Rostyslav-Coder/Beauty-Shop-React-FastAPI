@@ -20,6 +20,11 @@ async function sendRequest(method, url, data = null) {
 		url += '?' + new URLSearchParams(data).toString();
 	}
 
+	// If this is a PUT request and there is data, add it to the URL as request parameters
+	if (method === 'put' && data) {
+		url += '?' + new URLSearchParams(data).toString();
+	}
+
 	try {
 		const response = await axios({
 			method: method,

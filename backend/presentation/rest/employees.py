@@ -119,6 +119,35 @@ async def employees_get_by_profession(
     return ResponseMulti[EmployeePublic](result=employees_public)
 
 
+# Updated function
+@router.put("/delete", status_code=status.HTTP_202_ACCEPTED)
+@transaction
+async def employee_delete(
+    _: Request,
+    employee_id: str,
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
+) -> Response[UserPublic]:
+    """Update employee to user"""
+
+    print("+ employee_id: ", employee_id)
+    emp_payload = {"is_active": False}
+    print("+ emp_payload: ", emp_payload)
+    employee: Employee = await EmployeeRepository().update(
+        key_="id", value_=employee_id, payload_=emp_payload
+    )
+    print(employee)
+    usr_payload = {"role": UserRole.USER}
+    user: User = await UsersRepository().update(
+        key_="id",
+        value_=employee.user_id,
+        payload_=usr_payload,
+    )
+    print(user)
+    user_public = UserPublic.from_orm(user)
+    print(user_public)
+    return Response[UserPublic](result=user_public)
+
+
 @router.put("/update_days", status_code=status.HTTP_202_ACCEPTED)
 @transaction
 async def employee_update_days(

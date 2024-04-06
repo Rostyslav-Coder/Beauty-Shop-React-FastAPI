@@ -74,6 +74,16 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
         instance: EmployeesTable = await self._update(
             key=key_, value=value_, payload=payload_
         )
-        await self._session.refresh(instance)
+        # Create a select query with joinedload for the related models
+        stmt = (
+            select(self.schema_class)
+            .options(joinedload(EmployeesTable.user))
+            .options(joinedload(EmployeesTable.profession))
+            .where(getattr(self.schema_class, key_) == value_)
+        )
+        # Execute the query
+        result = await self._session.execute(stmt)
+        # Get the first result
+        instance = result.scalars().first()
         employee = Employee.from_orm(instance)
         return employee
