@@ -16,26 +16,6 @@ from backend.infrastructure.models import Response, ResponseMulti
 router = APIRouter(prefix="/admin", tags=["Administration"])
 
 
-@router.get("/employee/all", status_code=status.HTTP_200_OK)
-@transaction
-async def employee_get_all(
-    _: Request,
-    skip: int,
-    limit: int,
-    user_=Depends(RoleRequired(UserRole.ADMIN)),
-) -> ResponseMulti[EmployeePublic]:
-    """Get all employees"""
-
-    employees: list[EmployeePublic] = await EmployeeRepository().all(
-        skip_=skip, limit_=limit
-    )
-    employees_public = [
-        EmployeePublic.from_orm(employee) for employee in employees
-    ]
-
-    return ResponseMulti[EmployeePublic](result=employees_public)
-
-
 @router.get("/employee/profession", status_code=status.HTTP_200_OK)
 @transaction
 async def employee_profession(

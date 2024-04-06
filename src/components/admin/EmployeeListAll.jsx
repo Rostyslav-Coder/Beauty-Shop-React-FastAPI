@@ -1,8 +1,8 @@
 // ============ EMPLOYEE-LIST-ALL COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+import sendRequest from '../../request/request';
 
 
 const EmployeeListAll = ({ setEmployeeListAll, setError }) => {
@@ -11,29 +11,19 @@ const EmployeeListAll = ({ setEmployeeListAll, setError }) => {
 	const [hasNextClicked, setHasNextClicked] = useState(false);
 
 	const fetchData = async (start, count) => {
-		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-		const REQUEST_URL = '/admin/employee/all';
-		const token = localStorage.getItem('token');
-		const auth = { 'Authorization': `Bearer ${token}`, };
-
-		let request = `?skip=${start}&limit=${count}`;
+		const REQUEST_URL = '/employees/all';
+		const data = { skip: start, limit: count, };
 
 		try {
-			const response = await axios({
-				method: 'get',
-				url: BASE_URL + REQUEST_URL + request,
-				headers: auth,
-			});
-			setEmployeeListAll(response.data.result);
-			setError(null);
-		} catch (error) {
-			if (error.response && error.response.status === 401) {
-				setError('Unauthorized request');
-			} else if (error.response && error.response.status === 404) {
-				setError('There are no more employees');
+			const result = await sendRequest('get', REQUEST_URL, data);
+			if (result.error) {
+				setError(result.error)
 			} else {
-				setError('An error occurred while receiving data');
+				setEmployeeListAll(result.result);
+				setError(null);
 			}
+		} catch (error) {
+			setError(error);
 		}
 	};
 

@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, Depends, Request, status
 
-from backend.application.authentication import RoleRequired, get_current_user
+from backend.application.authentication import RoleRequired
 from backend.domain.constants import UserRole, WorkingDays, WorkingShift
 from backend.domain.employees import (
     Employee,
@@ -71,6 +71,28 @@ async def employee_get(
     return Response[EmployeePublic](result=employee_public)
 
 
+# Updated function
+@router.get("/all", status_code=status.HTTP_200_OK)
+@transaction
+async def employee_all(
+    _: Request,
+    skip: int = None,
+    limit: int = None,
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
+) -> ResponseMulti[EmployeePublic]:
+    """Get all employees"""
+
+    # Get employees list from database
+    employees: list[EmployeePublic] = await EmployeeRepository().all(
+        skip_=skip, limit_=limit
+    )
+    employees_public = [
+        EmployeePublic.from_orm(employee) for employee in employees
+    ]
+
+    return ResponseMulti[EmployeePublic](result=employees_public)
+
+
 @router.put("/update_days", status_code=status.HTTP_202_ACCEPTED)
 @transaction
 async def employee_update_days(
@@ -107,21 +129,3 @@ async def employee_update_shift(
     employee_public = EmployeePublic.from_orm(employee)
 
     return Response[EmployeePublic](result=employee_public)
-
-
-@router.get("/all", status_code=status.HTTP_200_OK)
-@transaction
-async def employee_all(
-    _: Request,
-    skip: int = None,
-    limit: int = None,
-    user: User = Depends(get_current_user),  # pylint: disable=W0613
-) -> ResponseMulti[EmployeePublic]:
-    """Get employees list with user data, full model"""
-
-    # Get employees list from database
-    employees: EmployeePublic = await EmployeeRepository().all(
-        skip_=skip, limit_=limit
-    )
-
-    return ResponseMulti[EmployeePublic](result=employees)
