@@ -6,7 +6,7 @@ import ProfessionSelect from '../official/ProfessionSelect';
 import sendRequest from '../../request/request';
 
 
-const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
+const EmployeeCreator = ({ setNewEmployeeData, setError, isOpen, onOpen }) => {
 	const [newEmployeeId, setNewEmployeeId] = useState('');
 	const [newEmployeeProfession, setNewEmployeeProfession] = useState('');
 	const [newEmployeeWorkingDays, setNewEmployeeWorkingDays] = useState('');
@@ -49,47 +49,49 @@ const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 	};
 
 	return (
-		<div>
+		<div className={`employeeCreator component comp__${isOpen ? 'open' : 'closed'}`} onClick={onOpen}>
 			<h2>Add New Employee</h2>
-			<form onSubmit={handleSubmit}>
-				<label htmlFor='userId'>
-					Add User ID:
-					<input
-						id='userId'
-						type='text'
-						value={newEmployeeId}
-						onChange={handleEmployeeIdChange}
-						required
-					/>
-				</label>
-				<ProfessionSelect setProfession={setNewEmployeeProfession} />
-				<label htmlFor='workingDays'>
-					Select Employee Working Days:
-					<select
-						id='workingDays'
-						onChange={handleWorkingDaysChange}
-						required
-					>
-						<option value={null}>Select One:</option>
-						<option value='EVEN_DAYS'>EVEN DAYS</option>
-						<option value='ODD_DAYS'>ODD DAYS</option>
-						<option value='WEEK_DAYS'>WEEK DAYS</option>
-					</select>
-				</label>
-				<label htmlFor='workingShift'>
-					Select Employee Working Shift:
-					<select
-						id='workingShift'
-						onChange={handleWorkingShiftChange}
-						required
-					>
-						<option value={null}>Select One:</option>
-						<option value='MORNING_SHIFT'>MORNING SHIFT</option>
-						<option value='AFTERNOON_SHIFT'>AFTERNOON SHIFT</option>
-					</select>
-				</label>
-				<button type='submit'>Create Employee</button>
-			</form>
+			{isOpen && (
+				<form onSubmit={handleSubmit}>
+					<label htmlFor='userId'>
+						Add User ID:
+						<input
+							id='userId'
+							type='text'
+							value={newEmployeeId}
+							onChange={handleEmployeeIdChange}
+							required
+						/>
+					</label>
+					<ProfessionSelect setProfession={setNewEmployeeProfession} />
+					<label htmlFor='workingDays'>
+						Select Employee Working Days:
+						<select
+							id='workingDays'
+							onChange={handleWorkingDaysChange}
+							required
+						>
+							<option value={null}>Select One:</option>
+							<option value='EVEN_DAYS'>EVEN DAYS</option>
+							<option value='ODD_DAYS'>ODD DAYS</option>
+							<option value='WEEK_DAYS'>WEEK DAYS</option>
+						</select>
+					</label>
+					<label htmlFor='workingShift'>
+						Select Employee Working Shift:
+						<select
+							id='workingShift'
+							onChange={handleWorkingShiftChange}
+							required
+						>
+							<option value={null}>Select One:</option>
+							<option value='MORNING_SHIFT'>MORNING SHIFT</option>
+							<option value='AFTERNOON_SHIFT'>AFTERNOON SHIFT</option>
+						</select>
+					</label>
+					<button type='submit'>Create Employee</button>
+				</form>
+			)}
 		</div>
 	)
 };
@@ -97,6 +99,8 @@ const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 EmployeeCreator.propTypes = {
 	setNewEmployeeData: PropTypes.func,
 	setError: PropTypes.func,
+	isOpen: PropTypes.bool.isRequired,
+	onOpen: PropTypes.func.isRequired,
 };
 
 export default EmployeeCreator;

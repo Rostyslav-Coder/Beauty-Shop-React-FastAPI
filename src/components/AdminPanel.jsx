@@ -23,8 +23,13 @@ const AdminPanel = () => {
 	const [employeeListProf, setEmployeeListProf] = useState([]);
 	const [formerEmployee, setFormerEmployee] = useState('');
 	const [error, setError] = useState(null);
+	const [openComponent, setOpenComponent] = useState('')
 	const user = JSON.parse(localStorage.getItem('user'));
 	const adminName = user.firstName ? user.firstName : user.email;
+
+	const handleOpen = (ComponentName) => {
+		setOpenComponent(ComponentName);
+	};
 
 	return (
 		<section className='admin'>
@@ -36,32 +41,46 @@ const AdminPanel = () => {
 						setSearchedUserEmail={setSearchedUserEmail}
 						setSearchedUserData={setSearchedUserData}
 						setError={setError}
+						isOpen={openComponent === 'UserEmailSearch'}
+						onOpen={() => handleOpen('UserEmailSearch')}
 					/>
 					<EmployeeNameSearch
 						searchedEmployeeName={searchedEmployeeName}
 						setSearchedEmployeeName={setSearchedEmployeeName}
 						setSearchedEmployeeData={setSearchedEmployeeData}
 						setError={setError}
+						isOpen={openComponent === 'EmployeeNameSearch'}
+						onOpen={() => handleOpen('EmployeeNameSearch')}
 					/>
 					<EmployeeListAll
 						setEmployeeListAll={setEmployeeListAll}
 						setError={setError}
+						isOpen={openComponent === 'EmployeeListAll'}
+						onOpen={() => handleOpen('EmployeeListAll')}
 					/>
 					<EmployeeListByProfession
 						setEmployeeListProf={setEmployeeListProf}
 						setError={setError}
+						isOpen={openComponent === 'EmployeeListByProfession'}
+						onOpen={() => handleOpen('EmployeeListByProfession')}
 					/>
 					<EmployeeCreator
 						setNewEmployeeData={setNewEmployeeData}
 						setError={setError}
+						isOpen={openComponent === 'EmployeeCreator'}
+						onOpen={() => handleOpen('EmployeeCreator')}
 					/>
 					<EmployeeNotActive
 						setFormerEmployee={setFormerEmployee}
 						setError={setError}
+						isOpen={openComponent === 'EmployeeNotActive'}
+						onOpen={() => handleOpen('EmployeeNotActive')}
 					/>
 					<ProfessionManager
 						setNewProfessionData={setNewProfessionData}
 						setError={setError}
+						isOpen={openComponent === 'ProfessionManager'}
+						onOpen={() => handleOpen('ProfessionManager')}
 					/>
 				</section>
 				<AdminDesktop

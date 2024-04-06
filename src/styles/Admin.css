@@ -20,6 +20,29 @@
 	padding: 1rem 2rem;
 	margin-bottom: auto;
 	border: 1px solid #09C4BD;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: stretch;
+	gap: 0.5rem;
+}
+
+
+.component__closed {
+	opacity: 0.7;
+}
+
+.component__open {
+	opacity: 1;
+}
+
+.component {
+	padding: 0.2rem 0.5rem;
+	border: 2px solid #09C4BD;
+	border-radius: 5px;
+	z-index: 2;
+	transition: opacity 0.5s ease-in-out;
+	cursor: pointer;
 }
 
 .admin__tools h2 {

@@ -9,7 +9,9 @@ const EmployeeNameSearch = (
 		searchedEmployeeName,
 		setSearchedEmployeeName,
 		setSearchedEmployeeData,
-		setError
+		setError,
+		isOpen,
+		onOpen,
 	}
 ) => {
 	const handleEmployeeNameChange = (e) => {
@@ -36,21 +38,23 @@ const EmployeeNameSearch = (
 	};
 
 	return (
-		<div className='employeeNameSearch'>
-			<h2>Get Employee Info</h2>
-			<form onSubmit={handleSubmit}>
-				<label htmlFor='name'>
-					Enter Employee Name:
-					<input
-						id='name'
-						type='text'
-						value={searchedEmployeeName}
-						onChange={handleEmployeeNameChange}
-						required
-					/>
-				</label>
-				<button type='submit'>Get Employee Data</button>
-			</form>
+		<div className={`employeeNameSearch component comp__${isOpen ? 'open' : 'closed'}`} onClick={onOpen}>
+			<h2>Employee By Name</h2>
+			{isOpen && (
+				<form onSubmit={handleSubmit}>
+					<label htmlFor='name'>
+						Enter Employee Name:
+						<input
+							id='name'
+							type='text'
+							value={searchedEmployeeName}
+							onChange={handleEmployeeNameChange}
+							required
+						/>
+					</label>
+					<button type='submit'>Get Employee Data</button>
+				</form>
+			)}
 		</div>
 	);
 };
@@ -60,6 +64,8 @@ EmployeeNameSearch.propTypes = {
 	setSearchedEmployeeName: PropTypes.func,
 	setSearchedEmployeeData: PropTypes.func,
 	setError: PropTypes.func,
+	isOpen: PropTypes.bool.isRequired,
+	onOpen: PropTypes.func.isRequired,
 };
 
 export default EmployeeNameSearch;

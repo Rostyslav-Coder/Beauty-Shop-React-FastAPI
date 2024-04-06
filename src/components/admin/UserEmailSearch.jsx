@@ -8,7 +8,9 @@ const UserEmailSearch = (
 		searchedUserEmail,
 		setSearchedUserEmail,
 		setSearchedUserData,
-		setError
+		setError,
+		isOpen,
+		onOpen,
 	}
 ) => {
 	const handleUserEmailChange = (e) => {
@@ -35,21 +37,22 @@ const UserEmailSearch = (
 	};
 
 	return (
-		<div className='userEmailSearch'>
-			<h2>Get User Info</h2>
-			<form onSubmit={handleSubmit}>
-				<label htmlFor='email'>
-					Enter User Email:
-					<input
-						id='email'
-						type='email'
-						value={searchedUserEmail}
-						onChange={handleUserEmailChange}
-						required
-					/>
-				</label>
-				<button type='submit'>Get Users Data</button>
-			</form>
+		<div className={`userEmailSearch component comp__${isOpen ? 'open' : 'closed'}`} onClick={onOpen}>
+			<h2>User By Email</h2>
+			{isOpen && (
+				<form onSubmit={handleSubmit}>
+					<label htmlFor='email'>
+						Enter User Email:
+						<input
+							id='email'
+							type='email'
+							value={searchedUserEmail}
+							onChange={handleUserEmailChange}
+							required
+						/>
+					</label>
+					<button type='submit'>Get Users Data</button>
+				</form>)}
 		</div>
 	);
 };
@@ -59,6 +62,8 @@ UserEmailSearch.propTypes = {
 	setSearchedUserEmail: PropTypes.func.isRequired,
 	setSearchedUserData: PropTypes.func.isRequired,
 	setError: PropTypes.func.isRequired,
+	isOpen: PropTypes.bool.isRequired,
+	onOpen: PropTypes.func.isRequired,
 }
 
 export default UserEmailSearch;
