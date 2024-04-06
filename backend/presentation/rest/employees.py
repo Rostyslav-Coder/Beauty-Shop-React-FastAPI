@@ -74,7 +74,7 @@ async def employee_get(
 # Updated function
 @router.get("/all", status_code=status.HTTP_200_OK)
 @transaction
-async def employee_all(
+async def employees_all(
     _: Request,
     skip: int = None,
     limit: int = None,
@@ -88,6 +88,32 @@ async def employee_all(
     )
     employees_public = [
         EmployeePublic.from_orm(employee) for employee in employees
+    ]
+
+    return ResponseMulti[EmployeePublic](result=employees_public)
+
+
+# Updated function
+@router.get("/profession", status_code=status.HTTP_200_OK)
+@transaction
+async def employees_get_by_profession(
+    _: Request,
+    skip: int,
+    limit: int,
+    profession_id: str,
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
+) -> ResponseMulti[EmployeePublic]:
+    """Get all employees by profession"""
+
+    employees_by_professon: list[
+        Employee
+    ] = await EmployeeRepository()._all_by(
+        key_="profession_id", value_=profession_id, skip_=skip, limit_=limit
+    )
+
+    employees_public = [
+        EmployeePublic.from_orm(employee)
+        for employee in employees_by_professon
     ]
 
     return ResponseMulti[EmployeePublic](result=employees_public)
