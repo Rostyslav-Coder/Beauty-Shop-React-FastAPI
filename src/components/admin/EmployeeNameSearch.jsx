@@ -33,30 +33,6 @@ const EmployeeNameSearch = (
 		} catch (error) {
 			setError(error);
 		}
-		// const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
-		// const REQUEST_URL = '/admin/employee/get';
-		// const token = localStorage.getItem('token');
-		// const auth = { 'Authorization': `Bearer ${token}`, };
-
-		// let request = `?employee_name=${searchedEmployeeName}`;
-
-		// try {
-		// 	const response = await axios({
-		// 		method: 'get',
-		// 		url: BASE_URL + REQUEST_URL + request,
-		// 		headers: auth,
-		// 	});
-		// 	setSearchedEmployeeData(response.data.result);
-		// 	setError(null);
-		// } catch (error) {
-		// 	if (error.response && error.response.status === 401) {
-		// 		setError('Unauthorized request')
-		// 	} else if (error.response && error.response.status === 404) {
-		// 		setError(`There are no employees with name ${searchedEmployeeName}`);
-		// 	} else {
-		// 		setError('An error occurred while receiving data');
-		// 	}
-		// }
 	};
 
 	return (
