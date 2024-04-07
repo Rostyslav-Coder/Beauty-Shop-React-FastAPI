@@ -8,6 +8,7 @@ import EmployeeListAll from './admin/EmployeeListAll';
 import EmployeeListByProfession from './admin/EmployeeListByProfession';
 import EmployeeNotActive from './admin/EmployeeNotActive';
 import ProfessionManager from './admin/ProfessionManager';
+import ServiceCreator from './admin/ServiceCreator';
 import UserEmailSearch from './admin/UserEmailSearch';
 import '../styles/Admin.css';
 
@@ -24,6 +25,7 @@ const AdminPanel = () => {
 	const [formerEmployee, setFormerEmployee] = useState('');
 	const [error, setError] = useState(null);
 	const [openComponent, setOpenComponent] = useState('')
+	const [newServiceData, setNewServiceData] = useState(null);
 	const user = JSON.parse(localStorage.getItem('user'));
 	const adminName = user.firstName ? user.firstName : user.email;
 
@@ -82,6 +84,12 @@ const AdminPanel = () => {
 						isOpen={openComponent === 'ProfessionManager'}
 						onOpen={() => handleOpen('ProfessionManager')}
 					/>
+					<ServiceCreator
+						setNewServiceData={setNewServiceData}
+						setError={setError}
+						isOpen={openComponent === 'ServiceCreator'}
+						onOpen={() => handleOpen('ServiceCreator')}
+					/>
 				</section>
 				<AdminDesktop
 					searchedUserData={searchedUserData}
@@ -91,6 +99,7 @@ const AdminPanel = () => {
 					employeeListProf={employeeListProf}
 					employeeListAll={employeeListAll}
 					formerEmployee={formerEmployee}
+					newServiceData={newServiceData}
 					error={error}
 				/>
 			</div>

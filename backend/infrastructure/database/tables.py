@@ -114,7 +114,7 @@ class ServiceTable(Base):
     )
     duration: Mapped[Interval] = mapped_column(Interval, nullable=True)
     price: Mapped[Numeric] = mapped_column(Numeric, nullable=True)
-    min_price: Mapped[Numeric] = mapped_column(Numeric, nullable=False)
+    min_price: Mapped[Numeric] = mapped_column(Numeric(10, 2), nullable=False)
     profession_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("professions.id"), nullable=False
     )

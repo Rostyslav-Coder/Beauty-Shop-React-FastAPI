@@ -313,46 +313,45 @@ Profession:
 
 Services:
 	HAIR STYLIST
-		Hair Coloring: Enhance your natural hair color or try a new hue with our professional hair coloring service.
-		Hair Straightening: Get sleek, smooth hair with our hair straightening service, perfect for those with curly or wavy hair.
-		Hair Extensions: Add length and volume to your hair with our high-quality hair extensions.
-		Hair Treatments: Revitalize your hair with our range of treatments designed to repair, nourish, and strengthen your hair.
+		Hair Coloring: Enhance your natural hair color or try a new hue with our professional hair coloring service. $75
+		Hair Straightening: Get sleek, smooth hair with our hair straightening service, perfect for those with curly or wavy hair. $40
+		Hair Extensions: Add length and volume to your hair with our high-quality hair extensions. $300
+		Hair Treatments: Revitalize your hair with our range of treatments designed to repair, nourish, and strengthen your hair. $10
 
 	MAKEUP ARTIST
-		Bridal Makeup: Look your best on your special day with our bridal makeup service.
-		Event Makeup: Stand out at any event with a professionally done makeup look.
-		Makeup Lessons: Learn the tricks of the trade with personalized makeup lessons.
-		Special Effects Makeup: Perfect for Halloween or themed events, our special effects makeup service will transform your look.
+		Bridal Makeup: Look your best on your special day with our bridal makeup service. $140
+		Event Makeup: Stand out at any event with a professionally done makeup look. $70
+		Makeup Lessons: Learn the tricks of the trade with personalized makeup lessons. $60
+		Special Effects Makeup: Perfect for Halloween or themed events, our special effects makeup service will transform your look. $130
 
 	ESTHETICIAN
-		Facial Treatments: Rejuvenate your skin with our range of facial treatments, tailored to your skin type and concerns.
-		Chemical Peels: Improve the texture and appearance of your skin with a professional chemical peel.
-		Microdermabrasion: This exfoliating treatment removes dead skin cells, revealing healthier, younger-looking skin underneath.
-		Waxing Services: Achieve smooth, hair-free skin with our professional waxing services.
+		Facial Treatments: Rejuvenate your skin with our range of facial treatments, tailored to your skin type and concerns. $75
+		Chemical Peels: Improve the texture and appearance of your skin with a professional chemical peel. $30
+		Microdermabrasion: This exfoliating treatment removes dead skin cells, revealing healthier, younger-looking skin underneath. $40
+		Waxing Services: Achieve smooth, hair-free skin with our professional waxing services. $60
 
 	NAIL TECHNICIAN
-		Manicure: Keep your hands looking their best with a professional manicure.
-		Pedicure: Relax and unwind with a soothing pedicure.
-		Nail Art: Express your personal style with custom nail art designs.
-		Gel Nails: Enjoy long-lasting, chip-free nails with our gel nail service.
+		Manicure: Keep your hands looking their best with a professional manicure. $20
+		Pedicure: Relax and unwind with a soothing pedicure. $30
+		Nail Art: Express your personal style with custom nail art designs. $40
+		Gel Nails: Enjoy long-lasting, chip-free nails with our gel nail service. $60
 
 	EYELESH SPECIALIST
-		Eyelash Extensions: Applying synthetic lashes to natural ones using medical-grade adhesive.
-		Lash Lifting: Curling natural lashes.
-		Tinting: Darkening the color of natural lashes.
-		Maintenance and Touch-Ups: Ensuring clients’ lashes look their best.
+		Eyelash Extensions: Applying synthetic lashes to natural ones using medical-grade adhesive. $40
+		Lash Lifting: Curling natural lashes. $50
+		Tinting: Darkening the color of natural lashes. $130
+		Maintenance and Touch-Ups: Ensuring clients’ lashes look their best. $60
 
 	MASSAGE THERAPIST
-		Swedish Massage: Gentle, relaxing strokes.
-		Deep Tissue Massage: Focused on deeper muscle layers.
-		Sports Massage: Targeted for athletes and active individuals.
-		Hot Stone Massage: Using heated stones for relaxation.
+		Swedish Massage: Gentle, relaxing strokes. $40
+		Deep Tissue Massage: Focused on deeper muscle layers. $50
+		Sports Massage: Targeted for athletes and active individuals. $60
+		Hot Stone Massage: Using heated stones for relaxation. $75
 
 	TATTOO ARTIST
-		Custom Designs: Creating unique tattoo designs based on client concepts.
-		Stenciling: Transferring designs onto skin.
-		Tattoo Application: Using a tattoo gun to create permanent art.
-		Aftercare Instructions: Guiding clients on caring for newly tattooed areas.
+		Custom Designs: Creating unique tattoo designs based on client concepts. $50
+		Stenciling: Transferring designs onto skin. %60
+		Tattoo Application: Using a tattoo gun to create permanent art. $40
 
 WorkingDays
     EVEN DAYS

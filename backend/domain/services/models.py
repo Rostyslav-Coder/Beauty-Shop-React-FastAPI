@@ -6,13 +6,14 @@ from typing import Optional
 
 from pydantic import Field
 
-from backend.domain.professions import ProfessionPublic
+from backend.domain.professions import ProfessonService
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "ServiceCreateRequestBody",
     "ServicePublic",
     "ServiceUncommited",
+    "ServiceUnexpanded",
     "Service",
 )
 
@@ -44,19 +45,8 @@ class ServicePublic(ServicePublicBase):
     id: int
     duration: timedelta
     price: Decimal
-    profession: ProfessionPublic
-
-    @property
-    def combined(self):
-        model = (
-            self.id
-            + self.name
-            + self.description
-            + self.duration
-            + self.price
-            + self.profession.name
-        )
-        return model
+    profession_id: int
+    profession: ProfessonService
 
 
 # Internal models
@@ -72,7 +62,18 @@ class ServiceUncommited(InternalModel):
     profession_id: int
 
 
-class Service(InternalModel):
+class ServiceUnexpanded(InternalModel):
+    """Representation without related tables"""
+
+    id: int
+    name: str
+    description: str
+    min_price: Decimal
+    profession_id: int
+
+
+class Service(ServiceUncommited):
     """Existed service representation."""
 
     id: int
+    profession: ProfessonService

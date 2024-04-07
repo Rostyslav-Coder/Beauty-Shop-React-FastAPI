@@ -9,6 +9,7 @@ from backend.infrastructure.models import InternalModel, PublicModel
 __all__ = (
     "ProfessionCreateRequestBody",
     "ProfessionPublic",
+    "ProfessonService",
     "ProfessionUncommited",
     "Profession",
 )
@@ -26,26 +27,26 @@ class ProfessionPublicBase(PublicModel):
 
 
 class ProfessionCreateRequestBody(ProfessionPublicBase):
-    """
-    Request body to create Profession.
-    """
+    """Request body to create Profession."""
 
     description: Optional[str] = Field(description="Profession Description")
 
 
 class ProfessionPublic(ProfessionPublicBase):
-    """
-    Existed profession representation.
-    """
+    """Existed profession representation."""
 
     id: int = Field(description="Profession ID")
     description: Optional[str]
 
 
+class ProfessonService(ProfessionPublicBase):
+    """Model complementary to the service model"""
+
+    pass
+
+
 class ProfessionEmployee(ProfessionPublicBase):
-    """
-    Model that complements the employee model
-    """
+    """Model that complements the employee model"""
 
     id: int
 
@@ -53,17 +54,13 @@ class ProfessionEmployee(ProfessionPublicBase):
 # Internal models
 # ------------------------------------------------------
 class ProfessionUncommited(InternalModel):
-    """
-    This schema is used for creating instance in the database.
-    """
+    """This schema is used for creating instance in the database."""
 
     name: str
     description: Optional[str]
 
 
 class Profession(ProfessionUncommited):
-    """
-    The internal application representation.
-    """
+    """The internal application representation."""
 
     id: int

@@ -39,11 +39,11 @@ async def employee_create(
         EmployeeUncommited(**schema.dict())
     )
 
-    # Get full employee from DB
-    employee_full: Employee = await EmployeeRepository().get(
+    # Get expanded employee model from DB
+    employee_expanded: Employee = await EmployeeRepository().get(
         key_="id", value_=employee.id
     )
-    employee_public = EmployeePublic.from_orm(employee_full)
+    employee_public = EmployeePublic.from_orm(employee_expanded)
 
     return Response[EmployeePublic](result=employee_public)
 

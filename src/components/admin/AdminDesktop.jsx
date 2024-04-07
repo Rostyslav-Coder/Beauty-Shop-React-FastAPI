@@ -12,6 +12,7 @@ const AdminDesktop = (
 		newProfessionData,
 		searchedEmployeeData,
 		searchedUserData,
+		newServiceData,
 		error
 	}
 ) => {
@@ -340,6 +341,23 @@ const AdminDesktop = (
 					</table>
 				</div>
 			)}
+			{newServiceData && (
+				<div className='admin__data'>
+					<h2>Created Service Data:</h2>
+					{newServiceData.name && (
+						<p>New Service: {newServiceData.name}</p>
+					)}
+					{newServiceData.description && (
+						<p>Service description: {newServiceData.description}</p>
+					)}
+					{newServiceData.minServicePrice && (
+						<p>Service minimal price: {newServiceData.minServicePrice}</p>
+					)}
+					{newServiceData.description && (
+						<p>Service Associated Profession: {newServiceData.associatedProfession}</p>
+					)}
+				</div>
+			)}
 			{error && <p>{error}</p>}
 		</section>
 	);
@@ -353,6 +371,7 @@ AdminDesktop.propTypes = {
 	newProfessionData: PropTypes.object,
 	searchedEmployeeData: PropTypes.object,
 	searchedUserData: PropTypes.object,
+	newServiceData: PropTypes.object,
 	error: PropTypes.string,
 };
 
