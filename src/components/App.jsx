@@ -8,7 +8,7 @@ import About from './About';
 import AdminPanel from './AdminPanel';
 import Authentication from './Authentication';
 import Contact from './Contact';
-import Employee from './Employee';
+import EmployeePanel from './EmployeePanel';
 import Employees from './Employees';
 import Footer from './Footer';
 import Header from './Header';
@@ -35,7 +35,7 @@ const App = () => {
 						<Route path='/registration' element={<Registration />} />
 						<Route path='/authentication' element={<Authentication />} />
 						<Route path='/orders' element={userRole === 'USER' ? <Orders /> : <Navigate to={'/authentication'} replace />} />
-						<Route path='/employee' element={userRole === 'EMPLOYEE' ? <Employee /> : <Navigate to={'/authentication'} replace />} />
+						<Route path='/employee' element={userRole === 'EMPLOYEE' ? <EmployeePanel /> : <Navigate to={'/authentication'} replace />} />
 						<Route path='/admin' element={userRole === 'ADMIN' ? <AdminPanel /> : <Navigate to={'/authentication'} replace />} />
 					</Routes>
 				</ParallaxProvider>

@@ -8,6 +8,7 @@ Admin:
 Employees:
 
 	User 1:
+		id: 2
 		email = employee1@mail.com
 		phone_number = +380123121212
 		first_name = Employee1
@@ -19,6 +20,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 2:
+		id: 3
 		email = employee2@mail.com
 		phone_number = +380123131313
 		first_name = Employee2
@@ -30,6 +32,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 3:
+		id: 4
 		email = employee3@mail.com
 		phone_number = +380123141414
 		first_name = Employee3
@@ -41,6 +44,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 4:
+		id: 5
 		email = employee4@mail.com
 		phone_number = +380123151515
 		first_name = Employee4
@@ -52,6 +56,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 5:
+		id: 6
 		email = employee5@mail.com
 		phone_number = +380123161616
 		first_name = Employee5
@@ -63,6 +68,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 6:
+		id: 7
 		email = employee6@mail.com
 		phone_number = +380123171717
 		first_name = Employee6
@@ -74,6 +80,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 7:
+		id: 8
 		email = employee7@mail.com
 		phone_number = +380123181818
 		first_name = Employee7
@@ -85,6 +92,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 8:
+		id: 9
 		email = employee8@mail.com
 		phone_number = +380123191919
 		first_name = Employee8
@@ -96,6 +104,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 9:
+		id: 10
 		email = employee9@mail.com
 		phone_number = +380123202020
 		first_name = Employee9
@@ -107,6 +116,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 10:
+		id: 11
 		email = employee10@mail.com
 		phone_number = +380123212121
 		first_name = employee10
@@ -118,6 +128,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 11:
+		id: 12
 		email = employee11@mail.com
 		phone_number = +380123222222
 		first_name = Employee11
@@ -129,6 +140,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 12:
+		id: 13
 		email = employee12@mail.com
 		phone_number = +380123232323
 		first_name = Employee12
@@ -140,6 +152,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 13:
+		id: 14
 		email = employee13@mail.com
 		phone_number = +380123242424
 		first_name = Employee13
@@ -151,6 +164,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 14:
+		id: 15
 		email = employee14@mail.com
 		phone_number = +380123252525
 		first_name = Employee14
@@ -162,6 +176,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 15:
+		id: 16
 		email = employee15@mail.com
 		phone_number = +380123262626
 		first_name = Employee15
@@ -173,6 +188,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 16:
+		id: 17
 		email = employee16@mail.com
 		phone_number = +380123272727
 		first_name = Employee16
@@ -184,6 +200,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 17:
+		id: 18
 		email = employee17@mail.com
 		phone_number = +380123282828
 		first_name = Employee17
@@ -195,6 +212,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 18:
+		id: 19
 		email = employee18@mail.com
 		phone_number = +380123292929
 		first_name = Employee18
@@ -206,6 +224,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 19:
+		id: 20
 		email = employee19@mail.com
 		phone_number = +380123303030
 		first_name = Employee19
@@ -217,6 +236,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 20:
+		id: 21
 		email = employee20@mail.com
 		phone_number = +380123313131
 		first_name = Employee20
@@ -228,6 +248,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 21:
+		id: 22
 		email = employee21@mail.com
 		phone_number = +380123323232
 		first_name = Employee21
@@ -239,6 +260,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 22:
+		id: 23
 		email = employee22@mail.com
 		phone_number = +380123333333
 		first_name = Employee22
@@ -250,6 +272,7 @@ Employees:
 		working_shift = AFTERNOON SHIFT
 
 	User 23:
+		id: 24
 		email = employee23@mail.com
 		phone_number = +380123343434
 		first_name = Employee23
@@ -261,6 +284,7 @@ Employees:
 		working_shift = MORNING SHIFT
 
 	User 24:
+		id: 25
 		email = employee24@mail.com
 		phone_number = +380123353535
 		first_name = Employee24
