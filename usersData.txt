@@ -1,0 +1,340 @@
+Admin:
+	email = admin@mail.com
+	phone_number = +380123111111
+	first_name = Admin
+	last_name = Admin/admin/
+	password: 123
+
+Employees:
+
+	User 1:
+		email = employee1@mail.com
+		phone_number = +380123121212
+		first_name = Employee1
+		last_name = Employee1
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = EVEN DAYS
+		working_shift = MORNING SHIFT
+
+	User 2:
+		email = employee2@mail.com
+		phone_number = +380123131313
+		first_name = Employee2
+		last_name = Employee2
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = EVEN DAYS
+		working_shift = MORNING SHIFT
+
+	User 3:
+		email = employee3@mail.com
+		phone_number = +380123141414
+		first_name = Employee3
+		last_name = Employee3
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = EVEN DAYS
+		working_shift = MORNING SHIFT
+
+	User 4:
+		email = employee4@mail.com
+		phone_number = +380123151515
+		first_name = Employee4
+		last_name = Employee4
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = EVEN DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 5:
+		email = employee5@mail.com
+		phone_number = +380123161616
+		first_name = Employee5
+		last_name = Employee5
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = EVEN DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 6:
+		email = employee6@mail.com
+		phone_number = +380123171717
+		first_name = Employee6
+		last_name = Employee6
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = EVEN DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 7:
+		email = employee7@mail.com
+		phone_number = +380123181818
+		first_name = Employee7
+		last_name = Employee7
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = ODD DAYS
+		working_shift = MORNING SHIFT
+
+	User 8:
+		email = employee8@mail.com
+		phone_number = +380123191919
+		first_name = Employee8
+		last_name = Employee8
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = ODD DAYS
+		working_shift = MORNING SHIFT
+
+	User 9:
+		email = employee9@mail.com
+		phone_number = +380123202020
+		first_name = Employee9
+		last_name = Employee9
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = ODD DAYS
+		working_shift = MORNING SHIFT
+
+	User 10:
+		email = employee10@mail.com
+		phone_number = +380123212121
+		first_name = employee10
+		last_name = Employee10
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = ODD DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 11:
+		email = employee11@mail.com
+		phone_number = +380123222222
+		first_name = Employee11
+		last_name = Employee11
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = ODD DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 12:
+		email = employee12@mail.com
+		phone_number = +380123232323
+		first_name = Employee12
+		last_name = Employee12
+		password: 123
+		Employee:
+		profession = HAIR STYLIST
+		working_days = ODD DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 13:
+		email = employee13@mail.com
+		phone_number = +380123242424
+		first_name = Employee13
+		last_name = Employee13
+		password: 123
+		Employee:
+		profession = MAKEUP ARTIST
+		working_days = WEEK DAYS
+		working_shift = MORNING SHIFT
+
+	User 14:
+		email = employee14@mail.com
+		phone_number = +380123252525
+		first_name = Employee14
+		last_name = Employee14
+		password: 123
+		Employee:
+		profession = MAKEUP ARTIST
+		working_days = EVEN DAYS
+		working_shift = MORNING SHIFT
+
+	User 15:
+		email = employee15@mail.com
+		phone_number = +380123262626
+		first_name = Employee15
+		last_name = Employee15
+		password: 123
+		Employee:
+		profession = MAKEUP ARTIST
+		working_days = WEEK DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 16:
+		email = employee16@mail.com
+		phone_number = +380123272727
+		first_name = Employee16
+		last_name = Employee16
+		password: 123
+		Employee:
+		profession = MAKEUP ARTIST
+		working_days = ODD DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 17:
+		email = employee17@mail.com
+		phone_number = +380123282828
+		first_name = Employee17
+		last_name = Employee17
+		password: 123
+		Employee:
+		profession = NAIL TECHNICIAN
+		working_days = WEEK DAYS
+		working_shift = MORNING SHIFT
+
+	User 18:
+		email = employee18@mail.com
+		phone_number = +380123292929
+		first_name = Employee18
+		last_name = Employee18
+		password: 123
+		Employee:
+		profession = NAIL TECHNICIAN
+		working_days = EVEN DAYS
+		working_shift = MORNING SHIFT
+
+	User 19:
+		email = employee19@mail.com
+		phone_number = +380123303030
+		first_name = Employee19
+		last_name = Employee19
+		password: 123
+		Employee:
+		profession = NAIL TECHNICIAN
+		working_days = WEEK DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 20:
+		email = employee20@mail.com
+		phone_number = +380123313131
+		first_name = Employee20
+		last_name = Employee20
+		password: 123
+		Employee:
+		profession = NAIL TECHNICIAN
+		working_days = ODD DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 21:
+		email = employee21@mail.com
+		phone_number = +380123323232
+		first_name = Employee21
+		last_name = Employee21
+		password: 123
+		Employee:
+		profession = ESTHETICIAN
+		working_days = WEEK DAYS
+		working_shift = MORNING SHIFT
+
+	User 22:
+		email = employee22@mail.com
+		phone_number = +380123333333
+		first_name = Employee22
+		last_name = Employee22
+		password: 123
+		Employee:
+		profession = EYELESH SPECIALIST
+		working_days = EVEN DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 23:
+		email = employee23@mail.com
+		phone_number = +380123343434
+		first_name = Employee23
+		last_name = Employee23
+		password: 123
+		Employee:
+		profession = MASSAGE THERAPIST
+		working_days = ODD DAYS
+		working_shift = MORNING SHIFT
+
+	User 24:
+		email = employee24@mail.com
+		phone_number = +380123353535
+		first_name = Employee24
+		last_name = Employee24
+		password: 123
+		Employee:
+		profession = TATTOO ARTIST
+		working_days = WEEK DAYS
+		working_shift = AFTERNOON SHIFT
+
+Profession:
+    HAIR STYLIST
+			A Hair Stylist is a professional who specializes in creating and designing hairstyles, haircuts, and hairdos to accentuate a client's individuality.
+    MAKEUP ARTIST
+			A Makeup Artist enhances facial aesthetics through makeup, creating custom looks for clients.
+    ESTHETICIAN
+			An esthetician is a skincare expert who performs treatments to enhance and maintain skin health and beauty.
+    NAIL TECHNICIAN
+			A Nail Technician is a professional who beautifies and maintains the health of clients' nails through manicures, pedicures, and other nail treatments.
+    EYELESH SPECIALIST
+			An eyelash specialist, also known as a lash artist, enhances natural lashes through techniques like eyelash extensions, lifts, and tints.
+    MASSAGE THERAPIST
+			A massage therapist provides relaxation or treats body pain through physical touch, manipulating muscles. They customize massages based on client needs.
+    TATTOO ARTIST
+			Tattoo artists use needles and inks to create permanent tattoos on clients’ bodies, adhering to health regulations.
+
+Services:
+	HAIR STYLIST
+		Hair Coloring: Enhance your natural hair color or try a new hue with our professional hair coloring service.
+		Hair Straightening: Get sleek, smooth hair with our hair straightening service, perfect for those with curly or wavy hair.
+		Hair Extensions: Add length and volume to your hair with our high-quality hair extensions.
+		Hair Treatments: Revitalize your hair with our range of treatments designed to repair, nourish, and strengthen your hair.
+
+	MAKEUP ARTIST
+		Bridal Makeup: Look your best on your special day with our bridal makeup service.
+		Event Makeup: Stand out at any event with a professionally done makeup look.
+		Makeup Lessons: Learn the tricks of the trade with personalized makeup lessons.
+		Special Effects Makeup: Perfect for Halloween or themed events, our special effects makeup service will transform your look.
+
+	ESTHETICIAN
+		Facial Treatments: Rejuvenate your skin with our range of facial treatments, tailored to your skin type and concerns.
+		Chemical Peels: Improve the texture and appearance of your skin with a professional chemical peel.
+		Microdermabrasion: This exfoliating treatment removes dead skin cells, revealing healthier, younger-looking skin underneath.
+		Waxing Services: Achieve smooth, hair-free skin with our professional waxing services.
+
+	NAIL TECHNICIAN
+		Manicure: Keep your hands looking their best with a professional manicure.
+		Pedicure: Relax and unwind with a soothing pedicure.
+		Nail Art: Express your personal style with custom nail art designs.
+		Gel Nails: Enjoy long-lasting, chip-free nails with our gel nail service.
+
+	EYELESH SPECIALIST
+		Eyelash Extensions: Applying synthetic lashes to natural ones using medical-grade adhesive.
+		Lash Lifting: Curling natural lashes.
+		Tinting: Darkening the color of natural lashes.
+		Maintenance and Touch-Ups: Ensuring clients’ lashes look their best.
+
+	MASSAGE THERAPIST
+		Swedish Massage: Gentle, relaxing strokes.
+		Deep Tissue Massage: Focused on deeper muscle layers.
+		Sports Massage: Targeted for athletes and active individuals.
+		Hot Stone Massage: Using heated stones for relaxation.
+
+	TATTOO ARTIST
+		Custom Designs: Creating unique tattoo designs based on client concepts.
+		Stenciling: Transferring designs onto skin.
+		Tattoo Application: Using a tattoo gun to create permanent art.
+		Aftercare Instructions: Guiding clients on caring for newly tattooed areas.
+
+WorkingDays
+    EVEN DAYS
+    ODD DAYS
+    WEEK DAYS
+
+WorkingShift
+    MORNING SHIFT
+    AFTERNOON SHIFT

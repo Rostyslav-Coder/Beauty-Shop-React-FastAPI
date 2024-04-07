@@ -28,7 +28,7 @@ const ProfessionManager = ({ setNewProfessionData, setError, isOpen, onOpen }) =
 			'Content-Type': 'application/json',
 		};
 		const schema = {
-			profession: profession,
+			name: profession,
 			description: description,
 		}
 

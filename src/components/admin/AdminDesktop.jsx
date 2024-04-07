@@ -289,8 +289,8 @@ const AdminDesktop = (
 			{newProfessionData && (
 				<div className='admin__data'>
 					<h2>Created Profession Data:</h2>
-					{newProfessionData.profession && (
-						<p>New Profession: {newProfessionData.profession}</p>
+					{newProfessionData.name && (
+						<p>New Profession: {newProfessionData.name}</p>
 					)}
 					{newProfessionData.description && (
 						<p>Profession description: {newProfessionData.description}</p>

@@ -34,7 +34,7 @@ async def profession_create(
     )
 
     # Get public model of profession from Database
-    profession_public = Profession.from_orm(profession)
+    profession_public = ProfessionPublic.from_orm(profession)
 
     return Response[ProfessionPublic](result=profession_public)
 

@@ -36,7 +36,6 @@ const Authentication = () => {
 				await axios.post('http://127.0.0.1:8000/auth/token', form_data)
 			);
 			if (response.data) {
-				console.log('token: ', response.data.access_token);
 				localStorage.setItem('token', response.data.access_token);
 				const userResponse = await axios.get('http://127.0.0.1:8000/users/me', {
 					headers: {
@@ -44,9 +43,7 @@ const Authentication = () => {
 					}
 				});
 				if (userResponse.data) {
-					console.log('user :', JSON.stringify(userResponse.data.result));
 					localStorage.setItem('user', JSON.stringify(userResponse.data.result));
-					console.log('userRole :', userResponse.data.result.role);
 					localStorage.setItem('userRole', userResponse.data.result.role);
 				}
 				handleReset();

@@ -10,16 +10,11 @@ const ProfessionSelect = ({ setProfession }) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const token = localStorage.getItem('token');
 
 			try {
 				const response = await axios({
 					method: 'get',
 					url: 'http://127.0.0.1:8000/profession/all',
-					headers: {
-						'Authorization': `Bearer ${token}`,
-						// 'Content-Type': 'application/json',
-					}
 				})
 				setOptions(response.data.result)
 			} catch (error) {
@@ -47,7 +42,7 @@ const ProfessionSelect = ({ setProfession }) => {
 				</option>
 				{options && options.map((option, index) => (
 					<option key={index} value={option.id}>
-						{option.profession}
+						{option.name}
 					</option>
 				))}
 			</select>

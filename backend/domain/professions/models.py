@@ -22,8 +22,7 @@ class ProfessionPublicBase(PublicModel):
     that are present in all public profession schemas.
     """
 
-    profession: str = Field(description="Profession Name")
-    description: Optional[str] = Field(description="Profession Description")
+    name: str = Field(description="Profession Name")
 
 
 class ProfessionCreateRequestBody(ProfessionPublicBase):
@@ -31,7 +30,7 @@ class ProfessionCreateRequestBody(ProfessionPublicBase):
     Request body to create Profession.
     """
 
-    pass
+    description: Optional[str] = Field(description="Profession Description")
 
 
 class ProfessionPublic(ProfessionPublicBase):
@@ -40,6 +39,15 @@ class ProfessionPublic(ProfessionPublicBase):
     """
 
     id: int = Field(description="Profession ID")
+    description: Optional[str]
+
+
+class ProfessionEmployee(ProfessionPublicBase):
+    """
+    Model that complements the employee model
+    """
+
+    id: int
 
 
 # Internal models
@@ -49,7 +57,7 @@ class ProfessionUncommited(InternalModel):
     This schema is used for creating instance in the database.
     """
 
-    profession: str
+    name: str
     description: Optional[str]
 
 

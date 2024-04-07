@@ -16,33 +16,30 @@ class UserPublicBase(PublicModel):
     """
     Base class for public user schemas. Defines common fields
     that are present in all public user schemas.
-    Базовый класс для схем общедоступных пользователей. Определяет общие поля
-    которые присутствуют во всех общедоступных схемах пользователей.
     """
 
     email: str = Field(description="User Email")
     phone_number: str = Field(description="User Phone Number")
-    first_name: str = Field(description="User First Name")
-    last_name: str = Field(description="User Last Name")
+    first_name: Optional[str] = Field(description="User First Name")
+    last_name: Optional[str] = Field(description="User Last Name")
 
 
 class UserCreateRequestBody(UserPublicBase):
     """
     Request body to create User.
-    Тело запроса на создание пользователя.
     """
 
     password: str = Field(description="User Password")
+    role: Optional[UserRole] = Field(description="User Role")
 
 
 class UserPublic(UserPublicBase):
     """
     Existed user representation.
-    Существующее представление пользователя.
     """
 
     id: int = Field(description="User ID")
-    role: UserRole = Field(description="User Role")
+    role: UserRole
 
 
 # Internal models
@@ -58,7 +55,7 @@ class UserUncommited(InternalModel):
     password: str
     first_name: Optional[str]
     last_name: Optional[str]
-    role: UserRole
+    role: Optional[UserRole]
 
 
 class User(UserUncommited):

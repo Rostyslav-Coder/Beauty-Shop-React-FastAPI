@@ -44,9 +44,9 @@ class EmployeePublic(EmployeePublicBase):
     """
 
     id: int = Field(description="Employee ID")
-    is_active: bool = Field(description="Is Active")
     user: UserPublic
     profession: ProfessionPublic
+    is_active: bool = Field(description="Is Active")
 
 
 # Internal models

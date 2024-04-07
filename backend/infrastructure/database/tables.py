@@ -3,7 +3,6 @@
 from typing import TypeVar
 
 from sqlalchemy import (
-    DATETIME,
     Boolean,
     Column,
     Enum,
@@ -21,20 +20,14 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from backend.domain.constants import (
-    BookingStatus,
-    UserRole,
-    WorkingDays,
-    WorkingShift,
-)
+from backend.domain.constants import UserRole, WorkingDays, WorkingShift
 
 __all__ = (
     "UsersTable",
     "EmployeesTable",
     "ProfessionTable",
     "ServiceTable",
-    "BookingTable",
-    "ServiceTypeTable",
+    "EmployeeServiceTable",
 )
 
 meta = MetaData(
@@ -71,7 +64,7 @@ class UsersTable(Base):
     password: Mapped[str] = mapped_column(String(length=1024), nullable=False)
     first_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
     last_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
-    role: Mapped[Enum] = mapped_column(Enum(UserRole), nullable=False)
+    role: Mapped[Enum] = mapped_column(Enum(UserRole), default=UserRole.USER)
 
     employee = relationship(
         "EmployeesTable", back_populates="user", uselist=False
@@ -96,67 +89,74 @@ class EmployeesTable(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     user = relationship("UsersTable", back_populates="employee")
-    profession = relationship(
-        "ProfessionTable",
-        back_populates="employee",
-        foreign_keys=[profession_id],
+    profession = relationship("ProfessionTable", back_populates="employee")
+    employee_services = relationship(
+        "EmployeeServiceTable", back_populates="employee"
     )
-    services = relationship("ServiceTable", back_populates="employee")
-    bookings = relationship("BookingTable", back_populates="employee")
 
 
 class ProfessionTable(Base):
     __tablename__ = "professions"
 
-    profession: Mapped[str] = mapped_column(String(length=50), nullable=False)
+    name: Mapped[str] = mapped_column(String(length=50), nullable=False)
     description: Mapped[str] = mapped_column(String(length=200), nullable=True)
 
     employee = relationship("EmployeesTable", back_populates="profession")
+    services = relationship("ServiceTable", back_populates="profession")
 
 
 class ServiceTable(Base):
     __tablename__ = "services"
 
     name: Mapped[str] = mapped_column(String(length=100), nullable=False)
-    title: Mapped[str] = mapped_column(String(length=500), nullable=False)
-    service_type: Mapped[str] = mapped_column(
-        String(length=32), nullable=False
+    description: Mapped[str] = mapped_column(
+        String(length=200), nullable=False
     )
-    duration: Mapped[Interval] = mapped_column(Interval, nullable=False)
-    price: Mapped[Numeric] = mapped_column(Numeric, nullable=False)
+    duration: Mapped[Interval] = mapped_column(Interval, nullable=True)
+    price: Mapped[Numeric] = mapped_column(Numeric, nullable=True)
+    min_price: Mapped[Numeric] = mapped_column(Numeric, nullable=False)
+    profession_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("professions.id"), nullable=False
+    )
+
+    profession = relationship("ProfessionTable", back_populates="services")
+    employee_services = relationship(
+        "EmployeeServiceTable", back_populates="service"
+    )
+
+
+class EmployeeServiceTable(Base):
+    __tablename__ = "employee_services"
+
     employee_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("employees.id"), nullable=False
-    )
-
-    employee = relationship("EmployeesTable", back_populates="services")
-    bookings = relationship("BookingTable", back_populates="services")
-
-
-class ServiceTypeTable(Base):
-    __tablename__ = "service_type"
-
-    profession_id: Mapped[int] = mapped_column(Integer, nullable=False)
-    service_type: Mapped[str] = mapped_column(
-        String(length=50), nullable=False
-    )
-
-
-class BookingTable(Base):
-    __tablename__ = "bookings"
-
-    user_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("users.id"), nullable=False
-    )
-    employee_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("employees.id"), nullable=False
+        Integer, ForeignKey("employees.id"), primary_key=True
     )
     service_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("services.id"), nullable=False
+        Integer, ForeignKey("services.id"), primary_key=True
     )
-    start_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
-    end_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
-    status: Mapped[Enum] = mapped_column(Enum(BookingStatus), nullable=False)
 
-    user = relationship("UsersTable")
-    employee = relationship("EmployeesTable", back_populates="bookings")
-    services = relationship("ServiceTable", back_populates="bookings")
+    employee = relationship(
+        "EmployeesTable", back_populates="employee_services"
+    )
+    service = relationship("ServiceTable", back_populates="employee_services")
+
+
+# class BookingTable(Base):
+#     __tablename__ = "bookings"
+
+#     user_id: Mapped[int] = mapped_column(
+#         Integer, ForeignKey("users.id"), nullable=False
+#     )
+#     employee_id: Mapped[int] = mapped_column(
+#         Integer, ForeignKey("employees.id"), nullable=False
+#     )
+#     service_id: Mapped[int] = mapped_column(
+#         Integer, ForeignKey("services.id"), nullable=False
+#     )
+#     start_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
+#     end_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
+#     status: Mapped[Enum] = mapped_column(Enum(BookingStatus), nullable=False)
+
+#     user = relationship("UsersTable", back_populates="bookings")
+#     employee = relationship("EmployeesTable", back_populates="bookings")
+#     services = relationship("ServiceTable", back_populates="bookings")
