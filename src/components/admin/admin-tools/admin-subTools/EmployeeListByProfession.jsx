@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 // import axios from 'axios';
 import PropTypes from 'prop-types';
-import sendRequest from '../../request/request';
-import ProfessionSelect from '../official/ProfessionSelect';
+import sendRequest from '../../../../request/request';
+import ProfessionSelect from '../../../official/ProfessionSelect';
 
 
-const EmployeeListByProfession = ({ setEmployeeListProf, setError, isOpen, onOpen }) => {
+const EmployeeListByProfession = ({ setEmployeeListProf, setError }) => {
 	const [selectedProfession, setSelectedProfession] = useState('');
 	const [start, setStart] = useState(0);
 	const [count, setCount] = useState(3);
@@ -39,14 +39,11 @@ const EmployeeListByProfession = ({ setEmployeeListProf, setError, isOpen, onOpe
 	};
 
 	return (
-		<div className={`employeeListByProfession component comp__${isOpen ? 'open' : 'closed'}`} onClick={onOpen}>
-			<h2>Employees By Prof</h2>
-			{isOpen && (
-				<form onSubmit={handleSubmit}>
-					<ProfessionSelect setProfession={setSelectedProfession} />
-					<button type='submit'>{start === 0 ? 'Get All Employees' : 'Next'}</button>
-				</form>
-			)}
+		<div className='subComponent'>
+			<form onSubmit={handleSubmit}>
+				<ProfessionSelect setProfession={setSelectedProfession} />
+				<button type='submit'>{start === 0 ? 'Get Employees' : 'Next Employees'}</button>
+			</form>
 		</div>
 	);
 };

@@ -15,7 +15,7 @@
 	align-items: center;
 }
 
-.admin__tools {
+.adminTools {
 	width: 25%;
 	padding: 1rem 2rem;
 	margin-bottom: auto;
@@ -36,7 +36,7 @@
 	opacity: 1;
 }
 
-.component {
+.toolComponent {
 	padding: 0.2rem 0.5rem;
 	border: 2px solid #09C4BD;
 	border-radius: 5px;
@@ -45,24 +45,26 @@
 	cursor: pointer;
 }
 
-.admin__tools h2 {
+.toolComponent h2,
+.toolComponent h3 {
 	color: #09C4BD;
 	text-align: center;
+	cursor: pointer;
 }
 
-.admin__tools label {
+.toolComponent label {
 	text-align: left;
 }
 
-.admin__tools label,
-.admin__tools input,
-.admin__tools select,
-.admin__tools button {
+.toolComponent label,
+.toolComponent input,
+.toolComponent select,
+.toolComponent button {
 	width: 100%;
 	border: none;
 }
 
-.admin__tools button {
+.toolComponent button {
 	background-color: #09C4BD;
 }
 
@@ -71,36 +73,36 @@
 	min-height: calc(100vh - 2rem);
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	gap: 1rem;
 }
 
-.adminDesktop .admin__data {
+.adminData {
 	width: 80%;
 	border: 1px solid #09C4BD;
 }
 
-.adminDesktop h2 {
+.adminData h2 {
 	color: #09C4BD;
 }
 
-.adminDesktop table {
+.adminData table {
 	width: 100%;
 	border-top: 1px solid #09C4BD;
 }
 
-.adminDesktop table tr:nth-child(odd) {
+.adminData table tr:nth-child(odd) {
 	background-color: #363636;
 }
 
-.adminDesktop table th:nth-child(odd) {
+.adminData table th:nth-child(odd) {
 	width: 35%;
 	text-align: left;
 	padding: 0.25rem 1rem;
 }
 
-.adminDesktop table th:nth-child(even) {
+.adminData table th:nth-child(even) {
 	width: 65%;
 	text-align: right;
 	padding: 0.25rem 1rem;

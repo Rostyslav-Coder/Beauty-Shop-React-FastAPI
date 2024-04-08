@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import sendRequest from '../../request/request';
+import sendRequest from '../../../../request/request';
 
 
-const EmployeeNotActive = ({ setFormerEmployee, setError, isOpen, onOpen }) => {
+const EmployeeNotActive = ({ setFormerEmployee, setError }) => {
 	const [employeeId, setEmployeeId] = useState('');
 
 	const handleEmployeeIdChange = (e) => {
@@ -33,33 +33,27 @@ const EmployeeNotActive = ({ setFormerEmployee, setError, isOpen, onOpen }) => {
 	};
 
 	return (
-		<div className={`employeeNotActive component comp__${isOpen ? 'open' : 'closed'}`} onClick={onOpen}>
-			<h2>Deactivate Employee</h2>
-			{isOpen && (
-				<form onSubmit={handleSUbmit}>
-					<label htmlFor='id'>
-						Enter Employee ID:
-						<input
-							id='id'
-							type='text'
-							value={employeeId}
-							onChange={handleEmployeeIdChange}
-							required
-						/>
-					</label>
-					<button type='submit'>Deactivate</button>
-				</form>
-			)}
+		<div className='subComponent'>
+			<form onSubmit={handleSUbmit}>
+				<label htmlFor='id'>
+					Enter Employee ID:
+					<input
+						id='id'
+						type='text'
+						value={employeeId}
+						onChange={handleEmployeeIdChange}
+						required
+					/>
+				</label>
+				<button type='submit'>Deactivate</button>
+			</form>
 		</div>
 	);
 };
 
 EmployeeNotActive.propTypes = {
-	formerEmployee: PropTypes.object,
 	setFormerEmployee: PropTypes.func,
 	setError: PropTypes.func,
-	isOpen: PropTypes.bool.isRequired,
-	onOpen: PropTypes.func.isRequired,
 };
 
 export default EmployeeNotActive;

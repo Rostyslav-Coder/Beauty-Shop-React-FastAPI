@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import ProfessionSelect from '../official/ProfessionSelect';
-import sendRequest from '../../request/request';
+import ProfessionSelect from '../../../official/ProfessionSelect';
+import sendRequest from '../../../../request/request';
 
 
-const ServiceCreator = ({ setNewServiceData, setError, isOpen, onOpen }) => {
+const ServiceCreator = ({ setNewServiceData, setError }) => {
 	const [serviceName, setServiceName] = useState('');
 	const [serviceDescription, setServiceDescription] = useState('');
 	const [minServicePrice, setMinServicePrice] = useState('');
@@ -50,44 +50,41 @@ const ServiceCreator = ({ setNewServiceData, setError, isOpen, onOpen }) => {
 	};
 
 	return (
-		<div className={`serviceCreator component comp__${isOpen ? 'open' : 'closed'}`} onClick={onOpen}>
-			<h2>Add New Service</h2>
-			{isOpen && (
-				<form onSubmit={handleSubmit}>
-					<label htmlFor='serviceName'>
-						Add Service Name:
-						<input
-							id='serviceName'
-							type='text'
-							value={serviceName}
-							onChange={handleServiceNameChange}
-							required
-						/>
-					</label>
-					<label htmlFor='serviceDescription'>
-						Add Service Description:
-						<input
-							id='serviceDescription'
-							type='text'
-							value={serviceDescription}
-							onChange={handleServiceDescriptionChange}
-							required
-						/>
-					</label>
-					<label htmlFor='minServicePrice'>
-						Add Minimal Service Price:
-						<input
-							id='minServicePrice'
-							type='text'
-							value={minServicePrice}
-							onChange={handleMinServicePriceChange}
-							required
-						/>
-					</label>
-					<ProfessionSelect setProfession={setAssociatedProfession} />
-					<button type='submit'>Create Service</button>
-				</form>
-			)}
+		<div className='subComponent'>
+			<form onSubmit={handleSubmit}>
+				<ProfessionSelect setProfession={setAssociatedProfession} />
+				<label htmlFor='serviceName'>
+					Add Service Name:
+					<input
+						id='serviceName'
+						type='text'
+						value={serviceName}
+						onChange={handleServiceNameChange}
+						required
+					/>
+				</label>
+				<label htmlFor='serviceDescription'>
+					Add Service Description:
+					<input
+						id='serviceDescription'
+						type='text'
+						value={serviceDescription}
+						onChange={handleServiceDescriptionChange}
+						required
+					/>
+				</label>
+				<label htmlFor='minServicePrice'>
+					Add Minimal Service Price:
+					<input
+						id='minServicePrice'
+						type='text'
+						value={minServicePrice}
+						onChange={handleMinServicePriceChange}
+						required
+					/>
+				</label>
+				<button type='submit'>Create Service</button>
+			</form>
 		</div>
 	);
 };
@@ -95,8 +92,6 @@ const ServiceCreator = ({ setNewServiceData, setError, isOpen, onOpen }) => {
 ServiceCreator.propTypes = {
 	setNewServiceData: PropTypes.func,
 	setError: PropTypes.func,
-	isOpen: PropTypes.bool.isRequired,
-	onOpen: PropTypes.func.isRequired,
 };
 
 export default ServiceCreator;

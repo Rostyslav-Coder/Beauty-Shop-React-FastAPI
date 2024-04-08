@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import sendRequest from '../../request/request';
+import sendRequest from '../../../../request/request';
 
 
-const EmployeeListAll = ({ setEmployeeListAll, setError, isOpen, onOpen }) => {
+const EmployeeListAll = ({ setEmployeeListAll, setError }) => {
 	const [start, setStart] = useState(0);
 	const [count, setCount] = useState(3);
 	const [hasNextClicked, setHasNextClicked] = useState(false);
@@ -50,14 +50,11 @@ const EmployeeListAll = ({ setEmployeeListAll, setError, isOpen, onOpen }) => {
 	};
 
 	return (
-		<div className={`employeeListAll component comp__${isOpen ? 'open' : 'closed'}`} onClick={onOpen}>
-			<h2>All Employees</h2>
-			{isOpen && (
-				<form onSubmit={handleSubmit}>
-					<button type='submit'>{start < 3 ? 'Get All Employees' : 'Next'}</button>
-					<button type='submit' onClick={handleBackSubmit} disabled={!hasNextClicked}>Back</button>
-				</form>
-			)}
+		<div className='subComponent'>
+			<form onSubmit={handleSubmit}>
+				<button type='submit'>{start < 3 ? 'Get All Employees' : 'Next'}</button>
+				<button type='submit' onClick={handleBackSubmit} disabled={!hasNextClicked}>Back</button>
+			</form>
 		</div>
 	);
 };
@@ -65,8 +62,6 @@ const EmployeeListAll = ({ setEmployeeListAll, setError, isOpen, onOpen }) => {
 EmployeeListAll.propTypes = {
 	setEmployeeListAll: PropTypes.func,
 	setError: PropTypes.func,
-	isOpen: PropTypes.bool.isRequired,
-	onOpen: PropTypes.func.isRequired,
 };
 
 export default EmployeeListAll;

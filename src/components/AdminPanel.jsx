@@ -1,110 +1,91 @@
-// ============ ADMIN PAGE COMPONENT MODULE  ============ //
+// ============ ADMIN-PANEL PAGE COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
-import AdminDesktop from './admin/AdminDesktop';
-import EmployeeNameSearch from './admin/EmployeeNameSearch';
-import EmployeeCreator from './admin/EmployeeCreator';
-import EmployeeListAll from './admin/EmployeeListAll';
-import EmployeeListByProfession from './admin/EmployeeListByProfession';
-import EmployeeNotActive from './admin/EmployeeNotActive';
-import ProfessionManager from './admin/ProfessionManager';
-import ServiceCreator from './admin/ServiceCreator';
-import UserEmailSearch from './admin/UserEmailSearch';
+
+import EmployeeManagerTool from './admin/admin-tools/EmployeeManagerTool';
+import ProfessionManagerTool from './admin/admin-tools/ProfessionManagerTool';
+import UserManagerTool from './admin/admin-tools/UserManagerTool';
+import EmployeeManagerDesktop from './admin/admin-desktop/EmployeeManagerDesktop';
+import ProfessionManagerDesktop from './admin/admin-desktop/ProfessionManagerDesktop';
+import UserManagerDesktop from './admin/admin-desktop/UserManagerDesktop';
 import '../styles/Admin.css';
 
 
 const AdminPanel = () => {
-	const [searchedUserEmail, setSearchedUserEmail] = useState('');
-	const [searchedUserData, setSearchedUserData] = useState(null);
-	const [searchedEmployeeName, setSearchedEmployeeName] = useState('');
-	const [searchedEmployeeData, setSearchedEmployeeData] = useState(null);
-	const [newEmployeeData, setNewEmployeeData] = useState(null);
-	const [newProfessionData, setNewProfessionData] = useState(null);
-	const [employeeListAll, setEmployeeListAll] = useState([]);
-	const [employeeListProf, setEmployeeListProf] = useState([]);
-	const [formerEmployee, setFormerEmployee] = useState('');
-	const [error, setError] = useState(null);
-	const [openComponent, setOpenComponent] = useState('')
-	const [newServiceData, setNewServiceData] = useState(null);
-	const user = JSON.parse(localStorage.getItem('user'));
-	const adminName = user.firstName ? user.firstName : user.email;
+  const [searchedUserData, setSearchedUserData] = useState(null);
+  const [searchedEmployeeData, setSearchedEmployeeData] = useState(null);
+  const [newEmployeeData, setNewEmployeeData] = useState(null);
+  const [newProfessionData, setNewProfessionData] = useState(null);
+  const [employeeListAll, setEmployeeListAll] = useState([]);
+  const [employeeListProf, setEmployeeListProf] = useState([]);
+  const [formerEmployee, setFormerEmployee] = useState('');
+  const [newServiceData, setNewServiceData] = useState(null);
+  const [openComponent, setOpenComponent] = useState('')
+  const [error, setError] = useState(null);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const adminName = user.firstName ? user.firstName : user.email;
 
-	const handleOpen = (ComponentName) => {
-		setOpenComponent(ComponentName);
-	};
+  const handleOpen = (ComponentName) => {
+    setOpenComponent(ComponentName);
+  };
 
-	return (
-		<section className='admin'>
-			<h1 className='admin__title'>Hi {adminName}</h1>
-			<div className="admin__wrapper">
-				<section className="admin__tools">
-					<UserEmailSearch
-						searchedUserEmail={searchedUserEmail}
-						setSearchedUserEmail={setSearchedUserEmail}
-						setSearchedUserData={setSearchedUserData}
-						setError={setError}
-						isOpen={openComponent === 'UserEmailSearch'}
-						onOpen={() => handleOpen('UserEmailSearch')}
-					/>
-					<EmployeeNameSearch
-						searchedEmployeeName={searchedEmployeeName}
-						setSearchedEmployeeName={setSearchedEmployeeName}
-						setSearchedEmployeeData={setSearchedEmployeeData}
-						setError={setError}
-						isOpen={openComponent === 'EmployeeNameSearch'}
-						onOpen={() => handleOpen('EmployeeNameSearch')}
-					/>
-					<EmployeeListAll
-						setEmployeeListAll={setEmployeeListAll}
-						setError={setError}
-						isOpen={openComponent === 'EmployeeListAll'}
-						onOpen={() => handleOpen('EmployeeListAll')}
-					/>
-					<EmployeeListByProfession
-						setEmployeeListProf={setEmployeeListProf}
-						setError={setError}
-						isOpen={openComponent === 'EmployeeListByProfession'}
-						onOpen={() => handleOpen('EmployeeListByProfession')}
-					/>
-					<EmployeeCreator
-						setNewEmployeeData={setNewEmployeeData}
-						setError={setError}
-						isOpen={openComponent === 'EmployeeCreator'}
-						onOpen={() => handleOpen('EmployeeCreator')}
-					/>
-					<EmployeeNotActive
-						setFormerEmployee={setFormerEmployee}
-						setError={setError}
-						isOpen={openComponent === 'EmployeeNotActive'}
-						onOpen={() => handleOpen('EmployeeNotActive')}
-					/>
-					<ProfessionManager
-						setNewProfessionData={setNewProfessionData}
-						setError={setError}
-						isOpen={openComponent === 'ProfessionManager'}
-						onOpen={() => handleOpen('ProfessionManager')}
-					/>
-					<ServiceCreator
-						setNewServiceData={setNewServiceData}
-						setError={setError}
-						isOpen={openComponent === 'ServiceCreator'}
-						onOpen={() => handleOpen('ServiceCreator')}
-					/>
-				</section>
-				<AdminDesktop
-					searchedUserData={searchedUserData}
-					searchedEmployeeData={searchedEmployeeData}
-					newEmployeeData={newEmployeeData}
-					newProfessionData={newProfessionData}
-					employeeListProf={employeeListProf}
-					employeeListAll={employeeListAll}
-					formerEmployee={formerEmployee}
-					newServiceData={newServiceData}
-					error={error}
-				/>
-			</div>
-		</section>
-	);
+  return (
+    <section className='admin'>
+      <h1 className='admin__title'>Hi {adminName}</h1>
+      <div className='admin__wrapper'>
+        <section className='adminTools'>
+          <UserManagerTool
+            setSearchedUserData={setSearchedUserData}
+            setError={setError}
+            isOpen={openComponent === 'UserManagerTool'}
+            onOpen={() => handleOpen('UserManagerTool')}
+          />
+          <EmployeeManagerTool
+            setEmployeeListAll={setEmployeeListAll}
+            setEmployeeListProf={setEmployeeListProf}
+            setSearchedEmployeeData={setSearchedEmployeeData}
+            setNewEmployeeData={setNewEmployeeData}
+            setFormerEmployee={setFormerEmployee}
+            setError={setError}
+            isOpen={openComponent === 'EmployeeManagerTool'}
+            onOpen={() => handleOpen('EmployeeManagerTool')}
+          />
+          <ProfessionManagerTool
+            setNewProfessionData={setNewProfessionData}
+            setNewServiceData={setNewServiceData}
+            setError={setError}
+            isOpen={openComponent === 'ProfessionManagerTool'}
+            onOpen={() => handleOpen('ProfessionManagerTool')}
+          />
+        </section>
+        <section className='adminDesktop'>
+          {openComponent === 'UserManagerTool' && (
+            <UserManagerDesktop
+              searchedUserData={searchedUserData}
+              error={error}
+            />
+          )}
+          {openComponent === 'EmployeeManagerTool' && (
+            <EmployeeManagerDesktop
+              employeeListAll={employeeListAll}
+              employeeListProf={employeeListProf}
+              searchedEmployeeData={searchedEmployeeData}
+              newEmployeeData={newEmployeeData}
+              formerEmployee={formerEmployee}
+              error={error}
+            />
+          )}
+          {openComponent === 'ProfessionManagerTool' && (
+            <ProfessionManagerDesktop
+              newProfessionData={newProfessionData}
+              newServiceData={newServiceData}
+              error={error}
+            />
+          )}
+        </section>
+      </div>
+    </section>
+  );
 };
 
 export default AdminPanel;

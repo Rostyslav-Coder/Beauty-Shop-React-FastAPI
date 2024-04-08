@@ -1,19 +1,13 @@
 // ============ EMPLOYEE-BY-NAME COMPONENT MODULE  ============ //
 
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import sendRequest from '../../request/request';
+import sendRequest from '../../../../request/request';
 
 
-const EmployeeNameSearch = (
-	{
-		searchedEmployeeName,
-		setSearchedEmployeeName,
-		setSearchedEmployeeData,
-		setError,
-		isOpen,
-		onOpen,
-	}
-) => {
+const EmployeeNameSearch = ({ setSearchedEmployeeData, setError, }) => {
+	const [searchedEmployeeName, setSearchedEmployeeName] = useState('');
+
 	const handleEmployeeNameChange = (e) => {
 		setSearchedEmployeeName(e.target.value);
 	};
@@ -38,30 +32,25 @@ const EmployeeNameSearch = (
 	};
 
 	return (
-		<div className={`employeeNameSearch component comp__${isOpen ? 'open' : 'closed'}`} onClick={onOpen}>
-			<h2>Employee By Name</h2>
-			{isOpen && (
-				<form onSubmit={handleSubmit}>
-					<label htmlFor='name'>
-						Enter Employee Name:
-						<input
-							id='name'
-							type='text'
-							value={searchedEmployeeName}
-							onChange={handleEmployeeNameChange}
-							required
-						/>
-					</label>
-					<button type='submit'>Get Employee Data</button>
-				</form>
-			)}
+		<div className='subComponent'>
+			<form onSubmit={handleSubmit}>
+				<label htmlFor='name'>
+					Enter Employee Name:
+					<input
+						id='name'
+						type='text'
+						value={searchedEmployeeName}
+						onChange={handleEmployeeNameChange}
+						required
+					/>
+				</label>
+				<button type='submit'>Get Employee Data</button>
+			</form>
 		</div>
 	);
 };
 
 EmployeeNameSearch.propTypes = {
-	searchedEmployeeName: PropTypes.string,
-	setSearchedEmployeeName: PropTypes.func,
 	setSearchedEmployeeData: PropTypes.func,
 	setError: PropTypes.func,
 	isOpen: PropTypes.bool.isRequired,
