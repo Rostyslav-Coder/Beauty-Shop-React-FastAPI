@@ -38,5 +38,5 @@ async def service_create(
         key_="id", value_=service.id
     )
     service_public = ServicePublic.from_orm(service_expanded)
-    print("service_public from ORM to response: ", service_public)
+
     return Response[ServicePublic](result=service_public)

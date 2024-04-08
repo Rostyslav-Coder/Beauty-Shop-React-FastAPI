@@ -112,8 +112,6 @@ class ServiceTable(Base):
     description: Mapped[str] = mapped_column(
         String(length=200), nullable=False
     )
-    duration: Mapped[Interval] = mapped_column(Interval, nullable=True)
-    price: Mapped[Numeric] = mapped_column(Numeric, nullable=True)
     min_price: Mapped[Numeric] = mapped_column(Numeric(10, 2), nullable=False)
     profession_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("professions.id"), nullable=False
@@ -128,11 +126,13 @@ class ServiceTable(Base):
 class EmployeeServiceTable(Base):
     __tablename__ = "employee_services"
 
-    employee_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("employees.id"), primary_key=True
-    )
+    price: Mapped[Numeric] = mapped_column(Numeric, nullable=False)
+    duration: Mapped[Interval] = mapped_column(Interval, nullable=False)
     service_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey("services.id"), primary_key=True
+        Integer, ForeignKey("services.id"), nullable=False
+    )
+    employee_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("employees.id"), nullable=False
     )
 
     employee = relationship(

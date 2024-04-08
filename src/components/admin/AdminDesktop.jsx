@@ -350,11 +350,11 @@ const AdminDesktop = (
 					{newServiceData.description && (
 						<p>Service description: {newServiceData.description}</p>
 					)}
-					{newServiceData.minServicePrice && (
-						<p>Service minimal price: {newServiceData.minServicePrice}</p>
+					{newServiceData.minPrice && (
+						<p>Service minimal price: {newServiceData.minPrice}</p>
 					)}
-					{newServiceData.description && (
-						<p>Service Associated Profession: {newServiceData.associatedProfession}</p>
+					{newServiceData.profession.name && (
+						<p>Service Associated Profession: {newServiceData.profession.name}</p>
 					)}
 				</div>
 			)}

@@ -9,7 +9,7 @@ from backend.infrastructure.models import InternalModel, PublicModel
 __all__ = (
     "ProfessionCreateRequestBody",
     "ProfessionPublic",
-    "ProfessonService",
+    "ProfessonName",
     "ProfessionUncommited",
     "Profession",
 )
@@ -39,7 +39,7 @@ class ProfessionPublic(ProfessionPublicBase):
     description: Optional[str]
 
 
-class ProfessonService(ProfessionPublicBase):
+class ProfessonName(ProfessionPublicBase):
     """Model complementary to the service model"""
 
     pass

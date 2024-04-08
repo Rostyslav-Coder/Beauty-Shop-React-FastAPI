@@ -23,7 +23,7 @@ class ServiceRepository(BaseRepository[ServiceTable]):
         async for instance in self._all():
             yield Service.from_orm(instance)
 
-    async def get(self, key_: int, value_: Any) -> Service:
+    async def get(self, key_: str, value_: Any) -> Service:
         query = (
             select(self.schema_class)
             .options(joinedload(ServiceTable.profession))
