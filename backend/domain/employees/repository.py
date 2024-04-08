@@ -33,7 +33,7 @@ class EmployeeRepository(BaseRepository[EmployeesTable]):
         employees = [Employee.from_orm(employee) for employee in _result]
         return employees
 
-    async def _all_by(
+    async def all_by(
         self, key_: str, value_: Any, skip_: int = 0, limit_: int = 10
     ) -> list[Employee]:
         query = (

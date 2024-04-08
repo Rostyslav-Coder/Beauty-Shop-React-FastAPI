@@ -120,7 +120,7 @@ class BaseRepository(Session, Generic[ConcreteTable]):  # type: ignore
         for schema in schemas:
             yield schema
 
-    async def _all_by(
+    async def all_by(
         self, key: str, value: Any
     ) -> AsyncGenerator[ConcreteTable, None]:
         result: Result = await self.execute(

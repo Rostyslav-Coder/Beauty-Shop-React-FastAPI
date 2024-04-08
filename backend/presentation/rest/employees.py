@@ -83,7 +83,7 @@ async def employees_all(
     """Get all employees"""
 
     # Get employees list from database
-    employees: list[EmployeePublic] = await EmployeeRepository().all(
+    employees: list[Employee] = await EmployeeRepository().all(
         skip_=skip, limit_=limit
     )
     employees_public = [
@@ -105,9 +105,7 @@ async def employees_get_by_profession(
 ) -> ResponseMulti[EmployeePublic]:
     """Get all employees by profession"""
 
-    employees_by_professon: list[
-        Employee
-    ] = await EmployeeRepository()._all_by(
+    employees_by_professon: list[Employee] = await EmployeeRepository().all_by(
         key_="profession_id", value_=profession_id, skip_=skip, limit_=limit
     )
 
