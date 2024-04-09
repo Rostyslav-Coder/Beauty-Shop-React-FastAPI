@@ -21,8 +21,9 @@ const AdminPanel = () => {
   const [newProfessionData, setNewProfessionData] = useState(null);
   const [updatedProfessionData, setUpdatedProfessionData] = useState('');
   const [newServiceData, setNewServiceData] = useState(null);
+  const [updatedServiceData, setUpdatedServiceData] = useState('');
   const [error, setError] = useState(null);
-  const [openComponent, setOpenComponent] = useState('')
+  const [openComponent, setOpenComponent] = useState('');
   const user = JSON.parse(localStorage.getItem('user'));
   const adminName = user.firstName ? user.firstName : user.email;
 
@@ -55,6 +56,7 @@ const AdminPanel = () => {
             setNewProfessionData={setNewProfessionData}
             setUpdatedProfessionData={setUpdatedProfessionData}
             setNewServiceData={setNewServiceData}
+            setUpdatedServiceData={setUpdatedServiceData}
             setError={setError}
             isOpen={openComponent === 'ProfessionManagerTool'}
             onOpen={() => handleOpen('ProfessionManagerTool')}
@@ -82,6 +84,7 @@ const AdminPanel = () => {
               newProfessionData={newProfessionData}
               updatedProfessionData={updatedProfessionData}
               newServiceData={newServiceData}
+              updatedServiceData={updatedServiceData}
               error={error}
             />
           )}

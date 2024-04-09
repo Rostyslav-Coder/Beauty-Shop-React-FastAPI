@@ -12,7 +12,6 @@ from backend.domain.services import (
     ServiceUncommited,
     ServiceUnexpanded,
 )
-from backend.domain.users import User
 from backend.infrastructure.database import transaction
 from backend.infrastructure.models import Response, ResponseMulti
 
@@ -24,7 +23,7 @@ router = APIRouter(prefix="/services", tags=["Services"])
 async def service_create(
     _: Request,
     schema: ServiceCreateRequestBody,
-    user: User = Depends(RoleRequired(UserRole.ADMIN)),
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
 ) -> Response[ServicePublic]:
     """Create new service"""
 
@@ -44,18 +43,18 @@ async def service_create(
 
 @router.get("/all", status_code=status.HTTP_200_OK)
 @transaction
-async def service_all(
-    _: Request, skip: int, limit: int
-) -> ResponseMulti[ServicePublic]:
+async def service_all(_: Request) -> ResponseMulti[ServiceUnexpanded]:
     """Get All Services"""
 
-    # Get all Services from DB
-    services: list[Service] = await ServiceRepository().all(
-        skip_=skip, limit_=limit
-    )
-    services_public = [ServicePublic.from_orm(service) for service in services]
+    # Get services list from database
+    services_generator: ServiceUnexpanded = ServiceRepository().all()
 
-    return ResponseMulti[ServicePublic](result=services_public)
+    # Convert generator to a services list
+    services: list[ServiceUnexpanded] = [
+        service async for service in services_generator
+    ]
+
+    return ResponseMulti[ServiceUnexpanded](result=services)
 
 
 @router.get("/all_by_prfsn", status_code=status.HTTP_200_OK)
@@ -77,3 +76,28 @@ async def service_all_by_prfsn(
     services_public = [ServicePublic.from_orm(service) for service in services]
 
     return ResponseMulti[ServicePublic](result=services_public)
+
+
+@router.put("/update", status_code=status.HTTP_202_ACCEPTED)
+@transaction
+async def service_update(
+    _: Request,
+    service_id: int,
+    service_key: str,
+    service_value: str,
+    user_=Depends(RoleRequired(UserRole.ADMIN)),
+) -> Response[ServicePublic]:
+    """Update Service"""
+
+    #
+    payload = {service_key: service_value}
+
+    # Update Service by Service ID
+    service: Service = await ServiceRepository().update(
+        key_="id", value_=service_id, payload_=payload
+    )
+
+    # Get public model of service from Database
+    service_public = ServicePublic.from_orm(service)
+
+    return Response[ServicePublic](result=service_public)

@@ -8,6 +8,7 @@ const ProfessionManagerDesktop = (
 		newProfessionData,
 		updatedProfessionData,
 		newServiceData,
+		updatedServiceData,
 		error
 	}
 ) => {
@@ -52,6 +53,17 @@ const ProfessionManagerDesktop = (
 					)}
 				</div>
 			)}
+			{updatedServiceData && (
+				<div className='adminData'>
+					<h2>Updated Service Data:</h2>
+					{updatedServiceData.name && (
+						<p>New Profession: {updatedServiceData.name}</p>
+					)}
+					{updatedServiceData.description && (
+						<p>Profession description: {updatedServiceData.description}</p>
+					)}
+				</div>
+			)}
 			{error && <p>{error}</p>}
 		</>
 	);
@@ -61,6 +73,7 @@ ProfessionManagerDesktop.propTypes = {
 	newProfessionData: PropTypes.object,
 	updatedProfessionData: PropTypes.object,
 	newServiceData: PropTypes.object,
+	updatedServiceData: PropTypes.object,
 	error: PropTypes.string,
 };
 

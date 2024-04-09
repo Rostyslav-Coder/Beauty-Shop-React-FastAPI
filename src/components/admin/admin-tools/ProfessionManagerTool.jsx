@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import ProfessionCreator from './admin-subTools/ProfessionCreator';
 import ProfessoinUpdater from './admin-subTools/ProfessionUpdater';
 import ServiceCreator from './admin-subTools/ServiceCreator';
+import ServiceUpdater from './admin-subTools/ServiceUpdater';
 
 
 const ProfessionManagerTool = (
@@ -13,6 +14,7 @@ const ProfessionManagerTool = (
     setNewProfessionData,
     setUpdatedProfessionData,
     setNewServiceData,
+    setUpdatedServiceData,
     setError,
     isOpen,
     onOpen
@@ -55,6 +57,16 @@ const ProfessionManagerTool = (
               />
             )}
           </div>
+          <div onClick={() => setOpenElement('ServiceUpdater')}>
+            <hr />
+            <h3>Update Service</h3>
+            {openElement === 'ServiceUpdater' && (
+              <ServiceUpdater
+                setUpdatedServiceData={setUpdatedServiceData}
+                setError={setError}
+              />
+            )}
+          </div>
         </>
       )}
     </div>
@@ -65,6 +77,7 @@ ProfessionManagerTool.propTypes = {
   setNewProfessionData: PropTypes.func,
   setUpdatedProfessionData: PropTypes.func,
   setNewServiceData: PropTypes.func,
+  setUpdatedServiceData: PropTypes.func,
   setError: PropTypes.func,
   isOpen: PropTypes.bool.isRequired,
   onOpen: PropTypes.func.isRequired,
