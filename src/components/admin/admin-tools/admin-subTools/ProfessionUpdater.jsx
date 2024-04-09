@@ -1,4 +1,4 @@
-// ============ PROFESSION-CREATOR COMPONENT MODULE  ============ //
+// ============ PROFESSION-UPDATER COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';

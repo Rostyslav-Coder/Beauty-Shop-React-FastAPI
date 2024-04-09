@@ -45,14 +45,14 @@ async def profession_all(_: Request) -> ResponseMulti[ProfessionPublic]:
     """Get all current profession"""
 
     # Get professions list from database
-    raw_professions: ProfessionPublic = ProfessionRepository().all()
+    professions_generator: ProfessionPublic = ProfessionRepository().all()
 
-    # Comvert generator to a list
-    professions: list[ProfessionPublic] = [
-        profession async for profession in raw_professions
+    # Convert generator to a list
+    professions_public: list[ProfessionPublic] = [
+        profession async for profession in professions_generator
     ]
 
-    return ResponseMulti[ProfessionPublic](result=professions)
+    return ResponseMulti[ProfessionPublic](result=professions_public)
 
 
 @router.put("/update", status_code=status.HTTP_202_ACCEPTED)
@@ -60,14 +60,14 @@ async def profession_all(_: Request) -> ResponseMulti[ProfessionPublic]:
 async def profession_update_name(
     _: Request,
     profession_id: int,
-    payload_kay: str,
-    payload_value: str,
+    profession_kay: str,
+    profession_value: str,
     user=Depends(RoleRequired(UserRole.ADMIN)),
 ) -> Response[ProfessionPublic]:
     """Update profession name"""
 
     #
-    payload = {payload_kay: payload_value}
+    payload = {profession_kay: profession_value}
 
     # Update current profession
     profession: Profession = await ProfessionRepository().update(

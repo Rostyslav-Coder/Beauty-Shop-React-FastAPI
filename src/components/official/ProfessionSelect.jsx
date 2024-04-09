@@ -9,12 +9,13 @@ const ProfessionSelect = ({ setProfession }) => {
 	const [options, setOptions] = useState([]);
 
 	useEffect(() => {
-		const fetchData = async () => {
+		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
+		const fetchData = async () => {
 			try {
 				const response = await axios({
 					method: 'get',
-					url: 'http://127.0.0.1:8000/profession/all',
+					url: BASE_URL + '/profession/all',
 				})
 				setOptions(response.data.result)
 			} catch (error) {
@@ -40,9 +41,9 @@ const ProfessionSelect = ({ setProfession }) => {
 				<option key='empty' value={null} selected>
 					Select One:
 				</option>
-				{options && options.map((option, index) => (
-					<option key={index} value={option.id}>
-						{option.name}
+				{options && options.map((profession, index) => (
+					<option key={index} value={profession.id}>
+						{profession.name}
 					</option>
 				))}
 			</select>
