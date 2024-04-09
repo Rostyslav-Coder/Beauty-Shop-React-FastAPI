@@ -1,10 +1,10 @@
 // ============ EMPLOYEE-LIST-BY-PROFESSOIN COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
-// import axios from 'axios';
 import PropTypes from 'prop-types';
-import sendRequest from '../../../../request/request';
-import ProfessionSelect from '../../../official/ProfessionSelect';
+
+import ProfessionSelect from '../../official/ProfessionSelect';
+import sendRequest from '../../../request/request';
 
 
 const EmployeeListByProfession = ({ setEmployeeListProf, setError }) => {

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import UserEmailSearch from './admin-subTools/UserEmailSearch';
+import UserEmailSearch from '../admin-subTools/UserEmailSearch';
 
 
 const UserManagerTool = (

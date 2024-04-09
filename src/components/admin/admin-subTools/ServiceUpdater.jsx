@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import ServiceSelect from '../../../official/ServiceSelect';
-import sendRequest from '../../../../request/request';
+import ServiceSelect from '../../official/ServiceSelect';
+import sendRequest from '../../../request/request';
 
 
 const ServiceUpdater = ({ setUpdatedServiceData, setError }) => {

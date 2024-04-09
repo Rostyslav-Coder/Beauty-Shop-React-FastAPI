@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import ProfessionCreator from './admin-subTools/ProfessionCreator';
-import ProfessoinUpdater from './admin-subTools/ProfessionUpdater';
-import ServiceCreator from './admin-subTools/ServiceCreator';
-import ServiceUpdater from './admin-subTools/ServiceUpdater';
+import ProfessionCreator from '../admin-subTools/ProfessionCreator';
+import ProfessoinUpdater from '../admin-subTools/ProfessionUpdater';
+import ServiceCreator from '../admin-subTools/ServiceCreator';
+import ServiceUpdater from '../admin-subTools/ServiceUpdater';
 
 
 const ProfessionManagerTool = (

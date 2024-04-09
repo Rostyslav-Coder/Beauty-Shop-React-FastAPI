@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import EmployeeListAll from './admin-subTools/EmployeeListAll';
-import EmployeeListByProfession from './admin-subTools/EmployeeListByProfession';
-import EmployeeNameSearch from './admin-subTools/EmployeeNameSearch';
-import EmployeeCreator from './admin-subTools/EmployeeCreator';
-import EmployeeNotActive from './admin-subTools/EmployeeNotActive';
+import EmployeeListAll from '../admin-subTools/EmployeeListAll';
+import EmployeeListByProfession from '../admin-subTools/EmployeeListByProfession';
+import EmployeeNameSearch from '../admin-subTools/EmployeeNameSearch';
+import EmployeeCreator from '../admin-subTools/EmployeeCreator';
+import EmployeeNotActive from '../admin-subTools/EmployeeNotActive';
 
 
 const EmployeeManagerTool = (

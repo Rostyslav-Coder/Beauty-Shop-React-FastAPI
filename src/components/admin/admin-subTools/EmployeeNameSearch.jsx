@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import sendRequest from '../../../../request/request';
+
+import sendRequest from '../../../request/request';
 
 
 const EmployeeNameSearch = ({ setSearchedEmployeeData, setError, }) => {

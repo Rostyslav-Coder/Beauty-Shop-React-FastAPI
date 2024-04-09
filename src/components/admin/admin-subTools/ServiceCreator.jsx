@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import ProfessionSelect from '../../../official/ProfessionSelect';
-import sendRequest from '../../../../request/request';
+
+import ProfessionSelect from '../../official/ProfessionSelect';
+import sendRequest from '../../../request/request';
 
 
 const ServiceCreator = ({ setNewServiceData, setError }) => {
