@@ -3,7 +3,14 @@
 import PropTypes from 'prop-types';
 
 
-const ProfessionManagerDesktop = ({ newProfessionData, newServiceData, error }) => {
+const ProfessionManagerDesktop = (
+	{
+		newProfessionData,
+		updatedProfessionData,
+		newServiceData,
+		error
+	}
+) => {
 	return (
 		<>
 			{newProfessionData && (
@@ -14,6 +21,17 @@ const ProfessionManagerDesktop = ({ newProfessionData, newServiceData, error }) 
 					)}
 					{newProfessionData.description && (
 						<p>Profession description: {newProfessionData.description}</p>
+					)}
+				</div>
+			)}
+			{updatedProfessionData && (
+				<div className='adminData'>
+					<h2>Updated Profession Data:</h2>
+					{updatedProfessionData.name && (
+						<p>New Profession: {updatedProfessionData.name}</p>
+					)}
+					{updatedProfessionData.description && (
+						<p>Profession description: {updatedProfessionData.description}</p>
 					)}
 				</div>
 			)}
@@ -41,6 +59,7 @@ const ProfessionManagerDesktop = ({ newProfessionData, newServiceData, error }) 
 
 ProfessionManagerDesktop.propTypes = {
 	newProfessionData: PropTypes.object,
+	updatedProfessionData: PropTypes.object,
 	newServiceData: PropTypes.object,
 	error: PropTypes.string,
 };

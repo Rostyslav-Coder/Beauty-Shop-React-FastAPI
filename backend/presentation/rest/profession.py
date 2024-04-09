@@ -55,44 +55,25 @@ async def profession_all(_: Request) -> ResponseMulti[ProfessionPublic]:
     return ResponseMulti[ProfessionPublic](result=professions)
 
 
-@router.put("/update_name", status_code=status.HTTP_202_ACCEPTED)
+@router.put("/update", status_code=status.HTTP_202_ACCEPTED)
 @transaction
 async def profession_update_name(
     _: Request,
     profession_id: int,
-    naw_profession: str,
+    payload_kay: str,
+    payload_value: str,
     user=Depends(RoleRequired(UserRole.ADMIN)),
 ) -> Response[ProfessionPublic]:
     """Update profession name"""
 
-    # Update current profession
-    profession: Profession = await ProfessionRepository().update(
-        key_="id",
-        value_=profession_id,
-        payload_={"profession": naw_profession},
-    )
-
-    # Get public model of profession from Database
-    profession_public = ProfessionPublic.from_orm(profession)
-
-    return Response[ProfessionPublic](result=profession_public)
-
-
-@router.put("/update_description", status_code=status.HTTP_202_ACCEPTED)
-@transaction
-async def profession_update_description(
-    _: Request,
-    profession_id: int,
-    naw_description: str,
-    user=Depends(RoleRequired(UserRole.ADMIN)),
-) -> Response[ProfessionPublic]:
-    """Update profession description"""
+    #
+    payload = {payload_kay: payload_value}
 
     # Update current profession
     profession: Profession = await ProfessionRepository().update(
         key_="id",
         value_=profession_id,
-        payload_={"description": naw_description},
+        payload_=payload,
     )
 
     # Get public model of profession from Database

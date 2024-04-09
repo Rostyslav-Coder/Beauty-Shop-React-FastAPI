@@ -13,15 +13,16 @@ import '../styles/Admin.css';
 
 const AdminPanel = () => {
   const [searchedUserData, setSearchedUserData] = useState(null);
-  const [searchedEmployeeData, setSearchedEmployeeData] = useState(null);
-  const [newEmployeeData, setNewEmployeeData] = useState(null);
-  const [newProfessionData, setNewProfessionData] = useState(null);
   const [employeeListAll, setEmployeeListAll] = useState([]);
   const [employeeListProf, setEmployeeListProf] = useState([]);
+  const [searchedEmployeeData, setSearchedEmployeeData] = useState(null);
+  const [newEmployeeData, setNewEmployeeData] = useState(null);
   const [formerEmployee, setFormerEmployee] = useState('');
+  const [newProfessionData, setNewProfessionData] = useState(null);
+  const [updatedProfessionData, setUpdatedProfessionData] = useState('');
   const [newServiceData, setNewServiceData] = useState(null);
-  const [openComponent, setOpenComponent] = useState('')
   const [error, setError] = useState(null);
+  const [openComponent, setOpenComponent] = useState('')
   const user = JSON.parse(localStorage.getItem('user'));
   const adminName = user.firstName ? user.firstName : user.email;
 
@@ -52,6 +53,7 @@ const AdminPanel = () => {
           />
           <ProfessionManagerTool
             setNewProfessionData={setNewProfessionData}
+            setUpdatedProfessionData={setUpdatedProfessionData}
             setNewServiceData={setNewServiceData}
             setError={setError}
             isOpen={openComponent === 'ProfessionManagerTool'}
@@ -78,6 +80,7 @@ const AdminPanel = () => {
           {openComponent === 'ProfessionManagerTool' && (
             <ProfessionManagerDesktop
               newProfessionData={newProfessionData}
+              updatedProfessionData={updatedProfessionData}
               newServiceData={newServiceData}
               error={error}
             />

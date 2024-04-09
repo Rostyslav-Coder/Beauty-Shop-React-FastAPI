@@ -20,7 +20,6 @@ const EmployeeNotActive = ({ setFormerEmployee, setError }) => {
 
 		try {
 			const result = await sendRequest('put', REQUEST_URL, data);
-			console.log('result.result: ', result.result)
 			if (result.error) {
 				setError(result.error)
 			} else {
