@@ -3,6 +3,7 @@
 from typing import TypeVar
 
 from sqlalchemy import (
+    DATETIME,
     Boolean,
     Column,
     Enum,
@@ -20,14 +21,20 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from backend.domain.constants import UserRole, WorkingDays, WorkingShift
+from backend.domain.constants import (
+    BookingStatus,
+    UserRole,
+    WorkingDays,
+    WorkingShift,
+)
 
 __all__ = (
     "UsersTable",
     "EmployeesTable",
     "ProfessionTable",
     "ServiceTable",
-    "EmployeeServiceTable",
+    "OfferTable",
+    "BookingTable",
 )
 
 meta = MetaData(
@@ -69,6 +76,7 @@ class UsersTable(Base):
     employee = relationship(
         "EmployeesTable", back_populates="user", uselist=False
     )
+    bookings = relationship("BookingTable", back_populates="user")
 
 
 class EmployeesTable(Base):
@@ -89,10 +97,8 @@ class EmployeesTable(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     user = relationship("UsersTable", back_populates="employee")
-    profession = relationship("ProfessionTable", back_populates="employee")
-    employee_services = relationship(
-        "EmployeeServiceTable", back_populates="employee"
-    )
+    profession = relationship("ProfessionTable", back_populates="employees")
+    offers = relationship("OfferTable", back_populates="employee")
 
 
 class ProfessionTable(Base):
@@ -101,7 +107,7 @@ class ProfessionTable(Base):
     name: Mapped[str] = mapped_column(String(length=50), nullable=False)
     description: Mapped[str] = mapped_column(String(length=200), nullable=True)
 
-    employee = relationship("EmployeesTable", back_populates="profession")
+    employees = relationship("EmployeesTable", back_populates="profession")
     services = relationship("ServiceTable", back_populates="profession")
 
 
@@ -118,13 +124,11 @@ class ServiceTable(Base):
     )
 
     profession = relationship("ProfessionTable", back_populates="services")
-    employee_services = relationship(
-        "EmployeeServiceTable", back_populates="service"
-    )
+    offers = relationship("OfferTable", back_populates="service")
 
 
-class EmployeeServiceTable(Base):
-    __tablename__ = "employee_services"
+class OfferTable(Base):
+    __tablename__ = "offers"
 
     price: Mapped[Numeric] = mapped_column(Numeric, nullable=False)
     duration: Mapped[Interval] = mapped_column(Interval, nullable=False)
@@ -135,28 +139,23 @@ class EmployeeServiceTable(Base):
         Integer, ForeignKey("employees.id"), nullable=False
     )
 
-    employee = relationship(
-        "EmployeesTable", back_populates="employee_services"
+    employee = relationship("EmployeesTable", back_populates="offers")
+    service = relationship("ServiceTable", back_populates="offers")
+    bookings = relationship("BookingTable", back_populates="offer")
+
+
+class BookingTable(Base):
+    __tablename__ = "bookings"
+
+    user_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("users.id"), nullable=False
     )
-    service = relationship("ServiceTable", back_populates="employee_services")
+    offer_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("offers.id"), nullable=False
+    )
+    start_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
+    end_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
+    status: Mapped[Enum] = mapped_column(Enum(BookingStatus), nullable=False)
 
-
-# class BookingTable(Base):
-#     __tablename__ = "bookings"
-
-#     user_id: Mapped[int] = mapped_column(
-#         Integer, ForeignKey("users.id"), nullable=False
-#     )
-#     employee_id: Mapped[int] = mapped_column(
-#         Integer, ForeignKey("employees.id"), nullable=False
-#     )
-#     service_id: Mapped[int] = mapped_column(
-#         Integer, ForeignKey("services.id"), nullable=False
-#     )
-#     start_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
-#     end_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
-#     status: Mapped[Enum] = mapped_column(Enum(BookingStatus), nullable=False)
-
-#     user = relationship("UsersTable", back_populates="bookings")
-#     employee = relationship("EmployeesTable", back_populates="bookings")
-#     services = relationship("ServiceTable", back_populates="bookings")
+    user = relationship("UsersTable", back_populates="bookings")
+    offer = relationship("OfferTable", back_populates="bookings")
