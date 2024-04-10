@@ -9,7 +9,6 @@ from sqlalchemy import (
     Enum,
     ForeignKey,
     Integer,
-    Interval,
     MetaData,
     Numeric,
     String,
@@ -131,7 +130,7 @@ class OfferTable(Base):
     __tablename__ = "offers"
 
     price: Mapped[Numeric] = mapped_column(Numeric, nullable=False)
-    duration: Mapped[Interval] = mapped_column(Interval, nullable=False)
+    duration: Mapped[int] = mapped_column(Integer, nullable=False)
     service_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("services.id"), nullable=False
     )

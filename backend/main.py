@@ -32,11 +32,12 @@ logger.add(
 app: FastAPI = application.create(
     debug=settings.debug,
     rest_routers=(
-        rest.react_router_dom.router,
         rest.admin.router,
         rest.authenticate.router,
         rest.employees.router,
-        rest.profession.router,
+        rest.offers.router,
+        rest.professions.router,
+        rest.react_router_dom.router,
         rest.services.router,
         rest.users.router,
     ),
