@@ -56,7 +56,8 @@ async def offer_all(_: Request) -> ResponseMulti[OfferPublic]:
     """Get all current offers"""
 
     # Get offers list from database
-    offers_public: OfferPublic = OfferRepository().all()
+    offers: Offer = OfferRepository().all()
+    offers_public: list[OfferPublic] = [offer async for offer in offers]
 
     return ResponseMulti[OfferPublic](result=offers_public)
 
@@ -68,9 +69,8 @@ async def offer_all_my(
 ) -> ResponseMulti[OfferPublic]:
     """Get all offers associated with current employee"""
 
-    offers_public: OfferPublic = await OfferRepository().all_by(
-        key_="id", value_=user.id
-    )
+    offers: Offer = await OfferRepository().all_by(key_="id", value_=user.id)
+    offers_public: list[OfferPublic] = [offer async for offer in offers]
 
     return ResponseMulti[OfferPublic](result=offers_public)
 
@@ -93,7 +93,7 @@ async def offer_update(
     )
 
     # Get current offer
-    offer: OfferPublic = OfferRepository().get(key_="id", value_=offer_id)
+    offer: Offer = OfferRepository().get(key_="id", value_=offer_id)
 
     if employee.id != offer.employee_id:
         raise UnprocessableError

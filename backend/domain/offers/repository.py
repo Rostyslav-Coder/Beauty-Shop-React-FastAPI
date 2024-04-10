@@ -2,7 +2,7 @@
 
 from typing import Any, AsyncGenerator
 
-from backend.domain.offers import Offer, OfferPublic, OfferUncommited
+from backend.domain.offers import Offer, OfferUncommited
 from backend.infrastructure.database import BaseRepository, OfferTable
 
 __all__ = ("OfferRepository",)
@@ -11,19 +11,19 @@ __all__ = ("OfferRepository",)
 class OfferRepository(BaseRepository[OfferTable]):
     schema_class = OfferTable
 
-    async def all(self) -> AsyncGenerator[OfferPublic, None]:
+    async def all(self) -> AsyncGenerator[Offer, None]:
         async for instance in self._all():
-            yield OfferPublic.from_orm(instance)
+            yield Offer.from_orm(instance)
 
     async def all_by(
         self, key_: str, value_: Any
-    ) -> AsyncGenerator[OfferPublic, None]:
+    ) -> AsyncGenerator[Offer, None]:
         async for instance in self._all_by(key=key_, value=value_):
-            yield OfferPublic.from_orm(instance)
+            yield Offer.from_orm(instance)
 
-    async def get(self, key_: str, value_: Any) -> OfferPublic:
+    async def get(self, key_: str, value_: Any) -> Offer:
         instance = await self._get(key=key_, value=value_)
-        return OfferPublic.from_orm(instance)
+        return Offer.from_orm(instance)
 
     async def create(self, schema: OfferUncommited) -> Offer:
         instance: OfferTable = await self._save(schema.dict())
@@ -31,8 +31,8 @@ class OfferRepository(BaseRepository[OfferTable]):
 
     async def update(
         self, key_: str, value_: Any, payload_: OfferUncommited
-    ) -> OfferPublic:
+    ) -> Offer:
         instance: OfferTable = await self._update(
             key=key_, value=value_, payload=payload_
         )
-        return OfferPublic.from_orm(instance)
+        return Offer.from_orm(instance)

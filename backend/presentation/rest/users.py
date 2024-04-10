@@ -38,7 +38,6 @@ async def user_create(
     user: User = await UsersRepository().create(
         UserUncommited(**schema.dict())
     )
-
     user_public = UserPublic.from_orm(user)
 
     return Response[UserPublic](result=user_public)

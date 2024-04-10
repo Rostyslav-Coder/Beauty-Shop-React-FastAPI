@@ -2,11 +2,7 @@
 
 from typing import Any, AsyncGenerator
 
-from backend.domain.professions import (
-    Profession,
-    ProfessionPublic,
-    ProfessionUncommited,
-)
+from backend.domain.professions import Profession, ProfessionUncommited
 from backend.infrastructure.database import BaseRepository, ProfessionTable
 
 __all__ = ("ProfessionRepository",)
@@ -15,13 +11,13 @@ __all__ = ("ProfessionRepository",)
 class ProfessionRepository(BaseRepository[ProfessionTable]):
     schema_class = ProfessionTable
 
-    async def all(self) -> AsyncGenerator[ProfessionPublic, None]:
+    async def all(self) -> AsyncGenerator[Profession, None]:
         async for instance in self._all():
-            yield ProfessionPublic.from_orm(instance)
+            yield Profession.from_orm(instance)
 
-    async def get(self, key_: str, value_: Any) -> ProfessionPublic:
+    async def get(self, key_: str, value_: Any) -> Profession:
         instance = await self._get(key=key_, value=value_)
-        return ProfessionPublic.from_orm(instance)
+        return Profession.from_orm(instance)
 
     async def create(self, schema: ProfessionUncommited) -> Profession:
         instance: ProfessionTable = await self._save(schema.dict())
@@ -29,8 +25,8 @@ class ProfessionRepository(BaseRepository[ProfessionTable]):
 
     async def update(
         self, key_: str, value_: Any, payload_: ProfessionUncommited
-    ) -> ProfessionPublic:
+    ) -> Profession:
         instance: ProfessionTable = await self._update(
             key=key_, value=value_, payload=payload_
         )
-        return ProfessionPublic.from_orm(instance)
+        return Profession.from_orm(instance)

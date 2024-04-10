@@ -50,13 +50,11 @@ class ServiceRepository(BaseRepository[ServiceTable]):
         result: Result = await self.execute(query)
         if not (_result := result.scalars().one_or_none()):
             raise NotFoundError
-        service = Service.from_orm(_result)
-        return service
+        return Service.from_orm(_result)
 
-    async def create(self, schema: ServiceUncommited) -> Service:
+    async def create(self, schema: ServiceUncommited) -> ServiceUnexpanded:
         instance: ServiceTable = await self._save(schema.dict())
-        service = ServiceUnexpanded.from_orm(instance)
-        return service
+        return ServiceUnexpanded.from_orm(instance)
 
     async def update(
         self, key_: str, value_: Any, payload_: dict[str, Any]
@@ -64,15 +62,11 @@ class ServiceRepository(BaseRepository[ServiceTable]):
         instance: ServiceTable = await self._update(
             key=key_, value=value_, payload=payload_
         )
-        # Create a select query with joinedload for the related models
         stmt = (
             select(self.schema_class)
             .options(joinedload(ServiceTable.profession))
             .where(getattr(self.schema_class, key_) == value_)
         )
-        # Execute the query
         result = await self._session.execute(stmt)
-        # Get the first result
         instance = result.scalars().first()
-        service = Service.from_orm(instance)
-        return service
+        return Service.from_orm(instance)

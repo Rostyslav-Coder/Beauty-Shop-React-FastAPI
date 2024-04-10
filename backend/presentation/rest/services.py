@@ -89,15 +89,13 @@ async def service_update(
 ) -> Response[ServicePublic]:
     """Update Service"""
 
-    #
+    # Prepare data for update
     payload = {service_key: service_value}
 
     # Update Service by Service ID
     service: Service = await ServiceRepository().update(
         key_="id", value_=service_id, payload_=payload
     )
-
-    # Get public model of service from Database
     service_public = ServicePublic.from_orm(service)
 
     return Response[ServicePublic](result=service_public)
