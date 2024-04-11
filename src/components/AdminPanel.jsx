@@ -35,7 +35,7 @@ const AdminPanel = () => {
     <section className='admin'>
       <h1 className='admin__title'>Hi {adminName}</h1>
       <div className='admin__wrapper'>
-        <section className='adminTools'>
+        <div className='adminTools'>
           <UserManagerTool
             setSearchedUserData={setSearchedUserData}
             setError={setError}
@@ -61,8 +61,8 @@ const AdminPanel = () => {
             isOpen={openComponent === 'ProfessionManagerTool'}
             onOpen={() => handleOpen('ProfessionManagerTool')}
           />
-        </section>
-        <section className='adminDesktop'>
+        </div>
+        <div className='adminDesktop'>
           {openComponent === 'UserManagerTool' && (
             <UserManagerDesktop
               searchedUserData={searchedUserData}
@@ -88,7 +88,7 @@ const AdminPanel = () => {
               error={error}
             />
           )}
-        </section>
+        </div>
       </div>
     </section>
   );
