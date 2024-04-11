@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, Depends, Request, status
 
-from backend.application.authentication import RoleRequired, get_current_user
+from backend.application.authentication import get_current_user
 from backend.domain.constants import UserRole
 from backend.domain.employees import Employee, EmployeeRepository
 from backend.domain.offers import (
@@ -15,20 +15,33 @@ from backend.domain.offers import (
 from backend.domain.services import Service, ServiceRepository
 from backend.domain.users import User
 from backend.infrastructure.database import transaction
-from backend.infrastructure.errors import UnprocessableError
+from backend.infrastructure.errors import (
+    AuthenticationError,
+    UnprocessableError,
+)
 from backend.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(prefix="/offers", tags=["Route for managing current offer"])
 
 
-@router.post("/add", status_code=status.HTTP_201_CREATED)
+@router.post("/create", status_code=status.HTTP_201_CREATED)
 @transaction
 async def offer_create(
     _: Request,
     schema: OfferCreateRequestBody,
-    user_=Depends(RoleRequired(UserRole.EMPLOYEE)),
+    user: User = Depends(get_current_user),
 ) -> Response[OfferPublic]:
     """Add current offer"""
+
+    # Checking Permissions Authentication
+    if user.role != UserRole.EMPLOYEE:
+        raise AuthenticationError
+
+    # Get current employee
+    employee: Employee = EmployeeRepository().get(
+        key_="user_id", value_=user.id
+    )
+    schema.employee_id = employee.id
 
     # Get the associated service from the database
     current_service: Service = await ServiceRepository().get(
@@ -43,8 +56,6 @@ async def offer_create(
     offer: Offer = await OfferRepository().create(
         OfferUncommited(**schema.dict())
     )
-
-    # Get public model of offer from Database
     offer_public = OfferPublic.from_orm(offer)
 
     return Response[OfferPublic](result=offer_public)
