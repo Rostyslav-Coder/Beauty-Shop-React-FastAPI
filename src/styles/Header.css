@@ -7,12 +7,13 @@
 	right: 3.5rem;
 	width: 5rem;
 	height: 5rem;
-	background-color: #F0F0F0;
+	background-color: #CDCDCD22;
+	border: 2px solid #111;
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #212121;
+	color: #111;
 	font-family: serif;
 	font-size: 8rem;
 	font-weight: 900;
@@ -26,8 +27,8 @@
 	right: 0;
 	width: 70vw;
 	height: 100vh;
-	background-color: #24242424;
-	backdrop-filter: blur(6px);
+	background-color: #CDCDCD22;
+	backdrop-filter: blur(24px);
 	z-index: 1050;
 }
 
@@ -59,17 +60,17 @@
 }
 
 .header__navButton {
-	/* width: 100%; */
+	width: 80%;
 	height: 2.5rem;
-	color: #F0F0F0;
+	color: #111;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #24242424;
-	border: 0.1rem solid #F0F0F0;
+	background-color: #CDCDCD22;
+	border: 0.1rem solid #111;
 	border-radius: 0.625rem;
-	font-family: sans-serif;
-	font-weight: 900;
+	font-family: 'Montserrat Alternates';
+	font-weight: 800;
 	font-size: 2rem;
 	letter-spacing: 0.1rem;
 	text-decoration: none;
@@ -113,7 +114,7 @@
 	}
 
 	.header__navButton:hover {
-		color: #09C4BD;
-		border: 0.1rem solid #09C4BD;
+		color: #94675E;
+		border: 0.1rem solid #94675E;
 	}
 }
