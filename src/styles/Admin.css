@@ -2,13 +2,14 @@
 
 .admin {
 	width: 100%;
-	min-height: calc(100vh - 2rem);
+	/* min-height: calc(100vh - 2rem); */
 	padding-top: 13vh;
 	text-align: center;
 }
 
 .admin__wrapper {
-	width: 100%;
+	width: 90%;
+	margin: 0 auto;
 	min-height: calc(100vh - 2rem);
 	display: flex;
 	justify-content: space-between;
@@ -17,9 +18,8 @@
 
 .adminTools {
 	width: 25%;
-	padding: 1rem 2rem;
+	padding: 1rem 0;
 	margin-bottom: auto;
-	border: 1px solid #09C4BD;
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
@@ -38,8 +38,8 @@
 
 .toolComponent {
 	padding: 0.2rem 0.5rem;
-	border: 2px solid #09C4BD;
-	border-radius: 5px;
+	border: 1px solid #111;
+	border-radius: 0.25rem;
 	z-index: 2;
 	transition: opacity 0.5s ease-in-out;
 	cursor: pointer;
@@ -47,7 +47,7 @@
 
 .toolComponent h2,
 .toolComponent h3 {
-	color: #09C4BD;
+	color: #111;
 	text-align: center;
 	cursor: pointer;
 }
@@ -65,35 +65,40 @@
 }
 
 .toolComponent button {
-	background-color: #09C4BD;
+	background-color: #AE7F77;
 }
 
 .adminDesktop {
 	width: 75%;
 	min-height: calc(100vh - 2rem);
+	padding: 1rem 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	align-items: center;
+	align-items: flex-end;
 	gap: 1rem;
 }
 
 .adminData {
 	width: 80%;
-	border: 1px solid #09C4BD;
+	border: 1px solid #111;
 }
 
 .adminData h2 {
-	color: #09C4BD;
+	color: #111;
 }
 
 .adminData table {
 	width: 100%;
-	border-top: 1px solid #09C4BD;
+	border-top: 1px solid #111;
+}
+
+.adminData table tr {
+	color: #111;
 }
 
 .adminData table tr:nth-child(odd) {
-	background-color: #363636;
+	background-color: #AE7F77;
 }
 
 .adminData table th:nth-child(odd) {

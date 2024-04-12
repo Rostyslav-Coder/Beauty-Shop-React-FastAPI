@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import sendRequest from '../../../request/request';
 
+
 const UserEmailSearch = ({ setSearchedUserData, setError, }) => {
 	const [searchedUserEmail, setSearchedUserEmail] = useState('');
 
@@ -15,7 +16,7 @@ const UserEmailSearch = ({ setSearchedUserData, setError, }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const REQUEST_URL = '/users/get_by_email';
+		const REQUEST_URL = '/users/by_email';
 		const data = { user_email: searchedUserEmail };
 
 		try {

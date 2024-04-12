@@ -120,6 +120,17 @@ class BaseRepository(Session, Generic[ConcreteTable]):  # type: ignore
         for schema in schemas:
             yield schema
 
+    async def _all_limited(
+        self, skip: int, limit: int
+    ) -> AsyncGenerator[ConcreteTable, None]:
+        result: Result = await self.execute(
+            select(self.schema_class).offset(skip).limit(limit)
+        )
+        schemas = result.scalars().all()
+
+        for schema in schemas:
+            yield schema
+
     async def _all_by(
         self, key: str, value: Any
     ) -> AsyncGenerator[ConcreteTable, None]:

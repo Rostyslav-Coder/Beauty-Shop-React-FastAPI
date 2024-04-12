@@ -13,6 +13,7 @@ import '../styles/Admin.css';
 
 const AdminPanel = () => {
   const [searchedUserData, setSearchedUserData] = useState(null);
+  const [userListAll, setUserListAll] = useState([]);
   const [employeeListAll, setEmployeeListAll] = useState([]);
   const [employeeListProf, setEmployeeListProf] = useState([]);
   const [searchedEmployeeData, setSearchedEmployeeData] = useState(null);
@@ -38,6 +39,7 @@ const AdminPanel = () => {
         <div className='adminTools'>
           <UserManagerTool
             setSearchedUserData={setSearchedUserData}
+            setUserListAll={setUserListAll}
             setError={setError}
             isOpen={openComponent === 'UserManagerTool'}
             onOpen={() => handleOpen('UserManagerTool')}
@@ -66,6 +68,7 @@ const AdminPanel = () => {
           {openComponent === 'UserManagerTool' && (
             <UserManagerDesktop
               searchedUserData={searchedUserData}
+              userListAll={userListAll}
               error={error}
             />
           )}

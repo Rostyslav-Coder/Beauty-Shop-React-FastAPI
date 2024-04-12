@@ -1,21 +1,31 @@
 """backend/domain/users/models.py"""
 
+# Code updated
+
 from typing import Optional
 
 from pydantic import Field
 
 from backend.domain.constants import UserRole
+from backend.domain.employees import EmployeePublic
 from backend.infrastructure.models import InternalModel, PublicModel
 
-__all__ = ("UserCreateRequestBody", "UserPublic", "UserUncommited", "User")
+__all__ = (
+    "UserCreateRequestBody",
+    "UserPublic",
+    "UserEmployeePublic",
+    "UserUncommited",
+    "User",
+    "UserEmployee",
+)
 
 
 # Public models
-# ------------------------------------------------------
+# ============================================================
 class UserPublicBase(PublicModel):
     """
-    Base class for public user schemas. Defines common fields
-    that are present in all public user schemas.
+    Base class for public User schemas. Defines common fields
+    that are present in all public User schemas.
     """
 
     email: str = Field(description="User Email")
@@ -25,30 +35,29 @@ class UserPublicBase(PublicModel):
 
 
 class UserCreateRequestBody(UserPublicBase):
-    """
-    Request body to create User.
-    """
+    """Request body to create User."""
 
     password: str = Field(description="User Password")
     role: Optional[UserRole] = Field(description="User Role")
 
 
 class UserPublic(UserPublicBase):
-    """
-    Existed user representation.
-    """
+    """Existed User representation."""
 
     id: int = Field(description="User ID")
     role: UserRole
 
 
+class UserEmployeePublic(UserPublic):
+    """Existed User-Employee representation."""
+
+    employee: EmployeePublic = Field(description="Employee profession")
+
+
 # Internal models
-# ------------------------------------------------------
+# ============================================================
 class UserUncommited(InternalModel):
-    """
-    This schema is used for creating instance in the database.
-    Эта схема используется для создания экземпляра в базе данных.
-    """
+    """This schema is used for creating instance in the database."""
 
     email: str
     phone_number: str
@@ -59,9 +68,12 @@ class UserUncommited(InternalModel):
 
 
 class User(UserUncommited):
-    """
-    The internal application representation.
-    Внутреннее представление приложения.
-    """
+    """The internal application representation of User."""
 
     id: int
+
+
+class UserEmployee(User):
+    """The internal application representation of User-Employee."""
+
+    employee: EmployeePublic

@@ -23,35 +23,39 @@ const EmployeeManagerDesktop = (
               <table key={`table${index}`}>
                 <tr key={`firstName${index}`}>
                   <th>First Name</th>
-                  <th>{employee.user.firstName}</th>
+                  <th>{employee.firstName}</th>
                 </tr>
                 <tr key={`lastName${index}`}>
                   <th>Last Name</th>
-                  <th>{employee.user.lastName}</th>
+                  <th>{employee.lastName}</th>
                 </tr>
                 <tr key={`email${index}`}>
                   <th>Email</th>
-                  <th>{employee.user.email}</th>
+                  <th>{employee.email}</th>
                 </tr>
                 <tr key={`phoneNumber${index}`}>
                   <th>Phone Number</th>
-                  <th>{employee.user.phoneNumber}</th>
+                  <th>{employee.phoneNumber}</th>
+                </tr>
+                <tr key={`profession${index}`}>
+                  <th>Working Days</th>
+                  <th>{employee.employee.profession.name}</th>
                 </tr>
                 <tr key={`workingDays${index}`}>
                   <th>Working Days</th>
-                  <th>{employee.workingDays}</th>
+                  <th>{employee.employee.workingDays}</th>
                 </tr>
                 <tr key={`workingSift${index}`}>
                   <th>Working Shift</th>
-                  <th>{employee.workingShift}</th>
-                </tr>
-                <tr key={`employeeId${index}`}>
-                  <th>Employee Id</th>
-                  <th>{employee.id}</th>
+                  <th>{employee.employee.workingShift}</th>
                 </tr>
                 <tr key={`userId${index}`}>
                   <th>User Id</th>
-                  <th>{employee.user.id}</th>
+                  <th>{employee.id}</th>
+                </tr>
+                <tr key={`employeeId${index}`}>
+                  <th>Employee Id</th>
+                  <th>{employee.employee.id}</th>
                 </tr>
               </table>
             )

@@ -1,18 +1,17 @@
-// ============ EMPLOYEE-LIST-ALL COMPONENT MODULE  ============ //
+// ============ USER-EMAIL-SEARCH COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import sendRequest from '../../../request/request';
 
-
-const EmployeeListAll = ({ setEmployeeListAll, setError }) => {
+const UserListAll = ({ setUserListAll, setError }) => {
 	const [start, setStart] = useState(0);
 	const [count, setCount] = useState(3);
 	// const [hasNextClicked, setHasNextClicked] = useState(false);
 
 	const fetchData = async (start, count) => {
-		const REQUEST_URL = '/users/all_users_employee';
+		const REQUEST_URL = '/users/all';
 		const data = { skip: start, limit: count, };
 
 		try {
@@ -20,9 +19,7 @@ const EmployeeListAll = ({ setEmployeeListAll, setError }) => {
 			if (result.error) {
 				setError(result.error)
 			} else {
-				console.log('result: ', result)
-				console.log('result.result: ', result.result)
-				setEmployeeListAll(result.result);
+				setUserListAll(result.result);
 				setError(null);
 			}
 		} catch (error) {
@@ -40,29 +37,30 @@ const EmployeeListAll = ({ setEmployeeListAll, setError }) => {
 
 	// const handleBackSubmit = async (e) => {
 	// 	e.preventDefault();
-	// 	if (start < 3) {
+	// 	if (start >= 3) {
+	// 		let newStart = start - 3;
+	// 		let newCount = count - 3;
+	// 		setStart(newStart);
+	// 		setCount(newCount);
+	// 		await fetchData(newStart, newCount);
+	// 	} else {
 	// 		setHasNextClicked(false);
 	// 	}
-	// 	let newStart = start - 3;
-	// 	let newCount = count - 3;
-	// 	setStart(newStart);
-	// 	setCount(newCount);
-	// 	await fetchData(start - 3, count - 3);
 	// };
 
 	return (
 		<div className='subComponent'>
 			<form onSubmit={handleSubmit}>
-				<button type='submit'>{start < 3 ? 'Get All Employees' : 'Next'}</button>
+				<button type='submit'>{start < 3 ? 'Get All Users' : 'Next'}</button>
 				{/* <button type='submit' onClick={handleBackSubmit} disabled={!hasNextClicked}>Back</button> */}
 			</form>
 		</div>
 	);
 };
 
-EmployeeListAll.propTypes = {
-	setEmployeeListAll: PropTypes.func,
+UserListAll.propTypes = {
+	setUserListAll: PropTypes.func,
 	setError: PropTypes.func,
-};
+}
 
-export default EmployeeListAll;
+export default UserListAll;

@@ -3,7 +3,7 @@
 import PropTypes from 'prop-types';
 
 
-const UserManagerDesktop = ({ searchedUserData, error }) => {
+const UserManagerDesktop = ({ searchedUserData, userListAll, error }) => {
   return (
     <>
       {searchedUserData && (
@@ -49,6 +49,46 @@ const UserManagerDesktop = ({ searchedUserData, error }) => {
           </table>
         </div>
       )}
+      {userListAll.length > 0 && (
+        <div className='adminData'>
+          <h2>User List:</h2>
+          <table>
+            {userListAll.map((user, index) => (
+              <>
+                <tr key={`index-${index}`}>
+                  <th colSpan={2} style={{ textAlign: 'center' }}>
+                    User {index + 1}
+                  </th>
+                </tr>
+                <tr key={`firstName-${index}`}>
+                  <th>First Name:</th>
+                  <th>{user.firstName}</th>
+                </tr>
+                <tr key={`lastName-${index}`}>
+                  <th>Last Name:</th>
+                  <th>{user.lastName}</th>
+                </tr>
+                <tr key={`email-${index}`}>
+                  <th>Email:</th>
+                  <th>{user.email}</th>
+                </tr>
+                <tr key={`phoneNumber-${index}`}>
+                  <th>Phone Number:</th>
+                  <th>{user.phoneNumber}</th>
+                </tr>
+                <tr key={`role-${index}`}>
+                  <th>User Role:</th>
+                  <th>{user.role}</th>
+                </tr>
+                <tr key={`id-${index}`}>
+                  <th>User ID:</th>
+                  <th>{user.id}</th>
+                </tr>
+              </>
+            ))}
+          </table>
+        </div>
+      )}
       {error && <p>error</p>}
     </>
   );
@@ -56,6 +96,7 @@ const UserManagerDesktop = ({ searchedUserData, error }) => {
 
 UserManagerDesktop.propTypes = {
   searchedUserData: PropTypes.object,
+  userListAll: PropTypes.array,
   error: PropTypes.string,
 };
 

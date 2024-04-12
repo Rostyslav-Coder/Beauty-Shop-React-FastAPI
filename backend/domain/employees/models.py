@@ -4,7 +4,6 @@ from pydantic import Field
 
 from backend.domain.constants import WorkingDays, WorkingShift
 from backend.domain.professions import Profession, ProfessionPublic
-from backend.domain.users import User, UserPublic
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
@@ -44,7 +43,6 @@ class EmployeePublic(EmployeePublicBase):
     """
 
     id: int = Field(description="Employee ID")
-    user: UserPublic
     profession: ProfessionPublic
     is_active: bool = Field(description="Is Active")
 
@@ -78,5 +76,4 @@ class Employee(EmployeeUncommited):
 
     id: int
     is_active: bool
-    user: User
     profession: Profession

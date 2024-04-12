@@ -31,7 +31,7 @@ const EmployeeListByProfession = ({ setEmployeeListProf, setError }) => {
 				setEmployeeListProf(result.result);
 				setError(null);
 				setStart(start + 3);
-				setCount(count + 3);
+				setCount(count);
 			}
 		} catch (error) {
 			setError(error);

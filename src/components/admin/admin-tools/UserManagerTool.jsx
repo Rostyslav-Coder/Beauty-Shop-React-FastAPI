@@ -4,11 +4,13 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import UserEmailSearch from '../admin-subTools/UserEmailSearch';
+import UserListAll from '../admin-subTools/UserListAll';
 
 
 const UserManagerTool = (
   {
     setSearchedUserData,
+    setUserListAll,
     setError,
     isOpen,
     onOpen
@@ -22,6 +24,7 @@ const UserManagerTool = (
       {isOpen && (
         <>
           <div onClick={() => setOpenElement('UserEmailSearch')}>
+            <hr />
             <h3>User Info</h3>
             {openElement === 'UserEmailSearch' && (
               <UserEmailSearch
@@ -30,14 +33,26 @@ const UserManagerTool = (
               />
             )}
           </div>
+          <div onClick={() => setOpenElement('UserListAll')}>
+            <hr />
+            <h3>Users List</h3>
+            {openElement === 'UserListAll' && (
+              <UserListAll
+                setUserListAll={setUserListAll}
+                setError={setError}
+              />
+            )}
+          </div>
         </>
       )}
     </div>
+
   );
 };
 
 UserManagerTool.propTypes = {
-  setSearchedUserData: PropTypes.func.isRequired,
+  setSearchedUserData: PropTypes.func,
+  setUserListAll: PropTypes.func,
   setError: PropTypes.func,
   isOpen: PropTypes.bool.isRequired,
   onOpen: PropTypes.func.isRequired,
