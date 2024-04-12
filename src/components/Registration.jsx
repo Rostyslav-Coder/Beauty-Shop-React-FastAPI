@@ -1,9 +1,9 @@
 // ============ REGISTRATION PAGE COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Auth-Registr.css';
-import { Link } from 'react-router-dom';
 
 
 const Registration = () => {
@@ -64,98 +64,102 @@ const Registration = () => {
 
 	return (
 		<div className="registration">
-			<h1 className="registration__title">Join Us.</h1>
-			<form className='registration__form' onSubmit={handleSubmit}>
-				<label className='registration__label' htmlFor='firstName'>
-					First Name:
+			<div className="registration__wrapper">
+				<h1 className="registration__title">Join Us.</h1>
+				<form className='registration__form' onSubmit={handleSubmit}>
+					<label className='registration__label' htmlFor='firstName'>
+						First Name:
+						<input
+							className='registration__input'
+							id='firstName'
+							type='text'
+							name='firstName'
+							value={formData.firstName}
+							onChange={handleChange}
+						/>
+					</label>
+					<label className='registration__label' htmlFor='lastName'>
+						Last Name:
+						<input
+							className='registration__input'
+							id='lastName'
+							type='text'
+							name='lastName'
+							value={formData.lastName}
+							onChange={handleChange}
+						/>
+					</label>
+					<label className='registration__label' htmlFor='email'>
+						* Email:
+						<input
+							className='registration__input'
+							id='email'
+							type='email'
+							name='email'
+							value={formData.email}
+							onChange={handleChange}
+							required
+						/>
+					</label>
+					<label className='registration__label' htmlFor='phoneNumber'>
+						* Phone Number:
+						<input
+							className='registration__input'
+							id='phoneNumber'
+							type='tel'
+							name='phoneNumber'
+							value={formData.phoneNumber}
+							onChange={handleChange}
+							required
+						/>
+					</label>
+					<label className='registration__label' htmlFor='password'>
+						* Password:
+						<input
+							className='registration__input'
+							id='password'
+							type='password'
+							name='password'
+							value={formData.password}
+							onChange={handleChange}
+							required
+						/>
+					</label>
+					<label className='registration__label' htmlFor="confirmPassword">
+						* Confirm Password:
+						<input
+							className='registration__input'
+							id='confirmPassword'
+							type='password'
+							name='confirmPassword'
+							value={formData.confirmPassword}
+							onChange={handleChange}
+							required
+						/>
+					</label>
 					<input
-						className='registration__input'
-						id='firstName'
-						type='text'
-						name='firstName'
-						value={formData.firstName}
-						onChange={handleChange}
+						className='registration__button'
+						id='submit'
+						type='submit'
+						name='submit'
+						onClick={updateHeader}
 					/>
-				</label>
-				<label className='registration__label' htmlFor='lastName'>
-					Last Name:
 					<input
-						className='registration__input'
-						id='lastName'
-						type='text'
-						name='lastName'
-						value={formData.lastName}
-						onChange={handleChange}
+						className='registration__button'
+						id='reset'
+						type='reset'
+						name='reset'
+						onClick={handleReset}
 					/>
-				</label>
-				<label className='registration__label' htmlFor='email'>
-					* Email:
-					<input
-						className='registration__input'
-						id='email'
-						type='email'
-						name='email'
-						value={formData.email}
-						onChange={handleChange}
-						required
-					/>
-				</label>
-				<label className='registration__label' htmlFor='phoneNumber'>
-					* Phone Number:
-					<input
-						className='registration__input'
-						id='phoneNumber'
-						type='tel'
-						name='phoneNumber'
-						value={formData.phoneNumber}
-						onChange={handleChange}
-						required
-					/>
-				</label>
-				<label className='registration__label' htmlFor='password'>
-					* Password:
-					<input
-						className='registration__input'
-						id='password'
-						type='password'
-						name='password'
-						value={formData.password}
-						onChange={handleChange}
-						required
-					/>
-				</label>
-				<label className='registration__label' htmlFor="confirmPassword">
-					* Confirm Password:
-					<input
-						className='registration__input'
-						id='confirmPassword'
-						type='password'
-						name='confirmPassword'
-						value={formData.confirmPassword}
-						onChange={handleChange}
-						required
-					/>
-				</label>
-				<input
-					className='registration__button'
-					id='submit'
-					type='submit'
-					name='submit'
-					onClick={updateHeader}
-				/>
-				<input
-					className='registration__button'
-					id='reset'
-					type='reset'
-					name='reset'
-					onClick={handleReset}
-				/>
-				<label className='registration__label' htmlFor='login'>
-					Already registered? Click here to login.
-					<Link className='registration__button' to={'/Authentication'} id='login'>Login</Link>
-				</label>
-			</form>
-			<p className='registration__text'>Fields marked with <span>*</span> are required.</p>
+					<label className='registration__label' htmlFor='login'>
+						Already registered? Click here to login.
+						<div className='registration__button'>
+							<Link className='registration__link' to={'/Authentication'} id='login'>Login</Link>
+						</div>
+					</label>
+				</form>
+				<p className='registration__text'>Fields marked with <span>*</span> are required.</p>
+			</div>
 		</div>
 	);
 };

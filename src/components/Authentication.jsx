@@ -61,47 +61,49 @@ const Authentication = () => {
 
 	return (
 		<div className='authentication'>
-			<h1 className='authentication__title'>Welcome back.</h1>
-			<form className='authentication__form' onSubmit={handleSubmit}>
-				<label htmlFor='email' className='authentication__label'>
-					Email:
+			<div className='authentication__wrapper'>
+				<h1 className='authentication__title'>Welcome back.</h1>
+				<form className='authentication__form' onSubmit={handleSubmit}>
+					<label htmlFor='email' className='authentication__label'>
+						Email:
+						<input
+							className='authentication__input'
+							id='email'
+							type='email'
+							name='email'
+							value={formData.email}
+							onChange={handleChange}
+							required
+						/>
+					</label>
+					<label htmlFor='password' className='authentication__label'>
+						Password:
+						<input
+							className='authentication__input'
+							id='password'
+							type='password'
+							name='password'
+							value={formData.password}
+							onChange={handleChange}
+							required
+						/>
+					</label>
 					<input
-						className='authentication__input'
-						id='email'
-						type='email'
-						name='email'
-						value={formData.email}
-						onChange={handleChange}
-						required
+						className='authentication__button'
+						id='submit'
+						type='submit'
+						name='submit'
+						onClick={updateHeader}
 					/>
-				</label>
-				<label htmlFor='password' className='authentication__label'>
-					Password:
 					<input
-						className='authentication__input'
-						id='password'
-						type='password'
-						name='password'
-						value={formData.password}
-						onChange={handleChange}
-						required
+						className='authentication__button'
+						id='reset'
+						type='reset'
+						name='reset'
+						onClick={handleReset}
 					/>
-				</label>
-				<input
-					className='authentication__button'
-					id='submit'
-					type='submit'
-					name='submit'
-					onClick={updateHeader}
-				/>
-				<input
-					className='authentication__button'
-					id='reset'
-					type='reset'
-					name='reset'
-					onClick={handleReset}
-				/>
-			</form>
+				</form>
+			</div>
 		</div>
 	);
 };
