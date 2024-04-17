@@ -1,7 +1,13 @@
-"""backend/application/authentication/dependency_injection.py"""
+"""
+backend/application/authentication/dependency_injection.py
+
+This module includes functions for the authentication interaction.
+"""
 
 from datetime import datetime, timedelta
+from typing import Any
 
+from dateutil import tz
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
@@ -9,18 +15,13 @@ from pydantic import ValidationError
 
 from backend.config import settings
 from backend.domain.authentication import TokenPayload
-from backend.domain.constants import UserRole
 from backend.domain.users import User, UsersRepository
-from backend.infrastructure.errors import (
-    AuthenticationError,
-    AuthorizationError,
-)
+from backend.infrastructure.errors import AuthenticationError
 
 __all__ = (
     "create_access_token",
     "create_refresh_token",
     "get_current_user",
-    "RoleRequired",
 )
 
 oauth2_oauth = OAuth2PasswordBearer(
@@ -29,7 +30,8 @@ oauth2_oauth = OAuth2PasswordBearer(
 )
 
 
-def decode_jwt(token: str) -> dict:
+#! Validated function
+def decode_jwt(token: str) -> TokenPayload:
     """Function to decode JWT and return payload"""
 
     try:
@@ -48,10 +50,11 @@ def decode_jwt(token: str) -> dict:
     return token_payload
 
 
+#! Validated function
 def encod_jwt(to_encode) -> str:
     """Function to encode JWT"""
 
-    expire = datetime.utcnow() + timedelta(
+    expire = datetime.now(tz=tz.tzutc()) + timedelta(
         seconds=settings.authentication.refresh_token.ttl
     )
     to_encode.update({"exp": expire})
@@ -64,7 +67,8 @@ def encod_jwt(to_encode) -> str:
     return encoded_jwt
 
 
-def create_access_token(data: dict) -> str:
+#! Validated function
+def create_access_token(data: dict[str:Any]) -> str:
     """function create & return access token"""
 
     to_encode = data.copy()
@@ -74,6 +78,7 @@ def create_access_token(data: dict) -> str:
     return encoded_jwt
 
 
+#! Validated function
 def create_refresh_token(data: dict) -> str:
     """function create & return refresh token"""
 
@@ -84,6 +89,7 @@ def create_refresh_token(data: dict) -> str:
     return encoded_jwt
 
 
+#! Validated function
 async def get_current_user(token: str = Depends(oauth2_oauth)) -> User:
     """Get current user from user token"""
 
@@ -99,17 +105,3 @@ async def get_current_user(token: str = Depends(oauth2_oauth)) -> User:
 
 
 # TODO: Create token blacklist & Logout f-tion
-
-
-class RoleRequired:
-    """Require users role"""
-
-    def __init__(self, role: UserRole):
-        self.role = role
-
-    async def __call__(self, user: User = Depends(get_current_user)):
-        enum_role = UserRole(self.role)
-
-        if user.role != enum_role.value:
-            raise AuthorizationError
-        return user

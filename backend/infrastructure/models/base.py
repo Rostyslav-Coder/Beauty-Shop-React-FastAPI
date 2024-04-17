@@ -1,7 +1,8 @@
-"""backend/infrastructure/models/base.py"""
+"""
+backend/infrastructure/models/base.py
 
-# This model includes basic data models that are used in the whole application.
-
+This model includes basic data models that are used in the whole application.
+"""
 
 import json
 from typing import TypeVar
@@ -34,6 +35,8 @@ _json_encoders = {
 
 
 class FrozenModel(BaseModel):
+    """The base model for frozen use."""
+
     class Config:
         json_encoders = _json_encoders
         orm_mode = True
@@ -44,6 +47,8 @@ class FrozenModel(BaseModel):
 
 
 class InternalModel(BaseModel):
+    """The base model for internal use."""
+
     class Config:
         json_encoders = _json_encoders
         extra = Extra.forbid
@@ -58,6 +63,8 @@ _InternalModel = TypeVar("_InternalModel", bound=InternalModel)
 
 
 class PublicModel(BaseModel):
+    """The base model for public use."""
+
     class Config:
         json_encoders = _json_encoders
         extra = Extra.ignore

@@ -1,6 +1,10 @@
-"""backend/domain/bookings/models.py"""
+"""
+backend/domain/bookings/models.py
 
-from datetime import timedelta
+This module includes all models for the bookings interaction.
+"""
+
+from datetime import datetime
 
 from pydantic import Field
 
@@ -16,43 +20,45 @@ __all__ = (
 
 
 # Public models
-# ------------------------------------------------------
-class BookingCreateRequestBody(PublicModel):
+# ============================================================
+class BookingPublicBase(PublicModel):
+
+    owner_id: int = Field(description="User ID")
+    offer_id: int = Field(description="Associated offer ID")
+
+
+class BookingCreateRequestBody(BookingPublicBase):
     """Booking create request body."""
 
-    user_id: int = Field(description="OpenAPI description")
-    employee_id: int = Field(description="OpenAPI description")
-    service_id: int = Field(description="OpenAPI description")
-    start_time: timedelta = Field(description="OpenAPI description")
-    end_time: timedelta = Field(description="OpenAPI description")
-    status: BookingStatus = Field(description="OpenAPI description")
+    start_time: str = Field(
+        description="Booking start time in STRING ISO 8601 format"
+    )
 
 
-class BookingPublic(PublicModel):
+class BookingPublic(BookingPublicBase):
     """The internal application representation."""
 
-    user_id: int
-    employee_id: int
-    service_id: int
-    start_time: timedelta
-    end_time: timedelta
-    status: BookingStatus
+    id: int = Field(description="Booking ID")
+    employee_id: int = Field(description="Associated employee ID")
+    start_time: datetime = Field(description="Booking start time in UTC")
+    end_time: datetime = Field(description="Booking end time in UTC")
+    status: BookingStatus = Field(description="Booking status")
 
 
 # Internal models
-# ------------------------------------------------------
+# ============================================================
 class BookingUncommited(InternalModel):
     """This schema is used for creating instance in the database."""
 
-    user_id: int
+    owner_id: int
+    offer_id: int
     employee_id: int
-    service_id: int
-    start_time: timedelta
-    end_time: timedelta
-    status: BookingStatus
+    start_time: datetime
+    end_time: datetime
 
 
 class Booking(BookingUncommited):
     """Existed product representation."""
 
-    pass
+    id: int
+    status: BookingStatus

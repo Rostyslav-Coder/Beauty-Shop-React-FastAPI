@@ -1,4 +1,8 @@
-"""backend/infrastructure/database/transaction.py"""
+"""
+backend/infrastructure/database/transaction.py
+
+This module includes database transaction management.
+"""
 
 from functools import wraps
 

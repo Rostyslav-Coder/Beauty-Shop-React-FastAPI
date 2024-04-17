@@ -1,4 +1,8 @@
-"""backend/infrastructure/application/factory.py"""
+"""
+backend/infrastructure/application/factory.py
+
+This module used for creating the application using FastAPI framework.
+"""
 
 import asyncio
 from functools import partial
@@ -26,7 +30,8 @@ def create(
     shutdown_tasks: Iterable[Callable[[], Coroutine]] | None = None,
     **kwargs,
 ) -> FastAPI:
-    """The application factory using FastAPI framework.
+    """
+    The application factory using FastAPI framework.
     🎉 Only passing routes is mandatory to start.
     """
 
@@ -44,6 +49,7 @@ def create(
         "http://localhost:8080",
     ]
 
+    # Add CORS middleware
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,

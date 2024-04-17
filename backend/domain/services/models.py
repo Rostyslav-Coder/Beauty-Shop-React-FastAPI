@@ -1,23 +1,25 @@
-"""backend/domain/services/models.py"""
+"""
+backend/domain/services/models.py
+
+This module includes all models for the services interaction.
+"""
 
 from decimal import Decimal
 
 from pydantic import Field
 
-from backend.domain.professions import ProfessonName
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "ServiceCreateRequestBody",
     "ServicePublic",
     "ServiceUncommited",
-    "ServiceUnexpanded",
     "Service",
 )
 
 
 # Public models
-# ------------------------------------------------------
+# ============================================================
 class ServicePublicBase(PublicModel):
     """
     Base class for public employee schemas. Defines common fields
@@ -40,11 +42,10 @@ class ServicePublic(ServicePublicBase):
     """The public representation of the service."""
 
     id: int
-    profession: ProfessonName
 
 
 # Internal models
-# ------------------------------------------------------
+# ============================================================
 class ServiceUncommited(InternalModel):
     """This schema is used for creating instance in the database."""
 
@@ -54,14 +55,7 @@ class ServiceUncommited(InternalModel):
     profession_id: int
 
 
-class ServiceUnexpanded(ServiceUncommited):
-    """Representation without related tables"""
-
-    id: int
-
-
 class Service(ServiceUncommited):
     """Existed service representation."""
 
     id: int
-    profession: ProfessonName

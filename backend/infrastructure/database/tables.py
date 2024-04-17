@@ -1,4 +1,8 @@
-"""backend/infrastructure/database/tables.py"""
+"""
+backend/infrastructure/database/tables.py
+
+This module includes all tables for the database.
+"""
 
 from typing import TypeVar
 
@@ -28,8 +32,8 @@ from backend.domain.constants import (
 )
 
 __all__ = (
-    "UsersTable",
-    "EmployeesTable",
+    "UserTable",
+    "EmployeeTable",
     "ProfessionTable",
     "ServiceTable",
     "OfferTable",
@@ -48,7 +52,11 @@ meta = MetaData(
 
 
 class _Base:
-    """Base class for all database models."""
+    """
+    Base class for all database models.
+
+    Базовый класс для всех моделей баз данных.
+    """
 
     id = Column(Integer, primary_key=True)
 
@@ -58,27 +66,30 @@ Base = declarative_base(cls=_Base, metadata=meta)
 ConcreteTable = TypeVar("ConcreteTable", bound=Base)  # type: ignore
 
 
-class UsersTable(Base):
+class UserTable(Base):
     __tablename__ = "users"
 
     email: Mapped[str] = mapped_column(
         String(length=320), unique=True, nullable=False
     )
-    phone_number: Mapped[str] = mapped_column(
-        String(16), unique=True, nullable=False
-    )
+    phone_number: Mapped[str] = mapped_column(String(16), nullable=False)
     password: Mapped[str] = mapped_column(String(length=1024), nullable=False)
-    first_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
-    last_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
+    first_name: Mapped[str] = mapped_column(
+        String(length=100), default="NoNameUser"
+    )
+    last_name: Mapped[str] = mapped_column(
+        String(length=100), default="NoLastName"
+    )
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     role: Mapped[Enum] = mapped_column(Enum(UserRole), default=UserRole.USER)
 
     employee = relationship(
-        "EmployeesTable", back_populates="user", uselist=False
+        "EmployeeTable", back_populates="user", uselist=False
     )
     bookings = relationship("BookingTable", back_populates="user")
 
 
-class EmployeesTable(Base):
+class EmployeeTable(Base):
     __tablename__ = "employees"
 
     user_id: Mapped[int] = mapped_column(
@@ -95,9 +106,10 @@ class EmployeesTable(Base):
     )
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
-    user = relationship("UsersTable", back_populates="employee")
+    user = relationship("UserTable", back_populates="employee")
     profession = relationship("ProfessionTable", back_populates="employees")
     offers = relationship("OfferTable", back_populates="employee")
+    bookings = relationship("BookingTable", back_populates="employee")
 
 
 class ProfessionTable(Base):
@@ -106,7 +118,7 @@ class ProfessionTable(Base):
     name: Mapped[str] = mapped_column(String(length=50), nullable=False)
     description: Mapped[str] = mapped_column(String(length=200), nullable=True)
 
-    employees = relationship("EmployeesTable", back_populates="profession")
+    employees = relationship("EmployeeTable", back_populates="profession")
     services = relationship("ServiceTable", back_populates="profession")
 
 
@@ -138,7 +150,7 @@ class OfferTable(Base):
         Integer, ForeignKey("employees.id"), nullable=False
     )
 
-    employee = relationship("EmployeesTable", back_populates="offers")
+    employee = relationship("EmployeeTable", back_populates="offers")
     service = relationship("ServiceTable", back_populates="offers")
     bookings = relationship("BookingTable", back_populates="offer")
 
@@ -146,15 +158,21 @@ class OfferTable(Base):
 class BookingTable(Base):
     __tablename__ = "bookings"
 
-    user_id: Mapped[int] = mapped_column(
+    owner_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("users.id"), nullable=False
     )
     offer_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("offers.id"), nullable=False
     )
+    employee_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("employees.id"), nullable=False
+    )
     start_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
     end_time: Mapped[DATETIME] = mapped_column(DATETIME, nullable=False)
-    status: Mapped[Enum] = mapped_column(Enum(BookingStatus), nullable=False)
+    status: Mapped[Enum] = mapped_column(
+        Enum(BookingStatus), default=BookingStatus.ACTIVE
+    )
 
-    user = relationship("UsersTable", back_populates="bookings")
+    user = relationship("UserTable", back_populates="bookings")
     offer = relationship("OfferTable", back_populates="bookings")
+    employee = relationship("EmployeeTable", back_populates="bookings")

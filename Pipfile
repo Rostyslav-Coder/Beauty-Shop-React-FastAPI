@@ -14,7 +14,8 @@ loguru = "~=0.6"
 numpy = "~=1.26.0"
 types-passlib = "~=1.7"
 pydantic = {version = "~=1.10", extras=["dotenv"]}
-types-python-jose = {version = "~=3.3", extras = ["cryptography"]}
+python-jose = {version = "~=3.3", extras = ["cryptography"]}
+python-dateutil = "~=2.9"
 uvicorn = "~=0.21.0"
 websockets = "~=11.0"
 

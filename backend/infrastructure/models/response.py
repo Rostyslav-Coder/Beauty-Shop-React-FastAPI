@@ -1,4 +1,8 @@
-"""backend/infrastructure/models/response.py"""
+"""
+backend/infrastructure/models/response.py
+
+This module includes all models for the response interaction.
+"""
 
 from collections.abc import Mapping
 from typing import Any, Generic

@@ -1,6 +1,10 @@
-"""backend/domain/employees/repository.py"""
+"""
+backend/domain/employees/repository.py
 
-from typing import Any, AsyncGenerator
+This module includes all database requests for the employees interaction.
+"""
+
+from typing import Any
 
 from backend.domain.professions import Profession, ProfessionUncommited
 from backend.infrastructure.database import BaseRepository, ProfessionTable
@@ -11,14 +15,15 @@ __all__ = ("ProfessionRepository",)
 class ProfessionRepository(BaseRepository[ProfessionTable]):
     schema_class = ProfessionTable
 
-    async def all(self) -> AsyncGenerator[Profession, None]:
-        async for instance in self._all():
-            yield Profession.from_orm(instance)
+    async def all(self) -> list[Profession]:
+        instance: ProfessionTable = await self._all()
+        return [Profession.from_orm(profession) for profession in instance]
 
     async def get(self, key_: str, value_: Any) -> Profession:
         instance = await self._get(key=key_, value=value_)
         return Profession.from_orm(instance)
 
+    #! Validated function
     async def create(self, schema: ProfessionUncommited) -> Profession:
         instance: ProfessionTable = await self._save(schema.dict())
         return Profession.from_orm(instance)

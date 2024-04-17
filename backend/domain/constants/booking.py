@@ -1,4 +1,8 @@
-"""backend/domain/constants/booking.py"""
+"""
+backend/domain/constants/booking.py
+
+This module includes all enumerated models for the bookings interaction.
+"""
 
 from enum import Enum
 

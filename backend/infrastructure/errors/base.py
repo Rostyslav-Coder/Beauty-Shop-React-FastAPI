@@ -1,8 +1,9 @@
-"""backend/infrastructure/errors/base.py"""
+"""
+backend/infrastructure/errors/base.py
 
-# This module is responsible for describing shared errors
-# that are handled on the last step of processing the request.
-
+This module is responsible for describing shared errors
+that are handled on the last step of processing the request.
+"""
 
 from typing import Any
 

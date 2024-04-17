@@ -1,10 +1,13 @@
-"""backend/presentation/rest/offers.py"""
+"""
+backend/presentation/rest/offers.py
+
+This module contains all offer routes.
+"""
 
 from fastapi import APIRouter, Depends, Request, status
 
 from backend.application.authentication import get_current_user
-from backend.domain.constants import UserRole
-from backend.domain.employees import Employee, EmployeeRepository
+from backend.domain.employees import EmployeeRepository, EmployeeWithProfession
 from backend.domain.offers import (
     Offer,
     OfferCreateRequestBody,
@@ -19,11 +22,12 @@ from backend.infrastructure.errors import (
     AuthenticationError,
     UnprocessableError,
 )
-from backend.infrastructure.models import Response, ResponseMulti
+from backend.infrastructure.models import Response  # , ResponseMulti
 
 router = APIRouter(prefix="/offers", tags=["Route for managing current offer"])
 
 
+#! Validated endpoint
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 @transaction
 async def offer_create(
@@ -34,23 +38,23 @@ async def offer_create(
     """Add current offer"""
 
     # Checking Permissions Authentication
-    if user.role != UserRole.EMPLOYEE:
+    if user.role != "EMPLOYEE":
         raise AuthenticationError
 
-    # Get current employee
-    employee: Employee = EmployeeRepository().get(
-        key_="user_id", value_=user.id
-    )
-    schema.employee_id = employee.id
-
     # Get the associated service from the database
-    current_service: Service = await ServiceRepository().get(
+    service: Service = await ServiceRepository().get(
         key_="id", value_=schema.service_id
     )
 
     # Check the validity of the offered price
-    if schema.price < current_service.min_price:
+    if schema.price < service.min_price:
         raise UnprocessableError
+
+    # Get the associated employee from the database
+    employee: EmployeeWithProfession = await EmployeeRepository().get(
+        key_="user_id", value_=user.id
+    )
+    schema.employee_id = employee.id
 
     # Create new offer
     offer: Offer = await OfferRepository().create(
@@ -61,65 +65,65 @@ async def offer_create(
     return Response[OfferPublic](result=offer_public)
 
 
-@router.get("/all", status_code=status.HTTP_200_OK)
-@transaction
-async def offer_all(_: Request) -> ResponseMulti[OfferPublic]:
-    """Get all current offers"""
+# @router.get("/all", status_code=status.HTTP_200_OK)
+# @transaction
+# async def offer_all(_: Request) -> ResponseMulti[OfferPublic]:
+#     """Get all current offers"""
 
-    # Get offers list from database
-    offers: Offer = OfferRepository().all()
-    offers_public: list[OfferPublic] = [offer async for offer in offers]
+#     # Get offers list from database
+#     offers: Offer = OfferRepository().all()
+#     offers_public: list[OfferPublic] = [offer async for offer in offers]
 
-    return ResponseMulti[OfferPublic](result=offers_public)
-
-
-@router.get("/all_my", status_code=status.HTTP_200_OK)
-@transaction
-async def offer_all_my(
-    _: Request, user: User = Depends(get_current_user)
-) -> ResponseMulti[OfferPublic]:
-    """Get all offers associated with current employee"""
-
-    offers: Offer = await OfferRepository().all_by(key_="id", value_=user.id)
-    offers_public: list[OfferPublic] = [offer async for offer in offers]
-
-    return ResponseMulti[OfferPublic](result=offers_public)
+#     return ResponseMulti[OfferPublic](result=offers_public)
 
 
-@router.put("/update", status_code=status.HTTP_202_ACCEPTED)
-@transaction
-async def offer_update(
-    _: Request,
-    offer_id: int,
-    offer_kay: str,
-    offer_value: str,
-    user: User = Depends(get_current_user),
-    # user= Depends(RoleRequired(UserRole.EMPLOYEE)),
-) -> Response[OfferPublic]:
-    """Update offer data"""
+# @router.get("/all_my", status_code=status.HTTP_200_OK)
+# @transaction
+# async def offer_all_my(
+#     _: Request, user: User = Depends(get_current_user)
+# ) -> ResponseMulti[OfferPublic]:
+#     """Get all offers associated with current employee"""
 
-    # Get current employee
-    employee: Employee = EmployeeRepository().get(
-        key_="user_id", value_=user.id
-    )
+#     offers: Offer = await OfferRepository().all_by(key_="id", value_=user.id)
+#     offers_public: list[OfferPublic] = [offer async for offer in offers]
 
-    # Get current offer
-    offer: Offer = OfferRepository().get(key_="id", value_=offer_id)
+#     return ResponseMulti[OfferPublic](result=offers_public)
 
-    if employee.id != offer.employee_id:
-        raise UnprocessableError
 
-    # Prepare data for update
-    payload = {offer_kay: offer_value}
+# @router.put("/update", status_code=status.HTTP_202_ACCEPTED)
+# @transaction
+# async def offer_update(
+#     _: Request,
+#     offer_id: int,
+#     offer_kay: str,
+#     offer_value: str,
+#     user: User = Depends(get_current_user),
+#     # user= Depends(RoleRequired(UserRole.EMPLOYEE)),
+# ) -> Response[OfferPublic]:
+#     """Update offer data"""
 
-    # Update current offer
-    offer_updated: Offer = await OfferRepository().update(
-        key_="id",
-        value_=offer_id,
-        payload_=payload,
-    )
+#     # Get current employee
+#     employee: Employee = EmployeeRepository().get(
+#         key_="user_id", value_=user.id
+#     )
 
-    # Get public model of offer from Database
-    offer_public = OfferPublic.from_orm(offer_updated)
+#     # Get current offer
+#     offer: Offer = OfferRepository().get(key_="id", value_=offer_id)
 
-    return Response[OfferPublic](result=offer_public)
+#     if employee.id != offer.employee_id:
+#         raise UnprocessableError
+
+#     # Prepare data for update
+#     payload = {offer_kay: offer_value}
+
+#     # Update current offer
+#     offer_updated: Offer = await OfferRepository().update(
+#         key_="id",
+#         value_=offer_id,
+#         payload_=payload,
+#     )
+
+#     # Get public model of offer from Database
+#     offer_public = OfferPublic.from_orm(offer_updated)
+
+#     return Response[OfferPublic](result=offer_public)

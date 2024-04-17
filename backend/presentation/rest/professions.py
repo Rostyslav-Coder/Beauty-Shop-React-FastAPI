@@ -1,9 +1,12 @@
-"""backend/presentation/rest/professions.py"""
+"""
+backend/presentation/rest/professions.py
+
+This module contains all profession routes.
+"""
 
 from fastapi import APIRouter, Depends, Request, status
 
-from backend.application.authentication import RoleRequired
-from backend.domain.constants import UserRole
+from backend.application.authentication import get_current_user
 from backend.domain.professions import (
     Profession,
     ProfessionCreateRequestBody,
@@ -11,29 +14,34 @@ from backend.domain.professions import (
     ProfessionRepository,
     ProfessionUncommited,
 )
+from backend.domain.users import User
 from backend.infrastructure.database import transaction
+from backend.infrastructure.errors import AuthenticationError
 from backend.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(
-    prefix="/profession", tags=["Route for managing current profession"]
+    prefix="/professions", tags=["Route for managing professions"]
 )
 
 
-@router.post("/add", status_code=status.HTTP_201_CREATED)
+#! Validated endpoint
+@router.post("/create", status_code=status.HTTP_201_CREATED)
 @transaction
 async def profession_create(
     _: Request,
     schema: ProfessionCreateRequestBody,
-    user_=Depends(RoleRequired(UserRole.ADMIN)),
+    user: User = Depends(get_current_user),
 ) -> Response[ProfessionPublic]:
     """Add current profession"""
+
+    # Only admin can create profession
+    if user.role != "ADMIN":
+        raise AuthenticationError
 
     # Create new profession
     profession: Profession = await ProfessionRepository().create(
         ProfessionUncommited(**schema.dict())
     )
-
-    # Get public model of profession from Database
     profession_public = ProfessionPublic.from_orm(profession)
 
     return Response[ProfessionPublic](result=profession_public)
@@ -45,38 +53,9 @@ async def profession_all(_: Request) -> ResponseMulti[ProfessionPublic]:
     """Get all current professions"""
 
     # Get professions list from database
-    professions_generator: Profession = ProfessionRepository().all()
-
-    # Convert generator to a list
+    professions = await ProfessionRepository().all()
     professions_public: list[ProfessionPublic] = [
-        profession async for profession in professions_generator
+        ProfessionPublic.from_orm(profession) for profession in professions
     ]
 
     return ResponseMulti[ProfessionPublic](result=professions_public)
-
-
-@router.put("/update", status_code=status.HTTP_202_ACCEPTED)
-@transaction
-async def profession_update_name(
-    _: Request,
-    profession_id: int,
-    profession_kay: str,
-    profession_value: str,
-    user_=Depends(RoleRequired(UserRole.ADMIN)),
-) -> Response[ProfessionPublic]:
-    """Update profession name"""
-
-    # Prepare data for update
-    payload = {profession_kay: profession_value}
-
-    # Update current profession
-    profession: Profession = await ProfessionRepository().update(
-        key_="id",
-        value_=profession_id,
-        payload_=payload,
-    )
-
-    # Get public model of profession from Database
-    profession_public = ProfessionPublic.from_orm(profession)
-
-    return Response[ProfessionPublic](result=profession_public)

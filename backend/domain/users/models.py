@@ -1,22 +1,25 @@
-"""backend/domain/users/models.py"""
+"""
+backend/domain/users/models.py
 
-# Code updated
+This module includes all models for the users interaction.
+"""
 
 from typing import Optional
 
 from pydantic import Field
 
 from backend.domain.constants import UserRole
-from backend.domain.employees import EmployeePublic
+
+# from backend.domain.employees import EmployeePublic
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "UserCreateRequestBody",
     "UserPublic",
-    "UserEmployeePublic",
+    # "UserEmployeePublic",
     "UserUncommited",
     "User",
-    "UserEmployee",
+    # "UserEmployee",
 )
 
 
@@ -48,10 +51,10 @@ class UserPublic(UserPublicBase):
     role: UserRole
 
 
-class UserEmployeePublic(UserPublic):
-    """Existed User-Employee representation."""
+# class UserEmployeePublic(UserPublic):
+#     """Existed User-Employee representation."""
 
-    employee: EmployeePublic = Field(description="Employee profession")
+#     employee: EmployeePublic = Field(description="Employee profession")
 
 
 # Internal models
@@ -71,9 +74,10 @@ class User(UserUncommited):
     """The internal application representation of User."""
 
     id: int
+    role: UserRole
 
 
-class UserEmployee(User):
-    """The internal application representation of User-Employee."""
+# class UserEmployee(User):
+#     """The internal application representation of User-Employee."""
 
-    employee: EmployeePublic
+#     employee: EmployeePublic

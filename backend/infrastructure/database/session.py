@@ -1,4 +1,8 @@
-"""backend/infrastructure/database/session.py"""
+"""
+backend/infrastructure/database/session.py
+
+This module includes database session management.
+"""
 
 from contextvars import ContextVar
 
@@ -29,11 +33,18 @@ engine: AsyncEngine = create_async_engine(
 
 
 async def create_tables():
+    """
+    Asynchronously creates all the tables in the database
+    using the provided engine.
+    """
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
 
 def get_session(engine: AsyncEngine | None = engine) -> AsyncSession:
+    """
+    Function that returns an AsyncSession based on the provided engine parameter.
+    """
     Session: async_sessionmaker = async_sessionmaker(
         engine, expire_on_commit=False, autoflush=False
     )

@@ -1,4 +1,8 @@
-"""backend/domain/professions/models.py"""
+"""
+backend/domain/professions/models.py
+
+This module includes all models for the profession interaction.
+"""
 
 from typing import Optional
 
@@ -9,14 +13,14 @@ from backend.infrastructure.models import InternalModel, PublicModel
 __all__ = (
     "ProfessionCreateRequestBody",
     "ProfessionPublic",
-    "ProfessonName",
+    "ProfessionName",
     "ProfessionUncommited",
     "Profession",
 )
 
 
 # Public models
-# ------------------------------------------------------
+# ============================================================
 class ProfessionPublicBase(PublicModel):
     """
     Base class for public profession schemas. Defines common fields
@@ -39,20 +43,14 @@ class ProfessionPublic(ProfessionPublicBase):
     description: Optional[str]
 
 
-class ProfessonName(ProfessionPublicBase):
+class ProfessionName(ProfessionPublicBase):
     """Model complementary to the service model"""
 
     pass
 
 
-class ProfessionEmployee(ProfessionPublicBase):
-    """Model that complements the employee model"""
-
-    id: int
-
-
 # Internal models
-# ------------------------------------------------------
+# ============================================================
 class ProfessionUncommited(InternalModel):
     """This schema is used for creating instance in the database."""
 

@@ -1,4 +1,8 @@
-"""backend/main.py"""
+"""
+backend/main.py
+
+This module is the main entry point of the application.
+"""
 
 import uvicorn
 from fastapi import FastAPI
@@ -10,7 +14,7 @@ from backend.infrastructure import application, database
 from backend.presentation import rest
 
 # Adjust the logging
-# -------------------------------
+# ============================================================
 logger.add(
     "".join(
         [
@@ -28,12 +32,13 @@ logger.add(
 
 
 # Adjust the application
-# -------------------------------
+# ============================================================
 app: FastAPI = application.create(
     debug=settings.debug,
     rest_routers=(
-        rest.admin.router,
-        rest.authenticate.router,
+        # rest.admin.router,
+        rest.authentication.router,
+        rest.bookings.router,
         rest.employees.router,
         rest.offers.router,
         rest.professions.router,
@@ -47,6 +52,7 @@ app: FastAPI = application.create(
 
 
 # Mount static files
+# ============================================================
 app.mount("/", StaticFiles(directory="dist", html=True), name="static")
 
 

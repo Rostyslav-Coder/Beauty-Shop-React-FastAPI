@@ -1,22 +1,15 @@
-"""backend/domain/constants/employees.py"""
+"""
+backend/domain/constants/employees.py
+
+This module includes all enumerated models for the employees interaction.
+"""
 
 from enum import Enum
 
 __all__ = (
-    # "Profession",
     "WorkingDays",
     "WorkingShift",
 )
-
-
-# class Profession(Enum):
-#     HAIR_STYLIST = "HAIR_STYLIST"
-#     MAKEUP_ARTIST = "MAKEUP_ARTIST"
-#     ESTHETICIAN = "ESTHETICIAN"
-#     NAIL_TECHNICIAN = "NAIL TECHNICIAN"
-#     EYELESH_SPECIALIST = "EYELESH SPECIALIST"
-#     MASSAGE_THERAPIST = "MASSAGE THERAPIST"
-#     TATTOO_ARTIST = "TATTOO ARTIST"
 
 
 class WorkingDays(Enum):

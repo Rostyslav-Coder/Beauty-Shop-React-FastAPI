@@ -1,8 +1,9 @@
-"""backend/infrastructure/errors/handlers.py"""
+"""
+backend/infrastructure/errors/handlers.py
 
-# This module is used for representing FastAPI error handlers
-# that are dispatched automatically by fastapi engine.
-
+This module is used for representing FastAPI error handlers
+that are dispatched automatically by fastapi engine.
+"""
 
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError

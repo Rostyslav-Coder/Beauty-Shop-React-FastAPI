@@ -1,4 +1,8 @@
-"""backend/config/__init__.py"""
+"""
+backend/config/__init__.py
+
+This module includes all shared utils and tools for the config interaction.
+"""
 
 import os
 from pathlib import Path
@@ -11,26 +15,26 @@ load_dotenv()
 
 
 # Virtual environment variables
-# =====================================
+# ============================================================
 ADMIN_KEY = os.environ.get("ADMIN_KEY")
+# ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN_SECRET_KEY")
+# REFRESH_TOKEN = os.environ.get("REFRESH_TOKEN_SECRET_KEY")
 
 
 # API Settings
-class APIUrlsSettings(BaseModel):
-    """Configure public urls."""
-
+# ============================================================
+class APIUrlSettings(BaseModel):
     docs: str = "/docs"
     redoc: str = "/redoc"
 
 
 class PublicApiSettings(BaseModel):
-    """Configure public API settings."""
-
-    name: str = "Beauty_Shop"
-    urls: APIUrlsSettings = APIUrlsSettings()
+    name: str = "Beauty-Shop"
+    urls: APIUrlSettings = APIUrlSettings()
 
 
 # Database Settings
+# ============================================================
 class DatabaseSettings(BaseModel):
     name: str = "db.sqlite3"
 
@@ -44,6 +48,7 @@ class KafkaSettings(BaseModel):
 
 
 # Logging Settings
+# ============================================================
 class LoggingSettings(BaseModel):
     """Configure the logging engine."""
 
@@ -62,13 +67,15 @@ class LoggingSettings(BaseModel):
     compression: str = "zip"
 
 
+# Authentication Settings
+# ============================================================
 class AccessTokenSettings(BaseModel):
-    secret_key: str = "invaliad"
+    secret_key: str = "SECRET_KEY"
     ttl: int = 3600  # seconds
 
 
 class RefreshTokenSettings(BaseModel):
-    secret_key: str = "invaliad"
+    secret_key: str = "SECRET_KEY"
     ttl: int = 86400  # seconds
 
 
@@ -82,8 +89,8 @@ class AuthenticationSettings(BaseModel):
 pwd_context = CryptContext(schemes=["md5_crypt"], deprecated="auto")
 
 
-# Settings are powered by pydantic
-# https://pydantic-docs.helpmanual.io/usage/settings/
+# Settings
+# ============================================================
 class Settings(BaseSettings):
     debug: bool = True
 
@@ -105,12 +112,13 @@ class Settings(BaseSettings):
 
 
 # Define the root path
-# --------------------------------------
+# ============================================================
 ROOT_PATH = Path(__file__).parent.parent
 
-# ======================================
+
+# ============================================================
 # Load settings
-# ======================================
+# ============================================================
 settings = Settings(
     # NOTE: We would like to hard-code the root and applications directories
     #       to avoid overriding via environment variables

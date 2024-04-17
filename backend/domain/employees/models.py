@@ -1,22 +1,27 @@
-"""backend/domain/employees/models.py"""
+"""
+backend/domain/employees/models.py
+
+This module includes all models for the employees interaction.
+"""
 
 from pydantic import Field
 
 from backend.domain.constants import WorkingDays, WorkingShift
-from backend.domain.professions import Profession, ProfessionPublic
+from backend.domain.professions import ProfessionName
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "EmployeeCreateRequestBody",
     "EmployeePublic",
+    "EmployeeWithProfessionPublic",
     "EmployeeUncommited",
-    "EmployeeUnexpanded",
     "Employee",
+    "EmployeeWithProfession",
 )
 
 
 # Public models
-# ------------------------------------------------------
+# ============================================================
 class EmployeePublicBase(PublicModel):
     """
     Base class for public employee schemas. Defines common fields
@@ -43,12 +48,21 @@ class EmployeePublic(EmployeePublicBase):
     """
 
     id: int = Field(description="Employee ID")
-    profession: ProfessionPublic
     is_active: bool = Field(description="Is Active")
 
 
+class EmployeeWithProfessionPublic(EmployeePublicBase):
+    """
+    Existed employee representation.
+    """
+
+    id: int
+    profession: ProfessionName
+    is_active: bool
+
+
 # Internal models
-# ------------------------------------------------------
+# ============================================================
 class EmployeeUncommited(InternalModel):
     """
     This schema is used for creating instance in the database.
@@ -60,15 +74,6 @@ class EmployeeUncommited(InternalModel):
     working_shift: WorkingShift
 
 
-class EmployeeUnexpanded(EmployeeUncommited):
-    """
-    Representation without related tables
-    """
-
-    id: int
-    is_active: bool
-
-
 class Employee(EmployeeUncommited):
     """
     The internal application representation.
@@ -76,4 +81,13 @@ class Employee(EmployeeUncommited):
 
     id: int
     is_active: bool
-    profession: Profession
+
+
+class EmployeeWithProfession(EmployeeUncommited):
+    """
+    Fool internal application representation.
+    """
+
+    id: int
+    is_active: bool
+    profession: ProfessionName

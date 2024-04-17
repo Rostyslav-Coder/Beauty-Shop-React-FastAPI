@@ -38,7 +38,7 @@ const EmployeeManagerDesktop = (
                   <th>{employee.phoneNumber}</th>
                 </tr>
                 <tr key={`profession${index}`}>
-                  <th>Working Days</th>
+                  <th>Profession</th>
                   <th>{employee.employee.profession.name}</th>
                 </tr>
                 <tr key={`workingDays${index}`}>
@@ -65,7 +65,8 @@ const EmployeeManagerDesktop = (
       {employeeListProf.length > 0 && (
         <div className='adminData'>
           <h2>Employee with Professon: {employeeListProf[0].profession.profession}</h2>
-          {employeeListProf.map((employee, index) => {
+          {console.log('employeeListProf: ', employeeListProf)}
+          {/* {employeeListProf.map((employee, index) => {
             return (
               <table key={`table${index}`}>
                 <tr key={`firstName${index}`}>
@@ -103,6 +104,7 @@ const EmployeeManagerDesktop = (
               </table>
             )
           })}
+             */}
         </div>
       )}
       {searchedEmployeeData && (
