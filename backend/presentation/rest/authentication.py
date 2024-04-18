@@ -5,21 +5,20 @@ from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
 from backend.application.authentication import (
-    create_access_token,
-    create_refresh_token,
+    create_auth_response,
     get_current_user,
 )
-from backend.config import settings
 from backend.domain.users import User, UsersRepository
 from backend.infrastructure.errors import AuthenticationError, NotFoundError
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
+#! Validated endpoint
 @router.post("/token", status_code=status.HTTP_200_OK)
 async def token(
     form_data: OAuth2PasswordRequestForm = Depends(),
-):
+) -> JSONResponse:
     """Authenticate user"""
 
     # Get user from the database by email in place of username
@@ -29,35 +28,14 @@ async def token(
     if not user:
         raise NotFoundError
 
-    # Creating user token
-    access_token = create_access_token(data={"sub": str(user.id)})
-
-    # Creating refresh token
-    refresh_token = create_refresh_token(data={"sub": str(user.id)})
-
-    # Create a new response object
-    # and set the refresh token as a secure HTTP-only cookie
-    response = JSONResponse(
-        status_code=status.HTTP_200_OK,
-        content={
-            "access_token": access_token,
-            "token_type": settings.authentication.scheme,
-        },
-    )
-
-    response.set_cookie(
-        key="refresh_token",
-        value=refresh_token,
-        httponly=True,
-        secure=True,
-        samesite="none",
-    )
+    # Create authentication response
+    response: JSONResponse = create_auth_response(user)
 
     return response
 
 
 @router.post("/refresh", status_code=status.HTTP_200_OK)
-async def refresh_token(request: Request = Depends()):
+async def refresh_token(request: Request = Depends()) -> JSONResponse:
     """Refresh the access token"""
 
     # Get the refresh token from the cookies
@@ -72,10 +50,6 @@ async def refresh_token(request: Request = Depends()):
     if not user:
         raise NotFoundError
 
-    # Create new access token
-    access_token = create_access_token(data={"sub": str(user.id)})
+    response: JSONResponse = create_auth_response(user)
 
-    return {
-        "access_token": access_token,
-        "token_type": settings.authentication.scheme,
-    }
+    return response

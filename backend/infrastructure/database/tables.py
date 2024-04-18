@@ -74,12 +74,8 @@ class UserTable(Base):
     )
     phone_number: Mapped[str] = mapped_column(String(16), nullable=False)
     password: Mapped[str] = mapped_column(String(length=1024), nullable=False)
-    first_name: Mapped[str] = mapped_column(
-        String(length=100), default="NoNameUser"
-    )
-    last_name: Mapped[str] = mapped_column(
-        String(length=100), default="NoLastName"
-    )
+    first_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
+    last_name: Mapped[str] = mapped_column(String(length=100), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     role: Mapped[Enum] = mapped_column(Enum(UserRole), default=UserRole.USER)
 

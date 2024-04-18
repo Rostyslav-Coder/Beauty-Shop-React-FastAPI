@@ -5,8 +5,12 @@ This module contains all user routes.
 """
 
 from fastapi import APIRouter, Depends, Request, status
+from fastapi.responses import JSONResponse
 
-from backend.application.authentication import get_current_user
+from backend.application.authentication import (
+    create_auth_response,
+    get_current_user,
+)
 from backend.application.registration import registration_observer
 from backend.config import pwd_context
 from backend.domain.users import (
@@ -18,18 +22,17 @@ from backend.domain.users import (
 )
 from backend.infrastructure.database import transaction
 from backend.infrastructure.errors import AuthenticationError
-from backend.infrastructure.models import Response, ResponseMulti
+from backend.infrastructure.models import ResponseMulti
 
 router = APIRouter(prefix="/users", tags=["Route for managing users"])
 
 
-#! Validated endpoint
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 @transaction
 async def user_create(
     _: Request,
     schema: UserCreateRequestBody,
-) -> Response[UserPublic]:
+) -> JSONResponse:
     """Create a new user."""
 
     # Hash the password
@@ -43,9 +46,11 @@ async def user_create(
     user: User = await UsersRepository().create(
         UserUncommited(**schema.dict())
     )
-    user_public = UserPublic.from_orm(user)
+    # user_public = UserPublic.from_orm(user)
 
-    return Response[UserPublic](result=user_public)
+    response: JSONResponse = create_auth_response(user)
+
+    return response
 
 
 #! Validated endpoint

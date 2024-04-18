@@ -34,6 +34,7 @@ class TokenClaimPublic(PublicModel):
 # ============================================================
 class TokenPayload(InternalModel):
     sub: int
+    email: str
     role: UserRole
     exp: int
 

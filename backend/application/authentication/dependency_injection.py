@@ -8,7 +8,8 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from dateutil import tz
-from fastapi import Depends
+from fastapi import Depends, status
+from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from pydantic import ValidationError
@@ -19,8 +20,7 @@ from backend.domain.users import User, UsersRepository
 from backend.infrastructure.errors import AuthenticationError
 
 __all__ = (
-    "create_access_token",
-    "create_refresh_token",
+    "create_auth_response",
     "get_current_user",
 )
 
@@ -87,6 +87,44 @@ def create_refresh_token(data: dict) -> str:
     encoded_jwt = encod_jwt(to_encode)
 
     return encoded_jwt
+
+
+#! Validated function
+def create_auth_response(user: User) -> dict[str:Any]:
+    """Create authentication response"""
+
+    # Creating token payload
+    paylod: TokenPayload = {
+        "sub": str(user.id),
+        "email": user.email,
+        "role": user.role,
+    }
+
+    # Creating user token
+    access_token = create_access_token(data=paylod)
+
+    # Creating refresh token
+    refresh_token = create_refresh_token(data=paylod)
+
+    # Create a new response object
+    response = JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content={
+            "access_token": access_token,
+            "token_type": settings.authentication.scheme,
+        },
+    )
+
+    # Set the refresh token as a secure HTTP-only cookie
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+    )
+
+    return response
 
 
 #! Validated function
