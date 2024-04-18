@@ -1,5 +1,6 @@
 // ============ REGISTRATION PAGE COMPONENT MODULE  ============ //
 
+import { jwtDecode } from 'jwt-decode';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -37,8 +38,10 @@ const Registration = () => {
 			const response = (
 				await axios.post('http://127.0.0.1:8000/users/create', dataToSend)
 			)
-			localStorage.setItem('user', JSON.stringify(response.data.result));
-			localStorage.setItem('userRole', response.data.result.role);
+			localStorage.setItem('token', JSON.stringify(response.data.access_token));
+			const decodedToken = jwtDecode(localStorage.getItem('token'));
+			localStorage.setItem('userRole', decodedToken.role);
+			localStorage.setItem('userEmail', decodedToken.email);
 			handleReset();
 		} catch (error) {
 			console.error('Error when submitting form:', error);

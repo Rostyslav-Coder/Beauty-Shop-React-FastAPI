@@ -1,5 +1,6 @@
 // ============ AUTHENTICATION PAGE COMPONENT MODULE  ============ //
 
+import { jwtDecode } from 'jwt-decode';
 import { useState } from 'react';
 import '../styles/Auth-Registr.css';
 import axios from 'axios';
@@ -37,17 +38,11 @@ const Authentication = () => {
 			);
 			if (response.data) {
 				localStorage.setItem('token', response.data.access_token);
-				const userResponse = await axios.get('http://127.0.0.1:8000/users/me', {
-					headers: {
-						Authorization: `Bearer ${response.data.access_token}`
-					}
-				});
-				if (userResponse.data) {
-					localStorage.setItem('user', JSON.stringify(userResponse.data.result));
-					localStorage.setItem('userRole', userResponse.data.result.role);
-				}
-				handleReset();
+				const decodedToken = jwtDecode(localStorage.getItem('token'));
+				localStorage.setItem('userRole', decodedToken.role);
+				localStorage.setItem('userEmail', decodedToken.email);
 			}
+			handleReset();
 		} catch (error) {
 			console.log('Error when submitting form:', error);
 		}

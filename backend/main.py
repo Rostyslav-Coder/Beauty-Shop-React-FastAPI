@@ -36,7 +36,7 @@ logger.add(
 app: FastAPI = application.create(
     debug=settings.debug,
     rest_routers=(
-        # rest.admin.router,
+        rest.admin.router,
         rest.authentication.router,
         rest.bookings.router,
         rest.employees.router,

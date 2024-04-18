@@ -25,8 +25,7 @@ const AdminPanel = () => {
   const [updatedServiceData, setUpdatedServiceData] = useState('');
   const [error, setError] = useState(null);
   const [openComponent, setOpenComponent] = useState('');
-  const user = JSON.parse(localStorage.getItem('user'));
-  const adminName = user.firstName ? user.firstName : user.email;
+  const userName = localStorage.getItem('userEmail');
 
   const handleOpen = (ComponentName) => {
     setOpenComponent(ComponentName);
@@ -34,7 +33,7 @@ const AdminPanel = () => {
 
   return (
     <section className='admin'>
-      <h1 className='admin__title'>Hi {adminName}</h1>
+      <h1 className='admin__title'>Hi {userName}</h1>
       <div className='admin__wrapper'>
         <div className='adminTools'>
           <UserManagerTool
