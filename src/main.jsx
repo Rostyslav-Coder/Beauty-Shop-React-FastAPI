@@ -3,12 +3,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import { UserProvider } from './components/providers/UserProvider';
+import App from './components/App';
 import './main.css';
-import App from './components/App.jsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<App />
+		<UserProvider>
+			<App />
+		</UserProvider>
 	</React.StrictMode>,
 )

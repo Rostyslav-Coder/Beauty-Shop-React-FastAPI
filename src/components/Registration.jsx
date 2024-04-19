@@ -1,13 +1,16 @@
 // ============ REGISTRATION PAGE COMPONENT MODULE  ============ //
 
-import { jwtDecode } from 'jwt-decode';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+import { useUserContext } from './hooks/useUserContext';
 import axios from 'axios';
 import '../styles/Auth-Registr.css';
 
 
 const Registration = () => {
+	const { setUserEmail, setUserRole } = useUserContext();
+
 	const [formData, setFormData] = useState({
 		email: '',
 		phoneNumber: '',
@@ -41,17 +44,13 @@ const Registration = () => {
 			localStorage.setItem('token', JSON.stringify(response.data.access_token));
 			const decodedToken = jwtDecode(localStorage.getItem('token'));
 			localStorage.setItem('userRole', decodedToken.role);
+			setUserRole(localStorage.getItem('userRole'));
 			localStorage.setItem('userEmail', decodedToken.email);
+			setUserEmail(localStorage.getItem('userEmail'));
 			handleReset();
 		} catch (error) {
 			console.error('Error when submitting form:', error);
 		}
-	};
-
-	const updateHeader = () => {
-		setTimeout(() => {
-			window.location.reload();
-		}, 3000);
 	};
 
 	const handleReset = () => {
@@ -145,7 +144,6 @@ const Registration = () => {
 						id='submit'
 						type='submit'
 						name='submit'
-						onClick={updateHeader}
 					/>
 					<input
 						className='registration__button'
@@ -157,7 +155,13 @@ const Registration = () => {
 					<label className='registration__label' htmlFor='login'>
 						Already registered? Click here to login.
 						<div className='registration__button'>
-							<Link className='registration__link' to={'/Authentication'} id='login'>Login</Link>
+							<Link
+								className='registration__link'
+								to={'/Authentication'}
+								id='login'
+							>
+								Login
+							</Link>
 						</div>
 					</label>
 				</form>

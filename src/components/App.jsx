@@ -3,7 +3,6 @@
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import '../styles/App.css';
 import About from './About';
 import AdminPanel from './AdminPanel';
 import Authentication from './Authentication';
@@ -16,10 +15,12 @@ import Home from './Home';
 import Registration from './Registration';
 import Orders from './Orders';
 import Services from './Services';
+import { useUserContext } from './hooks/useUserContext';
+import '../styles/App.css';
 
 
 const App = () => {
-	const userRole = localStorage.getItem('userRole');
+	const { userRole } = useUserContext();
 
 	return (
 		<Router>
@@ -34,9 +35,30 @@ const App = () => {
 						<Route path='/contact' element={<Contact />} />
 						<Route path='/registration' element={<Registration />} />
 						<Route path='/authentication' element={<Authentication />} />
-						<Route path='/orders' element={userRole === 'USER' ? <Orders /> : <Navigate to={'/authentication'} replace />} />
-						<Route path='/employee' element={userRole === 'EMPLOYEE' ? <EmployeePanel /> : <Navigate to={'/authentication'} replace />} />
-						<Route path='/admin' element={userRole === 'ADMIN' ? <AdminPanel /> : <Navigate to={'/authentication'} replace />} />
+						<Route
+							path='/orders'
+							element={
+								userRole === 'USER' ?
+									<Orders /> :
+									<Navigate to={'/authentication'} replace />
+							}
+						/>
+						<Route
+							path='/employee'
+							element={
+								userRole === 'EMPLOYEE' ?
+									<EmployeePanel /> :
+									<Navigate to={'/authentication'} replace />
+							}
+						/>
+						<Route
+							path='/admin'
+							element={
+								userRole === 'ADMIN' ?
+									<AdminPanel /> :
+									<Navigate to={'/authentication'} replace />
+							}
+						/>
 					</Routes>
 				</ParallaxProvider>
 				<Footer />

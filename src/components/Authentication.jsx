@@ -2,11 +2,15 @@
 
 import { jwtDecode } from 'jwt-decode';
 import { useState } from 'react';
+import { useUserContext } from './hooks/useUserContext';
+
 import '../styles/Auth-Registr.css';
 import axios from 'axios';
 
 
 const Authentication = () => {
+	const { setUserEmail, setUserRole } = useUserContext();
+
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
@@ -40,18 +44,14 @@ const Authentication = () => {
 				localStorage.setItem('token', response.data.access_token);
 				const decodedToken = jwtDecode(localStorage.getItem('token'));
 				localStorage.setItem('userRole', decodedToken.role);
+				setUserRole(localStorage.getItem('userRole'));
 				localStorage.setItem('userEmail', decodedToken.email);
+				setUserEmail(localStorage.getItem('userEmail'));
 			}
 			handleReset();
 		} catch (error) {
 			console.log('Error when submitting form:', error);
 		}
-	};
-
-	const updateHeader = () => {
-		setTimeout(() => {
-			window.location.reload();
-		}, 3000);
 	};
 
 	return (
@@ -88,7 +88,6 @@ const Authentication = () => {
 						id='submit'
 						type='submit'
 						name='submit'
-						onClick={updateHeader}
 					/>
 					<input
 						className='authentication__button'

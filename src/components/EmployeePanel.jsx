@@ -1,6 +1,7 @@
 // ============ EMPLOYEE PAGE COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
+import { useUserContext } from './hooks/useUserContext';
 
 import OfferManagerTool from './employee/employee-tools/OfferManagerTool';
 import BookingManagerTool from './employee/employee-tools/BookingManagerTool';
@@ -13,8 +14,7 @@ const EmployeePanel = () => {
   const [newOffer, setNewOffer] = useState(null);
   const [error, setError] = useState(null);
   const [openComponent, setOpenComponent] = useState('');
-  const user = JSON.parse(localStorage.getItem('user'));
-  const employeeName = user.firstName ? user.firstName : user.email;
+  const { userEmail } = useUserContext();
 
   const handleOpen = (ComponentName) => {
     setOpenComponent(ComponentName);
@@ -22,7 +22,7 @@ const EmployeePanel = () => {
 
   return (
     <section className='employee'>
-      <h1 className='employee__title'>Hi {employeeName}</h1>
+      <h1 className='employee__title'>Hi {userEmail}</h1>
       <div className='employee__wrapper'>
         <div className='employeeTools'>
           <OfferManagerTool

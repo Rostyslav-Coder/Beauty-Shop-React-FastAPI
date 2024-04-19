@@ -1,6 +1,7 @@
 // ============ ADMIN-PANEL PAGE COMPONENT MODULE  ============ //
 
 import { useState } from 'react';
+import { useUserContext } from './hooks/useUserContext';
 
 import EmployeeManagerTool from './admin/admin-tools/EmployeeManagerTool';
 import ProfessionManagerTool from './admin/admin-tools/ProfessionManagerTool';
@@ -25,7 +26,7 @@ const AdminPanel = () => {
   const [updatedServiceData, setUpdatedServiceData] = useState('');
   const [error, setError] = useState(null);
   const [openComponent, setOpenComponent] = useState('');
-  const userName = localStorage.getItem('userEmail');
+  const { userEmail } = useUserContext();
 
   const handleOpen = (ComponentName) => {
     setOpenComponent(ComponentName);
@@ -33,7 +34,7 @@ const AdminPanel = () => {
 
   return (
     <section className='admin'>
-      <h1 className='admin__title'>Hi {userName}</h1>
+      <h1 className='admin__title'>Hi {userEmail}</h1>
       <div className='admin__wrapper'>
         <div className='adminTools'>
           <UserManagerTool

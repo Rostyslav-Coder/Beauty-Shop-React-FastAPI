@@ -1,6 +1,7 @@
 // ============ HEADER COMPONENT MODULE  ============ //
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useUserContext } from './hooks/useUserContext';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../styles/Header.css';
@@ -23,18 +24,14 @@ NavButton.propTypes = {
 
 
 const Navigator = ({ adaptNavigationForMobile }) => {
-	const [userRole, setUserRole] = useState(localStorage.getItem('userRole'));
-
-	useEffect(() => {
-		const userRole = localStorage.getItem('userRole');
-		setUserRole(userRole);
-	}, []);
+	const { userRole, setUserRole, setUserEmail } = useUserContext();
 
 	const logout = () => {
 		window.localStorage.removeItem('token');
-		window.localStorage.removeItem('user');
 		window.localStorage.removeItem('userRole');
+		window.localStorage.removeItem('userEmail');
 		setUserRole(null);
+		setUserEmail(null);
 	}
 
 	return (
