@@ -21,13 +21,13 @@ __all__ = (
 # Public models
 # ============================================================
 class TokenClaimRequestBody(PublicModel):
-    login: str = Field("User Email")
-    password: str = Field("User Password")
+    login: str = Field(description="User login")
+    password: str = Field(description="User password")
 
 
 class TokenClaimPublic(PublicModel):
-    access: str = Field("Access Token")
-    refresh: str = Field("Refresh Token")
+    access: str = Field(description="Access token")
+    refresh: str = Field(description="Refresh token")
 
 
 # Internal models

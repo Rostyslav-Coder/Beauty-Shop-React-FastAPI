@@ -41,7 +41,7 @@ class ServiceCreateRequestBody(ServicePublicBase):
 class ServicePublic(ServicePublicBase):
     """The public representation of the service."""
 
-    id: int
+    id: int = Field(description="Service ID")
 
 
 # Internal models
