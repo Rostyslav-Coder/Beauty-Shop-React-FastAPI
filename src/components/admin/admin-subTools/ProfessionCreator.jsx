@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import sendRequest from '../../../request/request';
 
+// ! Validated Component
 const ProfessionCreator = ({ setNewProfessionData, setError }) => {
 	const [profession, setProfession] = useState('');
 	const [description, setDescription] = useState('');
@@ -20,7 +21,7 @@ const ProfessionCreator = ({ setNewProfessionData, setError }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const REQUEST_URL = '/profession/add';
+		const REQUEST_URL = '/professions/create';
 		const schema = {
 			name: profession,
 			description: description,

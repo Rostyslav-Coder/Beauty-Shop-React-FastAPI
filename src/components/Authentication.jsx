@@ -8,6 +8,7 @@ import '../styles/Auth-Registr.css';
 import axios from 'axios';
 
 
+// ! Validated Component
 const Authentication = () => {
 	const { setUserEmail, setUserRole } = useUserContext();
 

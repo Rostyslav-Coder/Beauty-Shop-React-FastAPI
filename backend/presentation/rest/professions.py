@@ -47,6 +47,7 @@ async def profession_create(
     return Response[ProfessionPublic](result=profession_public)
 
 
+#! Validated endpoint
 @router.get("/all", status_code=status.HTTP_200_OK)
 @transaction
 async def profession_all(_: Request) -> ResponseMulti[ProfessionPublic]:
@@ -59,3 +60,33 @@ async def profession_all(_: Request) -> ResponseMulti[ProfessionPublic]:
     ]
 
     return ResponseMulti[ProfessionPublic](result=professions_public)
+
+
+#! Validated endpoint
+@router.put("/update", status_code=status.HTTP_202_ACCEPTED)
+@transaction
+async def profession_update(
+    _: Request,
+    profession_id: int,
+    payload_kay: str,
+    payload_value: str,
+    user: User = Depends(get_current_user),
+) -> Response[ProfessionPublic]:
+    """Update current profession"""
+
+    # Only admin can update profession
+    if user.role != "ADMIN":
+        raise AuthenticationError
+
+    # Prepare data for payload
+    payload = {payload_kay: payload_value}
+
+    # Update profession
+    profession: Profession = await ProfessionRepository().update(
+        key_="id",
+        value_=profession_id,
+        payload_=payload,
+    )
+    profession_public = ProfessionPublic.from_orm(profession)
+
+    return Response[ProfessionPublic](result=profession_public)

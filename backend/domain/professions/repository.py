@@ -15,6 +15,7 @@ __all__ = ("ProfessionRepository",)
 class ProfessionRepository(BaseRepository[ProfessionTable]):
     schema_class = ProfessionTable
 
+    #! Validated function
     async def all(self) -> list[Profession]:
         instance: ProfessionTable = await self._all()
         return [Profession.from_orm(profession) for profession in instance]
@@ -28,8 +29,9 @@ class ProfessionRepository(BaseRepository[ProfessionTable]):
         instance: ProfessionTable = await self._save(schema.dict())
         return Profession.from_orm(instance)
 
+    #! Validated function
     async def update(
-        self, key_: str, value_: Any, payload_: ProfessionUncommited
+        self, key_: str, value_: Any, payload_: dict[str, Any]
     ) -> Profession:
         instance: ProfessionTable = await self._update(
             key=key_, value=value_, payload=payload_

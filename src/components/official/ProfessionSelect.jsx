@@ -5,6 +5,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 
+// ! Validated Component
 const ProfessionSelect = ({ setProfession }) => {
 	const [options, setOptions] = useState([]);
 
@@ -15,7 +16,7 @@ const ProfessionSelect = ({ setProfession }) => {
 			try {
 				const response = await axios({
 					method: 'get',
-					url: BASE_URL + '/profession/all',
+					url: BASE_URL + '/professions/all',
 				})
 				setOptions(response.data.result)
 			} catch (error) {
@@ -32,7 +33,7 @@ const ProfessionSelect = ({ setProfession }) => {
 
 	return (
 		<label htmlFor='profession'>
-			Select Employee Profession:
+			Select Profession:
 			<select
 				id='profession'
 				onChange={handleProfessionChange}

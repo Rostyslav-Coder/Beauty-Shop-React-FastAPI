@@ -7,6 +7,7 @@ import ProfessionSelect from '../../official/ProfessionSelect';
 import sendRequest from '../../../request/request';
 
 
+// ! Validated Component
 const ProfessoinUpdater = ({ setUpdatedProfessionData, setError }) => {
 	const [updatKay, setUpdatKay] = useState('');
 	const [updatValue, setUpdatValue] = useState('');
@@ -23,7 +24,7 @@ const ProfessoinUpdater = ({ setUpdatedProfessionData, setError }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const REQUEST_URL = '/profession/update';
+		const REQUEST_URL = '/professions/update';
 		const data = {
 			profession_id: updatedProfessionId,
 			payload_kay: updatKay,
