@@ -30,7 +30,7 @@ const ServiceCreator = ({ setNewServiceData, setError }) => {
 
 		const REQUEST_URL = '/services/create';
 		const schema = {
-			name: serviceName,
+			name: serviceName.toUpperCase(),
 			description: serviceDescription,
 			min_price: minServicePrice,
 			profession_id: associatedProfession,
@@ -41,8 +41,8 @@ const ServiceCreator = ({ setNewServiceData, setError }) => {
 			if (result.error) {
 				setError(result.error)
 			} else {
-				console.log('result.result: ', result.result)
 				setNewServiceData(result.result);
+				console.log('result.result: ', result.result)
 				setError(null);
 			}
 		} catch (error) {

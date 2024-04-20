@@ -23,7 +23,7 @@ const ProfessionCreator = ({ setNewProfessionData, setError }) => {
 
 		const REQUEST_URL = '/professions/create';
 		const schema = {
-			name: profession,
+			name: profession.toUpperCase(),
 			description: description,
 		};
 

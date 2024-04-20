@@ -14,6 +14,7 @@ const ProfessionManagerDesktop = (
 ) => {
 	return (
 		<>
+			{/* Validated block */}
 			{newProfessionData && (
 				<div className='adminData'>
 					<h2>Created Profession Data:</h2>
@@ -25,6 +26,7 @@ const ProfessionManagerDesktop = (
 					)}
 				</div>
 			)}
+			{/* Validated block */}
 			{updatedProfessionData && (
 				<div className='adminData'>
 					<h2>Updated Profession Data:</h2>
@@ -36,8 +38,10 @@ const ProfessionManagerDesktop = (
 					)}
 				</div>
 			)}
+			{/* Validated block */}
 			{newServiceData && (
 				<div className='adminData'>
+					{console.log('newServiceData: ', newServiceData)}
 					<h2>Created Service Data:</h2>
 					{newServiceData.name && (
 						<p>New Service: {newServiceData.name}</p>
@@ -51,16 +55,22 @@ const ProfessionManagerDesktop = (
 					{newServiceData.profession.name && (
 						<p>Service Associated Profession: {newServiceData.profession.name}</p>
 					)}
-				</div>
+				</div >
 			)}
 			{updatedServiceData && (
 				<div className='adminData'>
 					<h2>Updated Service Data:</h2>
 					{updatedServiceData.name && (
-						<p>New Profession: {updatedServiceData.name}</p>
+						<p>Updated service name: {updatedServiceData.name}</p>
 					)}
 					{updatedServiceData.description && (
-						<p>Profession description: {updatedServiceData.description}</p>
+						<p>Updated service description: {updatedServiceData.description}</p>
+					)}
+					{updatedServiceData.minPrice && (
+						<p>Updated service minimal price: {updatedServiceData.minPrice}</p>
+					)}
+					{updatedServiceData.profession.name && (
+						<p>Updated service Associated Profession: {updatedServiceData.profession.name}</p>
 					)}
 				</div>
 			)}

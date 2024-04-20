@@ -13,6 +13,7 @@ from backend.domain.services import (
     ServicePublic,
     ServiceRepository,
     ServiceUncommited,
+    ServiceWithProfessionPublic,
 )
 from backend.domain.users import User
 from backend.infrastructure.database import transaction
@@ -29,7 +30,7 @@ async def service_create(
     _: Request,
     schema: ServiceCreateRequestBody,
     user: User = Depends(get_current_user),
-) -> Response[ServicePublic]:
+) -> Response[ServiceWithProfessionPublic]:
     """Create new service"""
 
     # Only admin can create service
@@ -40,9 +41,12 @@ async def service_create(
     service: Service = await ServiceRepository().create(
         ServiceUncommited(**schema.dict())
     )
-    service_public = ServicePublic.from_orm(service)
 
-    return Response[ServicePublic](result=service_public)
+    service_public: ServiceWithProfessionPublic = (
+        await ServiceRepository().get(key_="id", value_=service.id)
+    )
+
+    return Response[ServiceWithProfessionPublic](result=service_public)
 
 
 @router.get("/all", status_code=status.HTTP_200_OK)

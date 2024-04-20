@@ -7,8 +7,13 @@ This module includes all database requests for the services interaction.
 from typing import Any
 
 from sqlalchemy import Result, select
+from sqlalchemy.orm import joinedload
 
-from backend.domain.services import Service, ServiceUncommited
+from backend.domain.services import (
+    Service,
+    ServiceUncommited,
+    ServiceWithProfessionPublic,
+)
 from backend.infrastructure.database import BaseRepository, ServiceTable
 from backend.infrastructure.errors import NotFoundError
 
@@ -38,14 +43,17 @@ class ServiceRepository(BaseRepository[ServiceTable]):
             raise NotFoundError
         return [Service.from_orm(service) for service in _result]
 
-    async def get(self, key_: str, value_: Any) -> Service:
-        query = select(self.schema_class).where(
-            getattr(self.schema_class, key_) == value_
+    #! Validated function
+    async def get(self, key_: str, value_: Any) -> ServiceWithProfessionPublic:
+        query = (
+            select(self.schema_class)
+            .options(joinedload(ServiceTable.profession))
+            .where(getattr(self.schema_class, key_) == value_)
         )
         result: Result = await self.execute(query)
         if not (_result := result.scalars().one_or_none()):
             raise NotFoundError
-        return Service.from_orm(_result)
+        return ServiceWithProfessionPublic.from_orm(_result)
 
     #! Validated function
     async def create(self, schema: ServiceUncommited) -> Service:

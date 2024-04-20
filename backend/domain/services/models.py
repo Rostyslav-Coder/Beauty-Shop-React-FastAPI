@@ -8,11 +8,13 @@ from decimal import Decimal
 
 from pydantic import Field
 
+from backend.domain.professions import ProfessionName
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "ServiceCreateRequestBody",
     "ServicePublic",
+    "ServiceWithProfessionPublic",
     "ServiceUncommited",
     "Service",
 )
@@ -42,6 +44,12 @@ class ServicePublic(ServicePublicBase):
     """The public representation of the service."""
 
     id: int = Field(description="Service ID")
+
+
+class ServiceWithProfessionPublic(ServicePublic):
+    """The public representation of the service with profession."""
+
+    profession: ProfessionName
 
 
 # Internal models
