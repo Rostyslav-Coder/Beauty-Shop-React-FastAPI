@@ -23,6 +23,7 @@ __all__ = ("ServiceRepository",)
 class ServiceRepository(BaseRepository[ServiceTable]):
     schema_class = ServiceTable
 
+    #! Validated function
     async def all(self) -> list[Service]:
         instance: ServiceTable = await self._all()
         return [Service.from_orm(service) for service in instance]
@@ -60,6 +61,7 @@ class ServiceRepository(BaseRepository[ServiceTable]):
         instance: ServiceTable = await self._save(schema.dict())
         return Service.from_orm(instance)
 
+    #! Validated function
     async def update(
         self, key_: str, value_: Any, payload_: dict[str, Any]
     ) -> Service:

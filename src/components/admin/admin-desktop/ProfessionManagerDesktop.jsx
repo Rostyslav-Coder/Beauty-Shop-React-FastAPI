@@ -69,9 +69,6 @@ const ProfessionManagerDesktop = (
 					{updatedServiceData.minPrice && (
 						<p>Updated service minimal price: {updatedServiceData.minPrice}</p>
 					)}
-					{updatedServiceData.profession.name && (
-						<p>Updated service Associated Profession: {updatedServiceData.profession.name}</p>
-					)}
 				</div>
 			)}
 			{error && <p>{error}</p>}

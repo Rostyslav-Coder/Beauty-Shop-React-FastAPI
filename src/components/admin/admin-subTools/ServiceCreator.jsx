@@ -7,6 +7,7 @@ import ProfessionSelect from '../../official/ProfessionSelect';
 import sendRequest from '../../../request/request';
 
 
+// ! Validated Component
 const ServiceCreator = ({ setNewServiceData, setError }) => {
 	const [serviceName, setServiceName] = useState('');
 	const [serviceDescription, setServiceDescription] = useState('');
@@ -25,6 +26,13 @@ const ServiceCreator = ({ setNewServiceData, setError }) => {
 		setMinServicePrice(e.target.value);
 	};
 
+	const resetData = () => {
+		setServiceName('');
+		setServiceDescription('');
+		setMinServicePrice('');
+		setAssociatedProfession('');
+	}
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -39,10 +47,10 @@ const ServiceCreator = ({ setNewServiceData, setError }) => {
 		try {
 			const result = await sendRequest('post', REQUEST_URL, schema);
 			if (result.error) {
-				setError(result.error)
+				setError(result.error);
 			} else {
 				setNewServiceData(result.result);
-				console.log('result.result: ', result.result)
+				resetData();
 				setError(null);
 			}
 		} catch (error) {

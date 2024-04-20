@@ -5,6 +5,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 
+// ! Validated Component
 const ServiceSelect = ({ setService }) => {
 	const [serviceOption, setServiceOption] = useState([]);
 
@@ -17,7 +18,6 @@ const ServiceSelect = ({ setService }) => {
 					method: 'get',
 					url: BASE_URL + '/services/all'
 				})
-				console.log('response.data.result: ', response.data.result)
 				setServiceOption(response.data.result)
 			} catch (error) {
 				console.log(error)
@@ -35,7 +35,7 @@ const ServiceSelect = ({ setService }) => {
 		<label htmlFor='service'>
 			Select Service:
 			<select id='service' onChange={handleServiceChange} required>
-				<option key={'null'} value={null} selected>Select One</option>
+				<option key={'default'} value={''} selected>Select One</option>
 				{serviceOption && serviceOption.map((service, index) => (
 					<option key={index} value={service.id}>
 						{service.name}

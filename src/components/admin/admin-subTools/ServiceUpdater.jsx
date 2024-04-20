@@ -7,18 +7,25 @@ import ServiceSelect from '../../official/ServiceSelect';
 import sendRequest from '../../../request/request';
 
 
+// ! Validated Component
 const ServiceUpdater = ({ setUpdatedServiceData, setError }) => {
-  const [updatKay, setUpdatKay] = useState('');
-  const [updatValue, setUpdatValue] = useState('');
+  const [updatedKay, setUpdatedKay] = useState('');
+  const [updatedValue, setUpdatedValue] = useState('');
   const [updatedServiceId, setUpdatedServiceId] = useState('');
 
   const handleUpdateKeyChange = (e) => {
-    setUpdatKay(e.target.value);
+    setUpdatedKay(e.target.value);
   };
 
   const handleUpdateValueChange = (e) => {
-    setUpdatValue(e.target.value);
+    setUpdatedValue(e.target.value);
   };
+
+  const resetData = () => {
+    setUpdatedKay('');
+    setUpdatedValue('');
+    setUpdatedServiceId('');
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,20 +33,23 @@ const ServiceUpdater = ({ setUpdatedServiceData, setError }) => {
     const REQUEST_URL = '/services/update';
     const data = {
       service_id: updatedServiceId,
-      service_key: updatKay,
-      service_value: updatValue,
+      payload_kay: updatedKay,
+      payload_value: (
+        updatedKay === 'name' ? updatedValue.toUpperCase() : updatedValue
+      ),
     };
 
     try {
       const result = await sendRequest('put', REQUEST_URL, data);
       if (result.error) {
-        setError(result.error)
+        setError(result.error);
       } else {
-        setUpdatedServiceData(result.result)
-        setError(null)
+        setUpdatedServiceData(result.result);
+        resetData();
+        setError(null);
       }
     } catch (error) {
-      setError(error)
+      setError(error);
     }
   };
 
@@ -50,9 +60,10 @@ const ServiceUpdater = ({ setUpdatedServiceData, setError }) => {
         <label htmlFor='key'>
           What`s change:
           <select id='key' onChange={handleUpdateKeyChange} required>
-            <option value={null}>Select One</option>
+            <option value={''}>Select One</option>
             <option value='name'>Service Name</option>
             <option value='description'>Service Description</option>
+            <option value='min_price'>Service Minimal Price</option>
           </select>
         </label>
         <label htmlFor='value'>
@@ -60,7 +71,7 @@ const ServiceUpdater = ({ setUpdatedServiceData, setError }) => {
           <input
             id='value'
             type='text'
-            value={updatValue}
+            value={updatedValue}
             onChange={handleUpdateValueChange}
             required
           />

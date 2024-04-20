@@ -21,6 +21,13 @@ const ProfessoinUpdater = ({ setUpdatedProfessionData, setError }) => {
 		setUpdatValue(e.target.value);
 	};
 
+	const resetData = () => {
+		setUpdatKay('');
+		setUpdatValue('');
+		setUpdatedProfessionId('');
+	}
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -34,13 +41,14 @@ const ProfessoinUpdater = ({ setUpdatedProfessionData, setError }) => {
 		try {
 			const result = await sendRequest('put', REQUEST_URL, data);
 			if (result.error) {
-				setError(result.error)
+				setError(result.error);
 			} else {
-				setUpdatedProfessionData(result.result)
-				setError(null)
+				setUpdatedProfessionData(result.result);
+				resetData();
+				setError(null);
 			}
 		} catch (error) {
-			setError(error)
+			setError(error);
 		}
 	};
 

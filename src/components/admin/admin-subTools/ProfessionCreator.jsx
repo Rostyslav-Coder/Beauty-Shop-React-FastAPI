@@ -18,6 +18,11 @@ const ProfessionCreator = ({ setNewProfessionData, setError }) => {
 		setDescription(e.target.value);
 	};
 
+	const resetData = () => {
+		setProfession('');
+		setDescription('');
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -30,9 +35,10 @@ const ProfessionCreator = ({ setNewProfessionData, setError }) => {
 		try {
 			const result = await sendRequest('post', REQUEST_URL, schema);
 			if (result.error) {
-				setError(result.error)
+				setError(result.error);
 			} else {
 				setNewProfessionData(result.result);
+				resetData();
 				setError(null);
 			}
 		} catch (error) {

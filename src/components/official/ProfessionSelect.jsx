@@ -39,7 +39,7 @@ const ProfessionSelect = ({ setProfession }) => {
 				onChange={handleProfessionChange}
 				required
 			>
-				<option key='empty' value={null} selected>
+				<option key='default' value={''} selected>
 					Select One:
 				</option>
 				{options && options.map((profession, index) => (
