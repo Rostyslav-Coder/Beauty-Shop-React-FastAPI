@@ -10,7 +10,7 @@ Employees:
 	User 1:
 		id: 2
 		email = employee1@mail.com
-		phone_number = +380123121212
+		phone_number = +380123111111
 		first_name = Employee1
 		last_name = Employee1
 		password: 123
@@ -22,7 +22,7 @@ Employees:
 	User 2:
 		id: 3
 		email = employee2@mail.com
-		phone_number = +380123131313
+		phone_number = +380123111111
 		first_name = Employee2
 		last_name = Employee2
 		password: 123
@@ -34,7 +34,7 @@ Employees:
 	User 3:
 		id: 4
 		email = employee3@mail.com
-		phone_number = +380123141414
+		phone_number = +380123111111
 		first_name = Employee3
 		last_name = Employee3
 		password: 123
@@ -46,7 +46,7 @@ Employees:
 	User 4:
 		id: 5
 		email = employee4@mail.com
-		phone_number = +380123151515
+		phone_number = +380123111111
 		first_name = Employee4
 		last_name = Employee4
 		password: 123
@@ -58,7 +58,7 @@ Employees:
 	User 5:
 		id: 6
 		email = employee5@mail.com
-		phone_number = +380123161616
+		phone_number = +380123111111
 		first_name = Employee5
 		last_name = Employee5
 		password: 123
@@ -70,7 +70,7 @@ Employees:
 	User 6:
 		id: 7
 		email = employee6@mail.com
-		phone_number = +380123171717
+		phone_number = +380123111111
 		first_name = Employee6
 		last_name = Employee6
 		password: 123
@@ -82,7 +82,7 @@ Employees:
 	User 7:
 		id: 8
 		email = employee7@mail.com
-		phone_number = +380123181818
+		phone_number = +380123111111
 		first_name = Employee7
 		last_name = Employee7
 		password: 123
@@ -94,7 +94,7 @@ Employees:
 	User 8:
 		id: 9
 		email = employee8@mail.com
-		phone_number = +380123191919
+		phone_number = +380123111111
 		first_name = Employee8
 		last_name = Employee8
 		password: 123
@@ -106,7 +106,7 @@ Employees:
 	User 9:
 		id: 10
 		email = employee9@mail.com
-		phone_number = +380123202020
+		phone_number = +380123111111
 		first_name = Employee9
 		last_name = Employee9
 		password: 123
@@ -118,7 +118,7 @@ Employees:
 	User 10:
 		id: 11
 		email = employee10@mail.com
-		phone_number = +380123212121
+		phone_number = +380123111111
 		first_name = employee10
 		last_name = Employee10
 		password: 123
@@ -130,7 +130,7 @@ Employees:
 	User 11:
 		id: 12
 		email = employee11@mail.com
-		phone_number = +380123222222
+		phone_number = +380123111111
 		first_name = Employee11
 		last_name = Employee11
 		password: 123
@@ -142,7 +142,7 @@ Employees:
 	User 12:
 		id: 13
 		email = employee12@mail.com
-		phone_number = +380123232323
+		phone_number = +380123111111
 		first_name = Employee12
 		last_name = Employee12
 		password: 123
@@ -154,7 +154,7 @@ Employees:
 	User 13:
 		id: 14
 		email = employee13@mail.com
-		phone_number = +380123242424
+		phone_number = +380123111111
 		first_name = Employee13
 		last_name = Employee13
 		password: 123
@@ -166,7 +166,7 @@ Employees:
 	User 14:
 		id: 15
 		email = employee14@mail.com
-		phone_number = +380123252525
+		phone_number = +380123111111
 		first_name = Employee14
 		last_name = Employee14
 		password: 123
@@ -178,7 +178,7 @@ Employees:
 	User 15:
 		id: 16
 		email = employee15@mail.com
-		phone_number = +380123262626
+		phone_number = +380123111111
 		first_name = Employee15
 		last_name = Employee15
 		password: 123
@@ -190,7 +190,7 @@ Employees:
 	User 16:
 		id: 17
 		email = employee16@mail.com
-		phone_number = +380123272727
+		phone_number = +380123111111
 		first_name = Employee16
 		last_name = Employee16
 		password: 123
@@ -202,7 +202,7 @@ Employees:
 	User 17:
 		id: 18
 		email = employee17@mail.com
-		phone_number = +380123282828
+		phone_number = +380123111111
 		first_name = Employee17
 		last_name = Employee17
 		password: 123
@@ -214,7 +214,7 @@ Employees:
 	User 18:
 		id: 19
 		email = employee18@mail.com
-		phone_number = +380123292929
+		phone_number = +380123111111
 		first_name = Employee18
 		last_name = Employee18
 		password: 123
@@ -226,7 +226,7 @@ Employees:
 	User 19:
 		id: 20
 		email = employee19@mail.com
-		phone_number = +380123303030
+		phone_number = +380123111111
 		first_name = Employee19
 		last_name = Employee19
 		password: 123
@@ -238,7 +238,7 @@ Employees:
 	User 20:
 		id: 21
 		email = employee20@mail.com
-		phone_number = +380123313131
+		phone_number = +380123111111
 		first_name = Employee20
 		last_name = Employee20
 		password: 123
@@ -250,7 +250,7 @@ Employees:
 	User 21:
 		id: 22
 		email = employee21@mail.com
-		phone_number = +380123323232
+		phone_number = +380123111111
 		first_name = Employee21
 		last_name = Employee21
 		password: 123
@@ -262,33 +262,57 @@ Employees:
 	User 22:
 		id: 23
 		email = employee22@mail.com
-		phone_number = +380123333333
+		phone_number = +380123111111
 		first_name = Employee22
 		last_name = Employee22
+		password: 123
+		Employee:
+		profession = ESTHETICIAN
+		working_days = WEEK DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 23:
+		id: 24
+		email = employee23@mail.com
+		phone_number = +380123111111
+		first_name = Employee23
+		last_name = Employee23
 		password: 123
 		Employee:
 		profession = EYELESH SPECIALIST
 		working_days = EVEN DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 23:
-		id: 24
-		email = employee23@mail.com
-		phone_number = +380123343434
-		first_name = Employee23
-		last_name = Employee23
+	User 24:
+		id: 25
+		email = employee24@mail.com
+		phone_number = +380123111111
+		first_name = Employee24
+		last_name = Employee24
+		password: 123
+		Employee:
+		profession = EYELESH SPECIALIST
+		working_days = ODD DAYS
+		working_shift = AFTERNOON SHIFT
+
+	User 25:
+		id: 26
+		email = employee25@mail.com
+		phone_number = +380123111111
+		first_name = Employee25
+		last_name = Employee25
 		password: 123
 		Employee:
 		profession = MASSAGE THERAPIST
 		working_days = ODD DAYS
 		working_shift = MORNING SHIFT
 
-	User 24:
-		id: 25
-		email = employee24@mail.com
-		phone_number = +380123353535
-		first_name = Employee24
-		last_name = Employee24
+	User 26:
+		id: 27
+		email = employee26@mail.com
+		phone_number = +380123111111
+		first_name = Employee26
+		last_name = Employee26
 		password: 123
 		Employee:
 		profession = TATTOO ARTIST
@@ -340,7 +364,7 @@ Services:
 		Eyelash Extensions: Applying synthetic lashes to natural ones using medical-grade adhesive. $40
 		Lash Lifting: Curling natural lashes. $50
 		Tinting: Darkening the color of natural lashes. $130
-		Maintenance and Touch-Ups: Ensuring clients’ lashes look their best. $60
+		Maintenance and Touch-Ups: Ensuring clients lashes look their best. $60
 
 	MASSAGE THERAPIST
 		Swedish Massage: Gentle, relaxing strokes. $40

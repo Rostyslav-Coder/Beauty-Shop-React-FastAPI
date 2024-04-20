@@ -24,7 +24,6 @@ const ProfessoinUpdater = ({ setUpdatedProfessionData, setError }) => {
 	const resetData = () => {
 		setUpdatKay('');
 		setUpdatValue('');
-		setUpdatedProfessionId('');
 	}
 
 
