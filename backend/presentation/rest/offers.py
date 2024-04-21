@@ -7,7 +7,7 @@ This module contains all offer routes.
 from fastapi import APIRouter, Depends, Request, status
 
 from backend.application.authentication import get_current_user
-from backend.domain.employees import EmployeeRepository, EmployeeWithProfession
+from backend.domain.employees import EmployeeRepository, UserEmployeeProf
 from backend.domain.offers import (
     Offer,
     OfferCreateRequestBody,
@@ -51,7 +51,7 @@ async def offer_create(
         raise UnprocessableError
 
     # Get the associated employee from the database
-    employee: EmployeeWithProfession = await EmployeeRepository().get(
+    employee: UserEmployeeProf = await EmployeeRepository().get(
         key_="user_id", value_=user.id
     )
     schema.employee_id = employee.id

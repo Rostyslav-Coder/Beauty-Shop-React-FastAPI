@@ -65,8 +65,7 @@ const EmployeeManagerDesktop = (
       {employeeListProf.length > 0 && (
         <div className='adminData'>
           <h2>Employee with Professon: {employeeListProf[0].profession.profession}</h2>
-          {console.log('employeeListProf: ', employeeListProf)}
-          {/* {employeeListProf.map((employee, index) => {
+          {employeeListProf.map((employee, index) => {
             return (
               <table key={`table${index}`}>
                 <tr key={`firstName${index}`}>
@@ -104,7 +103,6 @@ const EmployeeManagerDesktop = (
               </table>
             )
           })}
-             */}
         </div>
       )}
       {searchedEmployeeData && (
@@ -165,6 +163,7 @@ const EmployeeManagerDesktop = (
       {newEmployeeData && (
         <div className='adminData'>
           <h2>Created Employee Data:</h2>
+          {/* {console.log('newEmployeeData: ', newEmployeeData)} */}
           <table>
             {newEmployeeData.user.firstName && (
               <tr>
@@ -190,22 +189,10 @@ const EmployeeManagerDesktop = (
                 <th>{newEmployeeData.user.phoneNumber}</th>
               </tr>
             )}
-            {newEmployeeData.profession.profession && (
+            {newEmployeeData.profession.name && (
               <tr>
                 <th>Profession:</th>
-                <th>{newEmployeeData.profession.profession}</th>
-              </tr>
-            )}
-            {newEmployeeData.profession.description && (
-              <tr>
-                <th>Profession Description:</th>
-                <th>{newEmployeeData.profession.description}</th>
-              </tr>
-            )}
-            {newEmployeeData.professionId && (
-              <tr>
-                <th>Professio ID:</th>
-                <th>{newEmployeeData.professionId}</th>
+                <th>{newEmployeeData.profession.name}</th>
               </tr>
             )}
             {newEmployeeData.workingDays && (
@@ -218,30 +205,6 @@ const EmployeeManagerDesktop = (
               <tr>
                 <th>Working Shift:</th>
                 <th>{newEmployeeData.workingShift}</th>
-              </tr>
-            )}
-            {newEmployeeData.user.role && (
-              <tr>
-                <th>Employee Role</th>
-                <th>{newEmployeeData.user.role}</th>
-              </tr>
-            )}
-            {newEmployeeData.id && (
-              <tr>
-                <th>Employee ID:</th>
-                <th>{newEmployeeData.id}</th>
-              </tr>
-            )}
-            {newEmployeeData.user.id && (
-              <tr>
-                <th>User ID:</th>
-                <th>{newEmployeeData.user.id}</th>
-              </tr>
-            )}
-            {newEmployeeData.isActive && (
-              <tr>
-                <th>Employee Is Active:</th>
-                <th>{newEmployeeData.isActive ? 'TRUE' : 'FALSE'}</th>
               </tr>
             )}
           </table>

@@ -8,15 +8,16 @@ from pydantic import Field
 
 from backend.domain.constants import WorkingDays, WorkingShift
 from backend.domain.professions import ProfessionName
+from backend.domain.users import EmployeeExpansion
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "EmployeeCreateRequestBody",
     "EmployeePublic",
-    "EmployeeWithProfessionPublic",
+    "UserEmployeeProfPublic",
     "EmployeeUncommited",
     "Employee",
-    "EmployeeWithProfession",
+    "UserEmployeeProf",
 )
 
 
@@ -51,14 +52,13 @@ class EmployeePublic(EmployeePublicBase):
     is_active: bool = Field(description="Is Active")
 
 
-class EmployeeWithProfessionPublic(EmployeePublicBase):
+class UserEmployeeProfPublic(EmployeePublic):
     """
     Existed employee representation.
     """
 
-    id: int
+    user: EmployeeExpansion
     profession: ProfessionName
-    is_active: bool
 
 
 # Internal models
@@ -83,11 +83,10 @@ class Employee(EmployeeUncommited):
     is_active: bool
 
 
-class EmployeeWithProfession(EmployeeUncommited):
+class UserEmployeeProf(Employee):
     """
     Fool internal application representation.
     """
 
-    id: int
-    is_active: bool
+    user: EmployeeExpansion
     profession: ProfessionName

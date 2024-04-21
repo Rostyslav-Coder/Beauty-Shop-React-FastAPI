@@ -16,6 +16,7 @@ from backend.infrastructure.models import InternalModel, PublicModel
 __all__ = (
     "UserCreateRequestBody",
     "UserPublic",
+    "EmployeeExpansion",
     # "UserEmployeePublic",
     "UserUncommited",
     "User",
@@ -49,6 +50,12 @@ class UserPublic(UserPublicBase):
 
     id: int = Field(description="User ID")
     role: UserRole
+
+
+class EmployeeExpansion(UserPublic):
+    """Existed User-Employee representation."""
+
+    pass
 
 
 # class UserEmployeePublic(UserPublic):

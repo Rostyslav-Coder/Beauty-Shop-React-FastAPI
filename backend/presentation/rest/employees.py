@@ -13,8 +13,8 @@ from backend.domain.employees import (
     EmployeeCreateRequestBody,
     EmployeeRepository,
     EmployeeUncommited,
-    EmployeeWithProfession,
-    EmployeeWithProfessionPublic,
+    UserEmployeeProf,
+    UserEmployeeProfPublic,
 )
 from backend.domain.users import User, UsersRepository
 from backend.infrastructure.database import transaction
@@ -31,7 +31,7 @@ async def employee_create(
     _: Request,
     schema: EmployeeCreateRequestBody,
     user: User = Depends(get_current_user),
-) -> Response[EmployeeWithProfessionPublic]:
+) -> Response[UserEmployeeProfPublic]:
     """Creates an addition to the user, as for an employee"""
 
     # Only admin can create employee
@@ -49,9 +49,11 @@ async def employee_create(
     )
 
     # Get fool employee representation from the database
-    employee_prof: EmployeeWithProfession = await EmployeeRepository().get(
+    user_employee_prof: UserEmployeeProf = await EmployeeRepository().get(
         key_="id", value_=employee.id
     )
-    employee_public = EmployeeWithProfessionPublic.from_orm(employee_prof)
+    user_employee_prof_public = UserEmployeeProfPublic.from_orm(
+        user_employee_prof
+    )
 
-    return Response[EmployeeWithProfessionPublic](result=employee_public)
+    return Response[UserEmployeeProfPublic](result=user_employee_prof_public)
