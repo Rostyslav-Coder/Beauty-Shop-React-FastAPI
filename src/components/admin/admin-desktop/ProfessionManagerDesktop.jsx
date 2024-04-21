@@ -57,6 +57,7 @@ const ProfessionManagerDesktop = (
 					)}
 				</div >
 			)}
+			{/* Validated block */}
 			{updatedServiceData && (
 				<div className='adminData'>
 					<h2>Updated Service Data:</h2>

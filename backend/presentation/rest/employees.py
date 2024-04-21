@@ -19,7 +19,7 @@ from backend.domain.employees import (
 from backend.domain.users import User, UsersRepository
 from backend.infrastructure.database import transaction
 from backend.infrastructure.errors import AuthenticationError
-from backend.infrastructure.models import Response
+from backend.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(prefix="/employees", tags=["Route for managing employees"])
 
@@ -57,3 +57,21 @@ async def employee_create(
     )
 
     return Response[UserEmployeeProfPublic](result=user_employee_prof_public)
+
+
+@router.get("/all", status_code=status.HTTP_200_OK)
+@transaction
+async def employees_all(
+    _: Request, skip: int, limit: int
+) -> ResponseMulti[UserEmployeeProfPublic]:
+    """Get All Employees"""
+
+    # Get employees list from database
+    employees: list[UserEmployeeProf] = await EmployeeRepository().all(
+        skip_=skip, limit_=limit
+    )
+    employees_public = [
+        UserEmployeeProfPublic.from_orm(employee) for employee in employees
+    ]
+
+    return ResponseMulti[UserEmployeeProfPublic](result=employees_public)

@@ -15,6 +15,7 @@ const EmployeeManagerDesktop = (
 ) => {
   return (
     <>
+      {/* Validated block */}
       {employeeListAll.length > 0 && (
         <div className='adminData'>
           <h2>Employees</h2>
@@ -23,39 +24,31 @@ const EmployeeManagerDesktop = (
               <table key={`table${index}`}>
                 <tr key={`firstName${index}`}>
                   <th>First Name</th>
-                  <th>{employee.firstName}</th>
+                  <th>{employee.user.firstName}</th>
                 </tr>
                 <tr key={`lastName${index}`}>
                   <th>Last Name</th>
-                  <th>{employee.lastName}</th>
+                  <th>{employee.user.lastName}</th>
                 </tr>
                 <tr key={`email${index}`}>
                   <th>Email</th>
-                  <th>{employee.email}</th>
+                  <th>{employee.user.email}</th>
                 </tr>
                 <tr key={`phoneNumber${index}`}>
                   <th>Phone Number</th>
-                  <th>{employee.phoneNumber}</th>
+                  <th>{employee.user.phoneNumber}</th>
                 </tr>
                 <tr key={`profession${index}`}>
                   <th>Profession</th>
-                  <th>{employee.employee.profession.name}</th>
+                  <th>{employee.profession.name}</th>
                 </tr>
                 <tr key={`workingDays${index}`}>
                   <th>Working Days</th>
-                  <th>{employee.employee.workingDays}</th>
+                  <th>{employee.workingDays}</th>
                 </tr>
                 <tr key={`workingSift${index}`}>
                   <th>Working Shift</th>
-                  <th>{employee.employee.workingShift}</th>
-                </tr>
-                <tr key={`userId${index}`}>
-                  <th>User Id</th>
-                  <th>{employee.id}</th>
-                </tr>
-                <tr key={`employeeId${index}`}>
-                  <th>Employee Id</th>
-                  <th>{employee.employee.id}</th>
+                  <th>{employee.workingShift}</th>
                 </tr>
               </table>
             )
@@ -160,6 +153,7 @@ const EmployeeManagerDesktop = (
           </table>
         </div>
       )}
+      {/* Validated block */}
       {newEmployeeData && (
         <div className='adminData'>
           <h2>Created Employee Data:</h2>

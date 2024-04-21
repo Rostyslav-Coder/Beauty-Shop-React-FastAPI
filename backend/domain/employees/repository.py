@@ -52,6 +52,7 @@ class EmployeeRepository(BaseRepository[EmployeeTable]):
             raise NotFoundError
         return [UserEmployeeProf.from_orm(employee) for employee in _result]
 
+    #! Validated function
     async def get(self, key_: str, value_: Any) -> UserEmployeeProf:
         query = (
             select(self.schema_class)

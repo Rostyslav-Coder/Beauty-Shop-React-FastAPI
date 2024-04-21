@@ -7,6 +7,7 @@ import ProfessionSelect from '../../official/ProfessionSelect';
 import sendRequest from '../../../request/request';
 
 
+// ! Validated Component
 const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 	const [newEmployeeId, setNewEmployeeId] = useState('');
 	const [newEmployeeProfession, setNewEmployeeProfession] = useState('');
