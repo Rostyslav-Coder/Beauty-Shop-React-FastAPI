@@ -60,6 +60,8 @@ async def user_create(
 @transaction
 async def users_all(
     _: Request,
+    skip: int,
+    limit: int,
     user: User = Depends(get_current_user),
 ) -> ResponseMulti[UserPublic]:
     """Get All Users"""
@@ -69,7 +71,7 @@ async def users_all(
         raise AuthenticationError
 
     # Get users list from database
-    users: list[User] = await UsersRepository().all()
+    users: list[User] = await UsersRepository().all(skip_=skip, limit_=limit)
     users_public = [UserPublic.from_orm(user) for user in users]
 
     return ResponseMulti[UserPublic](result=users_public)

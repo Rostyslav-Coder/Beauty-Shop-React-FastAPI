@@ -6,17 +6,18 @@ This module includes all database requests for the users interaction.
 
 from typing import Any
 
+from sqlalchemy import Result, select
+
 # from backend.domain.constants import UserRole
 from backend.domain.users import User, UserUncommited  # , UserEmployee
 from backend.infrastructure.database import (  # EmployeesTable,
     BaseRepository,
     UserTable,
 )
+from backend.infrastructure.errors import NotFoundError
 
-# from sqlalchemy import Result, select
 # from sqlalchemy.orm import joinedload
 
-# from backend.infrastructure.errors.base import NotFoundError
 
 __all__ = ("UsersRepository",)
 
@@ -25,10 +26,14 @@ class UsersRepository(BaseRepository[UserTable]):
     schema_class = UserTable
 
     #! Validated function
-    async def all(self) -> list[User]:
-        instance: UserTable = await self._all()
-        return [User.from_orm(user) for user in instance]
+    async def all(self, skip_: int, limit_: int) -> list[User]:
+        query = select(self.schema_class).offset(skip_).limit(limit_)
+        instance: Result = await self.execute(query)
+        if not (_instance := instance.scalars().all()):
+            raise NotFoundError
+        return [User.from_orm(user) for user in _instance]
 
+    #! Validated function
     async def get(self, key_: str, value_: Any) -> User:
         instance: UserTable = await self._get(key=key_, value=value_)
         return User.from_orm(instance)
