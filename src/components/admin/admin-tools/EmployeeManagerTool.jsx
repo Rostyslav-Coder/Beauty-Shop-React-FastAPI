@@ -7,16 +7,17 @@ import EmployeeListAll from '../admin-subTools/EmployeeListAll';
 import EmployeeListByProfession from '../admin-subTools/EmployeeListByProfession';
 import EmployeeNameSearch from '../admin-subTools/EmployeeNameSearch';
 import EmployeeCreator from '../admin-subTools/EmployeeCreator';
-import EmployeeNotActive from '../admin-subTools/EmployeeNotActive';
+// import EmployeeNotActive from '../admin-subTools/EmployeeNotActive';
 
 
+// ! Validated Component
 const EmployeeManagerTool = (
   {
     setEmployeeListAll,
     setEmployeeListProf,
     setSearchedEmployeeData,
     setNewEmployeeData,
-    setFormerEmployee,
+    // setFormerEmployee,
     setError,
     isOpen,
     onOpen
@@ -69,7 +70,7 @@ const EmployeeManagerTool = (
               />
             )}
           </div>
-          <div onClick={() => setOpenElement('EmployeeNotActive')}>
+          {/* <div onClick={() => setOpenElement('EmployeeNotActive')}>
             <hr className='admin__separator' />
             <h3>Deactivate Employee</h3>
             {openElement === 'EmployeeNotActive' && (
@@ -78,7 +79,7 @@ const EmployeeManagerTool = (
                 setError={setError}
               />
             )}
-          </div>
+          </div> */}
         </>
       )}
     </div>

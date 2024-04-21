@@ -60,12 +60,42 @@ async def employee_create(
 
 
 #! Validated endpoint
+@router.get("/info", status_code=status.HTTP_200_OK)
+@transaction
+async def employee_info(
+    _: Request, employee_name: str, user: User = Depends(get_current_user)
+) -> Response[UserEmployeeProfPublic]:
+    """Get Employee Info"""
+
+    # Only admin can create employee
+    if user.role != "ADMIN":
+        raise AuthenticationError
+
+    # Get the associated user from the database
+    user_employee: User = await UsersRepository().get(
+        key_="first_name", value_=employee_name
+    )
+
+    # Get the associated employee from the database
+    employee: UserEmployeeProf = await EmployeeRepository().get(
+        key_="user_id", value_=user_employee.id
+    )
+    employee_public = UserEmployeeProfPublic.from_orm(employee)
+
+    return Response[UserEmployeeProfPublic](result=employee_public)
+
+
+#! Validated endpoint
 @router.get("/all", status_code=status.HTTP_200_OK)
 @transaction
 async def employees_all(
-    _: Request, skip: int, limit: int
+    _: Request, skip: int, limit: int, user: User = Depends(get_current_user)
 ) -> ResponseMulti[UserEmployeeProfPublic]:
     """Get All Employees"""
+
+    # Only admin can create employee
+    if user.role != "ADMIN":
+        raise AuthenticationError
 
     # Get employees list from database
     employees: list[UserEmployeeProf] = await EmployeeRepository().all(
@@ -82,9 +112,17 @@ async def employees_all(
 @router.get("/profession", status_code=status.HTTP_200_OK)
 @transaction
 async def employees_by_profession(
-    _: Request, skip: int, limit: int, profession_id: int
+    _: Request,
+    skip: int,
+    limit: int,
+    profession_id: int,
+    user: User = Depends(get_current_user),
 ) -> ResponseMulti[UserEmployeeProfPublic]:
     """Get All Employees by profession"""
+
+    # Only admin can create employee
+    if user.role != "ADMIN":
+        raise AuthenticationError
 
     # Get employees list from database
     employees: list[UserEmployeeProf] = await EmployeeRepository().all_by(

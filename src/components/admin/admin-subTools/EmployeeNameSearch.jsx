@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import sendRequest from '../../../request/request';
 
 
+// ! Validated Component
 const EmployeeNameSearch = ({ setSearchedEmployeeData, setError, }) => {
 	const [searchedEmployeeName, setSearchedEmployeeName] = useState('');
 
@@ -16,7 +17,7 @@ const EmployeeNameSearch = ({ setSearchedEmployeeData, setError, }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const REQUEST_URL = '/employees/get';
+		const REQUEST_URL = '/employees/info';
 		const data = { employee_name: searchedEmployeeName };
 
 		try {

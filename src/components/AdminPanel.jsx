@@ -12,6 +12,7 @@ import UserManagerDesktop from './admin/admin-desktop/UserManagerDesktop';
 import '../styles/Admin.css';
 
 
+// ! Validated Component
 const AdminPanel = () => {
   const [searchedUserData, setSearchedUserData] = useState(null);
   const [userListAll, setUserListAll] = useState([]);
@@ -19,7 +20,7 @@ const AdminPanel = () => {
   const [employeeListProf, setEmployeeListProf] = useState([]);
   const [searchedEmployeeData, setSearchedEmployeeData] = useState(null);
   const [newEmployeeData, setNewEmployeeData] = useState(null);
-  const [formerEmployee, setFormerEmployee] = useState('');
+  // const [formerEmployee, setFormerEmployee] = useState('');
   const [newProfessionData, setNewProfessionData] = useState(null);
   const [updatedProfessionData, setUpdatedProfessionData] = useState('');
   const [newServiceData, setNewServiceData] = useState(null);
@@ -49,7 +50,7 @@ const AdminPanel = () => {
             setEmployeeListProf={setEmployeeListProf}
             setSearchedEmployeeData={setSearchedEmployeeData}
             setNewEmployeeData={setNewEmployeeData}
-            setFormerEmployee={setFormerEmployee}
+            // setFormerEmployee={setFormerEmployee}
             setError={setError}
             isOpen={openComponent === 'EmployeeManagerTool'}
             onOpen={() => handleOpen('EmployeeManagerTool')}
@@ -78,7 +79,7 @@ const AdminPanel = () => {
               employeeListProf={employeeListProf}
               searchedEmployeeData={searchedEmployeeData}
               newEmployeeData={newEmployeeData}
-              formerEmployee={formerEmployee}
+              // formerEmployee={formerEmployee}
               error={error}
             />
           )}

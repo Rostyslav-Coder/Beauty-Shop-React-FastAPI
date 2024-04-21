@@ -3,13 +3,14 @@
 import PropTypes from 'prop-types';
 
 
+// ! Validated Component
 const EmployeeManagerDesktop = (
   {
     employeeListAll,
     employeeListProf,
     searchedEmployeeData,
     newEmployeeData,
-    formerEmployee,
+    // formerEmployee,
     error
   }
 ) => {
@@ -91,6 +92,7 @@ const EmployeeManagerDesktop = (
           })}
         </div>
       )}
+      {/* Validated block */}
       {searchedEmployeeData && (
         <div className='adminData'>
           <h2>Employee Data:</h2>
@@ -107,24 +109,6 @@ const EmployeeManagerDesktop = (
                 <th>{searchedEmployeeData.user.lastName}</th>
               </tr>
             )}
-            {searchedEmployeeData.profession.profession && (
-              <tr>
-                <th>Profession:</th>
-                <th>{searchedEmployeeData.profession.profession}</th>
-              </tr>
-            )}
-            {searchedEmployeeData.workingDays && (
-              <tr>
-                <th>Working Days:</th>
-                <th>{searchedEmployeeData.workingDays}</th>
-              </tr>
-            )}
-            {searchedEmployeeData.workingShift && (
-              <tr>
-                <th>Working Shift:</th>
-                <th>{searchedEmployeeData.workingShift}</th>
-              </tr>
-            )}
             {searchedEmployeeData.user.email && (
               <tr>
                 <th>Email:</th>
@@ -137,10 +121,22 @@ const EmployeeManagerDesktop = (
                 <th>{searchedEmployeeData.user.phoneNumber}</th>
               </tr>
             )}
-            {searchedEmployeeData.id && (
+            {searchedEmployeeData.profession.name && (
               <tr>
-                <th>Employee ID:</th>
-                <th>{searchedEmployeeData.id}</th>
+                <th>Profession:</th>
+                <th>{searchedEmployeeData.profession.name}</th>
+              </tr>
+            )}
+            {searchedEmployeeData.workingDays && (
+              <tr>
+                <th>Working Days:</th>
+                <th>{searchedEmployeeData.workingDays}</th>
+              </tr>
+            )}
+            {searchedEmployeeData.workingShift && (
+              <tr>
+                <th>Working Shift:</th>
+                <th>{searchedEmployeeData.workingShift}</th>
               </tr>
             )}
           </table>
@@ -197,7 +193,8 @@ const EmployeeManagerDesktop = (
           </table>
         </div>
       )}
-      {formerEmployee && (
+      {/* Don`t Used block */}
+      {/* {formerEmployee && (
         <div className='adminData'>
           <h2>Dismissed Employee:</h2>
           <table>
@@ -239,7 +236,7 @@ const EmployeeManagerDesktop = (
             )}
           </table>
         </div>
-      )}
+      )} */}
       {error && <p>{error}</p>}
     </>
   );
@@ -250,7 +247,7 @@ EmployeeManagerDesktop.propTypes = {
   employeeListProf: PropTypes.array,
   searchedEmployeeData: PropTypes.object,
   newEmployeeData: PropTypes.object,
-  formerEmployee: PropTypes.object,
+  // formerEmployee: PropTypes.object,
   error: PropTypes.string,
 };
 
