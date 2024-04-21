@@ -59,6 +59,7 @@ async def employee_create(
     return Response[UserEmployeeProfPublic](result=user_employee_prof_public)
 
 
+#! Validated endpoint
 @router.get("/all", status_code=status.HTTP_200_OK)
 @transaction
 async def employees_all(
@@ -69,6 +70,25 @@ async def employees_all(
     # Get employees list from database
     employees: list[UserEmployeeProf] = await EmployeeRepository().all(
         skip_=skip, limit_=limit
+    )
+    employees_public = [
+        UserEmployeeProfPublic.from_orm(employee) for employee in employees
+    ]
+
+    return ResponseMulti[UserEmployeeProfPublic](result=employees_public)
+
+
+#! Validated endpoint
+@router.get("/profession", status_code=status.HTTP_200_OK)
+@transaction
+async def employees_by_profession(
+    _: Request, skip: int, limit: int, profession_id: int
+) -> ResponseMulti[UserEmployeeProfPublic]:
+    """Get All Employees by profession"""
+
+    # Get employees list from database
+    employees: list[UserEmployeeProf] = await EmployeeRepository().all_by(
+        key_="profession_id", value_=profession_id, skip_=skip, limit_=limit
     )
     employees_public = [
         UserEmployeeProfPublic.from_orm(employee) for employee in employees

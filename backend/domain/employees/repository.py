@@ -23,6 +23,7 @@ __all__ = ("EmployeeRepository",)
 class EmployeeRepository(BaseRepository[EmployeeTable]):
     schema_class = EmployeeTable
 
+    #! Validated function
     async def all(self, skip_: int, limit_: int) -> list[UserEmployeeProf]:
         query = (
             select(self.schema_class)
@@ -36,6 +37,7 @@ class EmployeeRepository(BaseRepository[EmployeeTable]):
             raise NotFoundError
         return [UserEmployeeProf.from_orm(employee) for employee in _result]
 
+    #! Validated function
     async def all_by(
         self, key_: str, value_: Any, skip_: int, limit_: int
     ) -> list[UserEmployeeProf]:

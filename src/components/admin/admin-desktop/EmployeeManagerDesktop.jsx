@@ -55,9 +55,10 @@ const EmployeeManagerDesktop = (
           })}
         </div>
       )}
+      {/* Validated block */}
       {employeeListProf.length > 0 && (
         <div className='adminData'>
-          <h2>Employee with Professon: {employeeListProf[0].profession.profession}</h2>
+          <h2>Employee with Professon: {employeeListProf[0].profession.name}</h2>
           {employeeListProf.map((employee, index) => {
             return (
               <table key={`table${index}`}>
@@ -84,14 +85,6 @@ const EmployeeManagerDesktop = (
                 <tr key={`workingSift${index}`}>
                   <th>Working Shift</th>
                   <th>{employee.workingShift}</th>
-                </tr>
-                <tr key={`employeeId${index}`}>
-                  <th>Employee Id</th>
-                  <th>{employee.id}</th>
-                </tr>
-                <tr key={`userId${index}`}>
-                  <th>User Id</th>
-                  <th>{employee.user.id}</th>
                 </tr>
               </table>
             )

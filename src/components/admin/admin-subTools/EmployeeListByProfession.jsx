@@ -7,14 +7,15 @@ import ProfessionSelect from '../../official/ProfessionSelect';
 import sendRequest from '../../../request/request';
 
 
+// ! Validated Component
 const EmployeeListByProfession = ({ setEmployeeListProf, setError }) => {
 	const [selectedProfession, setSelectedProfession] = useState('');
 	const [start, setStart] = useState(0);
-	const [count, setCount] = useState(3);
+	const [count, setCount] = useState(5);
 
 	useEffect(() => {
 		setStart(0);
-		setCount(3);
+		setCount(5);
 	}, [selectedProfession]);
 
 	const handleSubmit = async (e) => {
@@ -26,11 +27,11 @@ const EmployeeListByProfession = ({ setEmployeeListProf, setError }) => {
 		try {
 			const result = await sendRequest('get', REQUEST_URL, data);
 			if (result.error) {
-				setError(result.error)
+				setError(result.error);
 			} else {
 				setEmployeeListProf(result.result);
 				setError(null);
-				setStart(start + 3);
+				setStart(start + 5);
 				setCount(count);
 			}
 		} catch (error) {
