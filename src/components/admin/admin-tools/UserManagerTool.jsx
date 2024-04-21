@@ -24,7 +24,7 @@ const UserManagerTool = (
       {isOpen && (
         <>
           <div onClick={() => setOpenElement('UserEmailSearch')}>
-            <hr />
+            <hr className='admin__separator' />
             <h3>User Info</h3>
             {openElement === 'UserEmailSearch' && (
               <UserEmailSearch
@@ -34,7 +34,7 @@ const UserManagerTool = (
             )}
           </div>
           <div onClick={() => setOpenElement('UserListAll')}>
-            <hr />
+            <hr className='admin__separator' />
             <h3>Users List</h3>
             {openElement === 'UserListAll' && (
               <UserListAll

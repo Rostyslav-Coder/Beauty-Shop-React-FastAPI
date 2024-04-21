@@ -28,7 +28,7 @@ const ProfessionManagerTool = (
       {isOpen && (
         <>
           <div onClick={() => setOpenElement('ProfessionCreator')}>
-            <hr />
+            <hr className='admin__separator' />
             <h3>Add New Profession</h3>
             {openElement === 'ProfessionCreator' && (
               <ProfessionCreator
@@ -38,7 +38,7 @@ const ProfessionManagerTool = (
             )}
           </div>
           <div onClick={() => setOpenElement('ProfessoinUpdater')}>
-            <hr />
+            <hr className='admin__separator' />
             <h3>Update Profession</h3>
             {openElement === 'ProfessoinUpdater' && (
               <ProfessoinUpdater
@@ -48,7 +48,7 @@ const ProfessionManagerTool = (
             )}
           </div>
           <div onClick={() => setOpenElement('ServiceCreator')}>
-            <hr />
+            <hr className='admin__separator' />
             <h3>Add New Service</h3>
             {openElement === 'ServiceCreator' && (
               <ServiceCreator
@@ -58,7 +58,7 @@ const ProfessionManagerTool = (
             )}
           </div>
           <div onClick={() => setOpenElement('ServiceUpdater')}>
-            <hr />
+            <hr className='admin__separator' />
             <h3>Update Service</h3>
             {openElement === 'ServiceUpdater' && (
               <ServiceUpdater

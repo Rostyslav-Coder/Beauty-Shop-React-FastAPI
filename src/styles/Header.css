@@ -8,12 +8,11 @@
 	width: 5rem;
 	height: 5rem;
 	background-color: #CDCDCD22;
-	border: 2px solid #111;
+	border: 2px solid #42030A;
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #111;
 	font-family: serif;
 	font-size: 8rem;
 	font-weight: 900;
@@ -62,12 +61,12 @@
 .header__navButton {
 	width: 80%;
 	height: 2.5rem;
-	color: #111;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: #CDCDCD22;
-	border: 0.1rem solid #111;
+	border: 0.1rem solid #42030A;
+	color: #42030A;
 	border-radius: 0.625rem;
 	font-family: 'Montserrat Alternates';
 	font-weight: 800;
@@ -114,7 +113,6 @@
 	}
 
 	.header__navButton:hover {
-		color: #94675E;
-		border: 0.1rem solid #94675E;
+		background-color: #F6E4E3;
 	}
 }

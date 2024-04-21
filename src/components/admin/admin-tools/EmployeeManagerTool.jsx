@@ -30,6 +30,7 @@ const EmployeeManagerTool = (
       {isOpen && (
         <>
           <div onClick={() => setOpenElement('EmployeeListAll')}>
+            <hr className='admin__separator' />
             <h3>All Employees</h3>
             {openElement === 'EmployeeListAll' && (
               <EmployeeListAll
@@ -39,6 +40,7 @@ const EmployeeManagerTool = (
             )}
           </div>
           <div onClick={() => setOpenElement('EmployeeListByProfession')}>
+            <hr className='admin__separator' />
             <h3>Employees By Profession</h3>
             {openElement === 'EmployeeListByProfession' && (
               <EmployeeListByProfession
@@ -48,6 +50,7 @@ const EmployeeManagerTool = (
             )}
           </div>
           <div onClick={() => setOpenElement("EmployeeNameSearch")}>
+            <hr className='admin__separator' />
             <h3>Get Employee Info</h3>
             {openElement === 'EmployeeNameSearch' && (
               <EmployeeNameSearch
@@ -57,6 +60,7 @@ const EmployeeManagerTool = (
             )}
           </div>
           <div onClick={() => setOpenElement('EmployeeCreator')}>
+            <hr className='admin__separator' />
             <h3>Add New Employee</h3>
             {openElement === 'EmployeeCreator' && (
               <EmployeeCreator
@@ -66,6 +70,7 @@ const EmployeeManagerTool = (
             )}
           </div>
           <div onClick={() => setOpenElement('EmployeeNotActive')}>
+            <hr className='admin__separator' />
             <h3>Deactivate Employee</h3>
             {openElement === 'EmployeeNotActive' && (
               <EmployeeNotActive

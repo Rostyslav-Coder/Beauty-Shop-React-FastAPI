@@ -10,11 +10,11 @@
 }
 
 body {
-	background-color: #DEC6BC;
+	background-color: #F6E4E3;
 	place-items: center;
 	width: 100vw;
 	min-height: 100vh;
-	color: #DCDCDC;
+	color: #42030A;
 	overflow-x: hidden;
 	line-height: 1.5;
 }
