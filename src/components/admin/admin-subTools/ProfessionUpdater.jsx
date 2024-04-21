@@ -24,8 +24,7 @@ const ProfessoinUpdater = ({ setUpdatedProfessionData, setError }) => {
 	const resetData = () => {
 		setUpdatKay('');
 		setUpdatValue('');
-	}
-
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

@@ -18,7 +18,7 @@ const EmployeeListAll = ({ setEmployeeListAll, setError }) => {
 		try {
 			const result = await sendRequest('get', REQUEST_URL, data);
 			if (result.error) {
-				setError(result.error)
+				setError(result.error);
 			} else {
 				setEmployeeListAll(result.result);
 				setError(null);

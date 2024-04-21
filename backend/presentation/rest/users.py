@@ -22,11 +22,13 @@ from backend.domain.users import (
 )
 from backend.infrastructure.database import transaction
 from backend.infrastructure.errors import AuthenticationError
-from backend.infrastructure.models import ResponseMulti
+from backend.infrastructure.errors.base import NotFoundError
+from backend.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(prefix="/users", tags=["Route for managing users"])
 
 
+#! Validated endpoint
 @router.post("/create", status_code=status.HTTP_201_CREATED)
 @transaction
 async def user_create(
@@ -71,3 +73,26 @@ async def users_all(
     users_public = [UserPublic.from_orm(user) for user in users]
 
     return ResponseMulti[UserPublic](result=users_public)
+
+
+#! Validated endpoint
+@router.get("/info", status_code=status.HTTP_200_OK)
+@transaction
+async def user_info(
+    _: Request, user_email: str, user_: User = Depends(get_current_user)
+) -> Response[UserPublic]:
+    """Get User Info"""
+
+    # Only admin or employee can get all users
+    if user_.role != "ADMIN" and user_.role != "EMPLOYEE":
+        raise AuthenticationError
+
+    # Get the associated user from the database
+    user: User = await UsersRepository().get(key_="email", value_=user_email)
+
+    if not user:
+        raise NotFoundError
+
+    user_public = UserPublic.from_orm(user)
+
+    return Response[UserPublic](result=user_public)

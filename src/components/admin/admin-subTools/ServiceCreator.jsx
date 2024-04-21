@@ -30,7 +30,7 @@ const ServiceCreator = ({ setNewServiceData, setError }) => {
 		setServiceName('');
 		setServiceDescription('');
 		setMinServicePrice('');
-	}
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

@@ -3,9 +3,11 @@
 import PropTypes from 'prop-types';
 
 
+// ! Validated Component
 const UserManagerDesktop = ({ searchedUserData, userListAll, error }) => {
   return (
     <>
+      {/* Validated block */}
       {searchedUserData && (
         <div className='adminData'>
           <h2>User Data:</h2>
@@ -49,6 +51,7 @@ const UserManagerDesktop = ({ searchedUserData, userListAll, error }) => {
           </table>
         </div>
       )}
+      {/* Validated block */}
       {userListAll.length > 0 && (
         <div className='adminData'>
           <h2>User List:</h2>

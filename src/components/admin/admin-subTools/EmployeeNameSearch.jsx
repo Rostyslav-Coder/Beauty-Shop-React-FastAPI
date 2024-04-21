@@ -14,6 +14,10 @@ const EmployeeNameSearch = ({ setSearchedEmployeeData, setError, }) => {
 		setSearchedEmployeeName(e.target.value);
 	};
 
+	const resetData = () => {
+		setSearchedEmployeeName('');
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -23,9 +27,10 @@ const EmployeeNameSearch = ({ setSearchedEmployeeData, setError, }) => {
 		try {
 			const result = await sendRequest('get', REQUEST_URL, data);
 			if (result.error) {
-				setError(result.error)
+				setError(result.error);
 			} else {
 				setSearchedEmployeeData(result.result);
+				resetData();
 				setError(null);
 			}
 		} catch (error) {

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import sendRequest from '../../../request/request';
 
 
+// ! Validated Component
 const UserEmailSearch = ({ setSearchedUserData, setError, }) => {
 	const [searchedUserEmail, setSearchedUserEmail] = useState('');
 
@@ -13,19 +14,24 @@ const UserEmailSearch = ({ setSearchedUserData, setError, }) => {
 		setSearchedUserEmail(e.target.value);
 	};
 
+	const resetData = () => {
+		setSearchedUserEmail('');
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const REQUEST_URL = '/users/by_email';
+		const REQUEST_URL = '/users/info';
 		const data = { user_email: searchedUserEmail };
 
 		try {
 			const result = await sendRequest('get', REQUEST_URL, data);
 			if (result.error) {
-				setError(result.error)
+				setError(result.error);
 			} else {
 				setSearchedUserData(result.result);
 				setError(null);
+				resetData();
 			}
 		} catch (error) {
 			setError(error);
@@ -56,6 +62,6 @@ UserEmailSearch.propTypes = {
 	setError: PropTypes.func.isRequired,
 	isOpen: PropTypes.bool.isRequired,
 	onOpen: PropTypes.func.isRequired,
-}
+};
 
 export default UserEmailSearch;

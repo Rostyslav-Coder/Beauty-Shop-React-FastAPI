@@ -24,7 +24,7 @@ const ServiceUpdater = ({ setUpdatedServiceData, setError }) => {
   const resetData = () => {
     setUpdatedKay('');
     setUpdatedValue('');
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

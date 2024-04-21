@@ -26,6 +26,12 @@ const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 		setNewEmployeeWorkingShift(e.target.value);
 	};
 
+	const resetData = () => {
+		setNewEmployeeId('');
+		setNewEmployeeWorkingDays('');
+		setNewEmployeeWorkingShift('');
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -40,9 +46,10 @@ const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 		try {
 			const result = await sendRequest('post', REQUEST_URL, schema);
 			if (result.error) {
-				setError(result.error)
+				setError(result.error);
 			} else {
 				setNewEmployeeData(result.result);
+				resetData();
 				setError(null);
 			}
 		} catch (error) {
@@ -92,7 +99,7 @@ const EmployeeCreator = ({ setNewEmployeeData, setError }) => {
 				<button type='submit'>Create Employee</button>
 			</form>
 		</div>
-	)
+	);
 };
 
 EmployeeCreator.propTypes = {
