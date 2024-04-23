@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 // ! Validated Component
 const ProfessionSelect = ({ setProfession }) => {
-	const [options, setOptions] = useState([]);
+	const [professionOptions, setProfessionOptions] = useState([]);
 
 	useEffect(() => {
 		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
@@ -18,7 +18,7 @@ const ProfessionSelect = ({ setProfession }) => {
 					method: 'get',
 					url: BASE_URL + '/professions/all',
 				})
-				setOptions(response.data.result)
+				setProfessionOptions(response.data.result)
 			} catch (error) {
 				console.log(error);
 			}
@@ -34,15 +34,11 @@ const ProfessionSelect = ({ setProfession }) => {
 	return (
 		<label htmlFor='profession'>
 			Select Profession:
-			<select
-				id='profession'
-				onChange={handleProfessionChange}
-				required
-			>
+			<select id='profession' onChange={handleProfessionChange} required>
 				<option key='default' value={''} selected>
 					Select One:
 				</option>
-				{options && options.map((profession, index) => (
+				{professionOptions && professionOptions.map((profession, index) => (
 					<option key={index} value={profession.id}>
 						{profession.name}
 					</option>

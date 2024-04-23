@@ -2,9 +2,117 @@
 
 .employee {
 	width: 100%;
+	padding-top: 13vh;
+	text-align: center;
+}
+
+.employee__wrapper {
+	width: 90%;
+	margin: 0 auto;
 	min-height: calc(100vh - 2rem);
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
+}
+
+.employeeTools {
+	position: sticky;
+	top: 10vh;
+	width: 25%;
+	padding: 1rem 0;
+	margin-bottom: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: stretch;
+	gap: 0.5rem;
+}
+
+.component__closed {
+	opacity: 0.6;
+}
+
+.component__open {
+	opacity: 1;
+}
+
+.toolComponent {
+	padding: 0.2rem 0.5rem;
+	background-color: #FFF0EF;
+	border: 2px solid #42030A;
+	border-radius: 0.25rem;
+	z-index: 2;
+	transition: opacity 0.5s ease-in-out;
+	cursor: pointer;
+}
+
+.toolComponent h2,
+.toolComponent h3 {
+	text-align: center;
+	cursor: pointer;
+}
+
+.toolComponent label {
+	text-align: left;
+}
+
+.toolComponent label {
+	width: 100%;
+	text-align: left;
+}
+
+.toolComponent input,
+.toolComponent select,
+.toolComponent button {
+	width: 100%;
+	border: 1px solid #42030A;
+	border-radius: 0.25rem;
+}
+
+.toolComponent button {
+	background-color: #F0DEDE;
+}
+
+.employeeDesktop {
+	width: 75%;
+	min-height: calc(100vh - 2rem);
+	padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-end;
+	gap: 1rem;
+}
+
+.employeeData {
+	width: 80%;
+	background-color: #FFF0EF;
+	border: 2px solid #42030A;
+	border-radius: 0.25rem;
+}
+
+.employeeData table {
+	width: 100%;
+	border-top: 2px solid #42030A;
+}
+
+.employeeData table tr:nth-child(odd) {
+	background-color: #F0DEDE;
+}
+
+.employeeData table th:nth-child(odd) {
+	width: 35%;
+	text-align: left;
+	padding: 0.25rem 1rem;
+}
+
+.employeeData table th:nth-child(even) {
+	width: 65%;
+	text-align: right;
+	padding: 0.25rem 1rem;
+}
+
+.employee__separator {
+	width: 100%;
+	background-color: #42030A;
 }
