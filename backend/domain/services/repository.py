@@ -28,16 +28,9 @@ class ServiceRepository(BaseRepository[ServiceTable]):
         instance: ServiceTable = await self._all()
         return [Service.from_orm(service) for service in instance]
 
-    async def all_by_profesion(
-        self, profession_id_: int, skip_: int, limit_: int
-    ) -> list[Service]:
-        query = (
-            select(self.schema_class)
-            .where(
-                getattr(self.schema_class, "profession_id") == profession_id_
-            )
-            .offset(skip_)
-            .limit(limit_)
+    async def all_by_profesion(self, profession_id_: int) -> list[Service]:
+        query = select(self.schema_class).where(
+            getattr(self.schema_class, "profession_id") == profession_id_
         )
         result: Result = await self.execute(query)
         if not (_result := result.scalars().all()):

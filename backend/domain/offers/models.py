@@ -5,7 +5,6 @@ This module includes all models for the offers interaction.
 """
 
 from decimal import Decimal
-from typing import Optional
 
 from pydantic import Field
 
@@ -30,19 +29,19 @@ class OfferPublicBase(PublicModel):
     price: Decimal = Field(description="Offer price")
     duration: int = Field(description="Offer duration in minutes")
     service_id: int = Field(description="Associated service ID")
+    employee_id: int = Field(description="Associated employee ID")
 
 
 class OfferCreateRequestBody(OfferPublicBase):
     """Request body to create offer."""
 
-    employee_id: Optional[int] = Field(description="Associated employee ID")
+    pass
 
 
 class OfferPublic(OfferPublicBase):
     """Existed profession representation."""
 
     id: int = Field(description="Offer ID")
-    employee_id: int = Field(description="Associated employee ID")
 
 
 # Internal models

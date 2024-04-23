@@ -133,3 +133,24 @@ async def employees_by_profession(
     ]
 
     return ResponseMulti[UserEmployeeProfPublic](result=employees_public)
+
+
+#! Validated endpoint
+@router.get("/me", status_code=status.HTTP_200_OK)
+@transaction
+async def employee_me(
+    _: Request, user: User = Depends(get_current_user)
+) -> Response[UserEmployeeProfPublic]:
+    """Get Employee Details"""
+
+    # Only employee can get his details
+    if user.role != "EMPLOYEE":
+        raise AuthenticationError
+
+    # Get the current employee from the database
+    employee: UserEmployeeProf = await EmployeeRepository().get(
+        key_="user_id", value_=user.id
+    )
+    employee_public = UserEmployeeProfPublic.from_orm(employee)
+
+    return Response[UserEmployeeProfPublic](result=employee_public)

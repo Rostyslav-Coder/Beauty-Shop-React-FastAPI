@@ -68,8 +68,6 @@ async def services_all(_: Request) -> ResponseMulti[ServicePublic]:
 @transaction
 async def services_all_by(
     _: Request,
-    skip: int,
-    limit: int,
     profession_id: int,
 ) -> ResponseMulti[ServicePublic]:
     """Get All Services by Profession"""
@@ -77,8 +75,6 @@ async def services_all_by(
     # Get all Services from DB by Associated Profession ID
     services: list[Service] = await ServiceRepository().all_by_profesion(
         profession_id_=profession_id,
-        skip_=skip,
-        limit_=limit,
     )
     services_public = [ServicePublic.from_orm(service) for service in services]
 

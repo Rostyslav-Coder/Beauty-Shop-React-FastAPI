@@ -7,7 +7,6 @@ This module contains all offer routes.
 from fastapi import APIRouter, Depends, Request, status
 
 from backend.application.authentication import get_current_user
-from backend.domain.employees import EmployeeRepository, UserEmployeeProf
 from backend.domain.offers import (
     Offer,
     OfferCreateRequestBody,
@@ -49,12 +48,6 @@ async def offer_create(
     # Check the validity of the offered price
     if schema.price < service.min_price:
         raise UnprocessableError
-
-    # Get the associated employee from the database
-    employee: UserEmployeeProf = await EmployeeRepository().get(
-        key_="user_id", value_=user.id
-    )
-    schema.employee_id = employee.id
 
     # Create new offer
     offer: Offer = await OfferRepository().create(
