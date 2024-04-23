@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import simpleRequest from '../../request/simpleRequest';
 
+
 // ! Validated Component
 const ServiceByProfessionSelect = ({ setServiceId, myData }) => {
 	const [serviceOption, setServiceOption] = useState([]);
@@ -28,7 +29,6 @@ const ServiceByProfessionSelect = ({ setServiceId, myData }) => {
 	}, [myData]);
 
 	const handleServiceChange = (e) => {
-		console.log('handleServiceChange - setServiceId:', e.target.value);
 		setServiceId(e.target.value);
 	};
 

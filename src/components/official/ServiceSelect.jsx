@@ -1,8 +1,9 @@
 // ============ SERVICE-SELECT COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+
+import simpleRequest from '../../request/simpleRequest';
 
 
 // ! Validated Component
@@ -10,19 +11,16 @@ const ServiceSelect = ({ setService }) => {
 	const [serviceOption, setServiceOption] = useState([]);
 
 	useEffect(() => {
-		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+		const REQUEST_URL = '/services/all';
 
 		const fetchData = async () => {
-			try {
-				const response = await axios({
-					method: 'get',
-					url: BASE_URL + '/services/all'
-				})
-				setServiceOption(response.data.result)
-			} catch (error) {
-				console.log(error)
+			const result = await simpleRequest(REQUEST_URL);
+			if (result.error) {
+				setServiceOption([]);
+			} else {
+				setServiceOption(result.result);
 			}
-		};
+		}
 
 		fetchData();
 	}, []);

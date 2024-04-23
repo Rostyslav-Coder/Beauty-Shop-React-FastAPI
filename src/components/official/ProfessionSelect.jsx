@@ -1,8 +1,9 @@
 // ============ PROFESSION-SELECT COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+
+import simpleRequest from '../../request/simpleRequest';
 
 
 // ! Validated Component
@@ -10,19 +11,16 @@ const ProfessionSelect = ({ setProfession }) => {
 	const [professionOptions, setProfessionOptions] = useState([]);
 
 	useEffect(() => {
-		const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+		const REQUEST_URL = '/professions/all';
 
 		const fetchData = async () => {
-			try {
-				const response = await axios({
-					method: 'get',
-					url: BASE_URL + '/professions/all',
-				})
-				setProfessionOptions(response.data.result)
-			} catch (error) {
-				console.log(error);
+			const result = await simpleRequest(REQUEST_URL);
+			if (result.error) {
+				setProfessionOptions([]);
+			} else {
+				setProfessionOptions(result.result);
 			}
-		};
+		}
 
 		fetchData();
 	}, []);
