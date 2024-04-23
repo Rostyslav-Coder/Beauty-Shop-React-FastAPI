@@ -35,6 +35,18 @@ class BookingRepository(BaseRepository[BookingTable]):
         _instance = instance.scalars().all()
         return [Booking.from_orm(booking) for booking in _instance]
 
+    async def all_by_date(
+        self, employee_id: int, date: datetime
+    ) -> list[Booking]:
+        query = select(self.schema_class).where(
+            getattr(self.schema_class, "employee_id") == employee_id,
+            getattr(self.schema_class, "start_time") >= datetime.now(),
+            getattr(self.schema_class, "end_time") <= date,
+        )
+        instance: BookingTable = await self.execute(query)
+        _instance = instance.scalars().all()
+        return [Booking.from_orm(booking) for booking in _instance]
+
     async def all_by_user(self, user_id: int) -> list[Booking]:
         query = select(self.schema_class).where(
             getattr(self.schema_class, "owner_id") == user_id,

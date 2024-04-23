@@ -91,6 +91,30 @@ async def free_slots_by_employee_and_date(
     return ResponseMulti[datetime](result=new_schedule)
 
 
+# ^ Almost validated endpoint(no bookings in DB yet)
+@router.get("/to_given_day", status_code=status.HTTP_200_OK)
+@transaction
+async def bookings_to_given_day(
+    _: Request,
+    employee_id: int,
+    date: datetime,
+    user: User = Depends(get_current_user),
+) -> ResponseMulti[BookingPublic]:
+    """Get bookings from today to a given day"""
+
+    # Only employee can get his bookings from today
+    if user.role != "EMPLOYEE":
+        raise AuthenticationError
+
+    # Get next day bookings
+    bookings: list[Booking] = await BookingRepository().all_by_date(
+        employee_id=employee_id, date=date
+    )
+    bookings_public = [BookingPublic.from_orm(booking) for booking in bookings]
+
+    return ResponseMulti[BookingPublic](result=bookings_public)
+
+
 #! Validated endpoint
 @router.get("/all_my", status_code=status.HTTP_200_OK)
 @transaction
@@ -108,8 +132,6 @@ async def bookings_all_my(
     bookings: list[Booking] = await BookingRepository().all_by_user(
         user_id=user.id
     )
-
-    # Convert bookings to public list
     bookings_public = [BookingPublic.from_orm(booking) for booking in bookings]
 
     return ResponseMulti[BookingPublic](result=bookings_public)

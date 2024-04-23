@@ -13,6 +13,7 @@ import '../styles/Employee.css';
 
 const EmployeePanel = () => {
   const [newOffer, setNewOffer] = useState(null);
+  const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
   const [openComponent, setOpenComponent] = useState('');
   const [myData, setMyData] = useState(() => {
@@ -53,6 +54,13 @@ const EmployeePanel = () => {
       <h1 className='employee__title'>Hi {userEmail}</h1>
       <div className='employee__wrapper'>
         <div className='employeeTools'>
+          <BookingManagerTool
+            setBookings={setBookings}
+            myData={myData}
+            setError={setError}
+            isOpen={openComponent === 'BookingManagerTool'}
+            onOpen={() => handleOpen('BookingManagerTool')}
+          />
           <OfferManagerTool
             setNewOffer={setNewOffer}
             myData={myData}
@@ -60,21 +68,17 @@ const EmployeePanel = () => {
             isOpen={openComponent === 'OfferManagerTool'}
             onOpen={() => handleOpen('OfferManagerTool')}
           />
-          <BookingManagerTool
-            setError={setError}
-            isOpen={openComponent === 'BookingManagerTool'}
-            onOpen={() => handleOpen('BookingManagerTool')}
-          />
         </div>
         <div className='employeeDesktop'>
-          {openComponent === 'OfferManagerTool' && (
-            <OfferManagerDesktop
-              newOffer={newOffer}
+          {openComponent === 'BookingManagerTool' && (
+            <BookingManagerDesktop
+              bookings={bookings}
               error={error}
             />
           )}
-          {openComponent === 'BookingManagerTool' && (
-            <BookingManagerDesktop
+          {openComponent === 'OfferManagerTool' && (
+            <OfferManagerDesktop
+              newOffer={newOffer}
               error={error}
             />
           )}
