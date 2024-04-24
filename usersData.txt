@@ -7,7 +7,7 @@ Admin:
 
 Employees:
 
-	User 1:
+	Employee 1:
 		id: 2
 		email = employee1@mail.com
 		phone_number = +380123111111
@@ -19,7 +19,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = MORNING SHIFT
 
-	User 2:
+	Employee 2:
 		id: 3
 		email = employee2@mail.com
 		phone_number = +380123111111
@@ -31,7 +31,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = MORNING SHIFT
 
-	User 3:
+	Employee 3:
 		id: 4
 		email = employee3@mail.com
 		phone_number = +380123111111
@@ -43,7 +43,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = MORNING SHIFT
 
-	User 4:
+	Employee 4:
 		id: 5
 		email = employee4@mail.com
 		phone_number = +380123111111
@@ -55,7 +55,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 5:
+	Employee 5:
 		id: 6
 		email = employee5@mail.com
 		phone_number = +380123111111
@@ -67,7 +67,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 6:
+	Employee 6:
 		id: 7
 		email = employee6@mail.com
 		phone_number = +380123111111
@@ -79,7 +79,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 7:
+	Employee 7:
 		id: 8
 		email = employee7@mail.com
 		phone_number = +380123111111
@@ -91,7 +91,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = MORNING SHIFT
 
-	User 8:
+	Employee 8:
 		id: 9
 		email = employee8@mail.com
 		phone_number = +380123111111
@@ -103,7 +103,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = MORNING SHIFT
 
-	User 9:
+	Employee 9:
 		id: 10
 		email = employee9@mail.com
 		phone_number = +380123111111
@@ -115,7 +115,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = MORNING SHIFT
 
-	User 10:
+	Employee 10:
 		id: 11
 		email = employee10@mail.com
 		phone_number = +380123111111
@@ -127,7 +127,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 11:
+	Employee 11:
 		id: 12
 		email = employee11@mail.com
 		phone_number = +380123111111
@@ -139,7 +139,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 12:
+	Employee 12:
 		id: 13
 		email = employee12@mail.com
 		phone_number = +380123111111
@@ -151,7 +151,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 13:
+	Employee 13:
 		id: 14
 		email = employee13@mail.com
 		phone_number = +380123111111
@@ -163,7 +163,7 @@ Employees:
 		working_days = WEEK DAYS
 		working_shift = MORNING SHIFT
 
-	User 14:
+	Employee 14:
 		id: 15
 		email = employee14@mail.com
 		phone_number = +380123111111
@@ -175,7 +175,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = MORNING SHIFT
 
-	User 15:
+	Employee 15:
 		id: 16
 		email = employee15@mail.com
 		phone_number = +380123111111
@@ -187,7 +187,7 @@ Employees:
 		working_days = WEEK DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 16:
+	Employee 16:
 		id: 17
 		email = employee16@mail.com
 		phone_number = +380123111111
@@ -199,7 +199,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 17:
+	Employee 17:
 		id: 18
 		email = employee17@mail.com
 		phone_number = +380123111111
@@ -211,7 +211,7 @@ Employees:
 		working_days = WEEK DAYS
 		working_shift = MORNING SHIFT
 
-	User 18:
+	Employee 18:
 		id: 19
 		email = employee18@mail.com
 		phone_number = +380123111111
@@ -223,7 +223,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = MORNING SHIFT
 
-	User 19:
+	Employee 19:
 		id: 20
 		email = employee19@mail.com
 		phone_number = +380123111111
@@ -235,7 +235,7 @@ Employees:
 		working_days = WEEK DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 20:
+	Employee 20:
 		id: 21
 		email = employee20@mail.com
 		phone_number = +380123111111
@@ -247,7 +247,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 21:
+	Employee 21:
 		id: 22
 		email = employee21@mail.com
 		phone_number = +380123111111
@@ -259,7 +259,7 @@ Employees:
 		working_days = WEEK DAYS
 		working_shift = MORNING SHIFT
 
-	User 22:
+	Employee 22:
 		id: 23
 		email = employee22@mail.com
 		phone_number = +380123111111
@@ -271,7 +271,7 @@ Employees:
 		working_days = WEEK DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 23:
+	Employee 23:
 		id: 24
 		email = employee23@mail.com
 		phone_number = +380123111111
@@ -283,7 +283,7 @@ Employees:
 		working_days = EVEN DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 24:
+	Employee 24:
 		id: 25
 		email = employee24@mail.com
 		phone_number = +380123111111
@@ -295,7 +295,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = AFTERNOON SHIFT
 
-	User 25:
+	Employee 25:
 		id: 26
 		email = employee25@mail.com
 		phone_number = +380123111111
@@ -307,7 +307,7 @@ Employees:
 		working_days = ODD DAYS
 		working_shift = MORNING SHIFT
 
-	User 26:
+	Employee 26:
 		id: 27
 		email = employee26@mail.com
 		phone_number = +380123111111
@@ -385,3 +385,37 @@ WorkingDays
 WorkingShift
     MORNING SHIFT
     AFTERNOON SHIFT
+
+Users:
+
+	User 1:
+		id: 28
+		email = user1@mail.com
+		phone_number = +380123111111
+		first_name = User1
+		last_name = User1
+		password: 123
+
+	User 2:
+		id: 29
+		email = user2@mail.com
+		phone_number = +380123111111
+		first_name = User2
+		last_name = User2
+		password: 123
+
+	User 3:
+		id: 30
+		email = user3@mail.com
+		phone_number = +380123111111
+		first_name = User3
+		last_name = User3
+		password: 123
+
+	User 4:
+		id: 31
+		email = user4@mail.com
+		phone_number = +380123111111
+		first_name = User4
+		last_name = User4
+		password: 123

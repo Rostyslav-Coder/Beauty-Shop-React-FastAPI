@@ -3,10 +3,16 @@
 .home {
 	width: 100%;
 	min-height: 100vh;
+	padding-bottom: 10rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
 	align-items: center;
+	background-image: url('../assets/home/home-bg.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
 .home__img-wwrapper {
@@ -55,7 +61,7 @@
 	padding: 1rem;
 	background-color: #CDCDCD22;
 	backdrop-filter: blur(24px);
-	border-radius: 0.25rem;
+	border-radius: 0.5rem;
 	font-family: 'Montserrat Alternates';
 	font-size: 1.8rem;
 	font-weight: 600;

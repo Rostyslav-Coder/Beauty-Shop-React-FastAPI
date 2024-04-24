@@ -113,6 +113,7 @@
 	}
 
 	.header__navButton:hover {
-		background-color: #F6E4E3;
+		box-shadow: 0 0 0.5rem #42030A;
+		text-shadow: 0 0 0.5rem #42030A;
 	}
 }

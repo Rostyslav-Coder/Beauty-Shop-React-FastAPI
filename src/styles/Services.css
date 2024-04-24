@@ -2,9 +2,64 @@
 
 .services {
 	width: 100%;
-	min-height: calc(100vh - 2rem);
+	min-height: 100vh;
+	padding-bottom: 10rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-image: url('../assets/home/home-bg.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
+
+.services__title-block {
+	width: 100%;
+	padding: 2rem 10%;
+	margin-top: 50vh;
+	background-color: #CDCDCD22;
+	backdrop-filter: blur(24px);
+	text-align: center;
+}
+
+.services__title {
+	font-family: 'Lobster';
+	font-size: 3rem;
+}
+
+.services__subTitle {
+	font-family: 'Lobster';
+	font-size: 1.8rem;
+}
+
+.services__card {
+	width: 80%;
+	margin: 0 auto 2rem;
+	padding: 1rem 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	background-color: #CDCDCD22;
+	backdrop-filter: blur(24px);
+	border-radius: 0.5rem;
+	font-family: 'Montserrat Alternates';
+	font-size: 1.8rem;
+	font-weight: 600;
+	line-height: 1.4;
+	text-align: justify;
+}
+
+.services__service {
+	width: 100%;
+	padding: 1rem 2rem;
+	border: 1px solid #42030A;
+	border-radius: 0.5rem;
+}
+
+@media screen and (orientation: landscape) {}
+
+@media screen and (min-width: 1024px) {}
