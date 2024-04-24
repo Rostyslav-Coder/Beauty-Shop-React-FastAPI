@@ -76,7 +76,7 @@
 .employeeDesktop {
 	width: 75%;
 	min-height: calc(100vh - 2rem);
-	padding: 1rem 0;
+	padding: 1rem 0 5rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
