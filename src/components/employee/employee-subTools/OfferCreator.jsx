@@ -8,7 +8,7 @@ import sendRequest from '../../../request/request';
 
 
 // ! Validated Component
-const OfferCreator = ({ setNewOffer, myData, setError }) => {
+const OfferCreator = ({ setNewOffer, setServiceInfo, myData, setError }) => {
 	const [price, setPrice] = useState('');
 	const [duration, setDuration] = useState('');
 	const [serviceId, setServiceId] = useState('');
@@ -55,6 +55,7 @@ const OfferCreator = ({ setNewOffer, myData, setError }) => {
 			<form onSubmit={handleSubmit}>
 				<ServiceByProfessionSelect
 					setServiceId={setServiceId}
+					setServiceInfo={setServiceInfo}
 					myData={myData}
 				/>
 				<label htmlFor='price'>
@@ -87,6 +88,7 @@ const OfferCreator = ({ setNewOffer, myData, setError }) => {
 
 OfferCreator.propTypes = {
 	setNewOffer: PropTypes.func,
+	setServiceInfo: PropTypes.func,
 	myData: PropTypes.object,
 	setError: PropTypes.func,
 };

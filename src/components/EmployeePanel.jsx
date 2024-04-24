@@ -11,9 +11,12 @@ import BookingManagerDesktop from './employee/employee-desktop/BookingManagerDes
 import '../styles/Employee.css';
 
 
+// ! Validated Component
 const EmployeePanel = () => {
-  const [newOffer, setNewOffer] = useState(null);
   const [bookings, setBookings] = useState([]);
+  const [newOffer, setNewOffer] = useState(null);
+  const [offers, setOffers] = useState([]);
+  const [serviceInfo, setServiceInfo] = useState(null);
   const [error, setError] = useState(null);
   const [openComponent, setOpenComponent] = useState('');
   const [myData, setMyData] = useState(() => {
@@ -63,6 +66,8 @@ const EmployeePanel = () => {
           />
           <OfferManagerTool
             setNewOffer={setNewOffer}
+            setOffers={setOffers}
+            setServiceInfo={setServiceInfo}
             myData={myData}
             setError={setError}
             isOpen={openComponent === 'OfferManagerTool'}
@@ -79,6 +84,8 @@ const EmployeePanel = () => {
           {openComponent === 'OfferManagerTool' && (
             <OfferManagerDesktop
               newOffer={newOffer}
+              offers={offers}
+              serviceInfo={serviceInfo}
               error={error}
             />
           )}

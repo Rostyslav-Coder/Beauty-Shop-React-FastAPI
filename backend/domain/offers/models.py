@@ -8,13 +8,16 @@ from decimal import Decimal
 
 from pydantic import Field
 
+from backend.domain.services import ServicePublic
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "OfferCreateRequestBody",
     "OfferPublic",
+    "OfferWithServicePublic",
     "OfferUncommited",
     "Offer",
+    "OfferWithService",
 )
 
 
@@ -44,6 +47,12 @@ class OfferPublic(OfferPublicBase):
     id: int = Field(description="Offer ID")
 
 
+class OfferWithServicePublic(OfferPublic):
+    """Existed offer representation with service."""
+
+    service: ServicePublic
+
+
 # Internal models
 # ============================================================
 class OfferUncommited(InternalModel):
@@ -59,3 +68,9 @@ class Offer(OfferUncommited):
     """The internal application representation."""
 
     id: int
+
+
+class OfferWithService(Offer):
+    """The internal application representation with service."""
+
+    service: ServicePublic

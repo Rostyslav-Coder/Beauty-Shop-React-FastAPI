@@ -13,6 +13,8 @@ from backend.domain.offers import (
     OfferPublic,
     OfferRepository,
     OfferUncommited,
+    OfferWithService,
+    OfferWithServicePublic,
 )
 from backend.domain.services import Service, ServiceRepository
 from backend.domain.users import User
@@ -21,7 +23,7 @@ from backend.infrastructure.errors import (
     AuthenticationError,
     UnprocessableError,
 )
-from backend.infrastructure.models import Response  # , ResponseMulti
+from backend.infrastructure.models import Response, ResponseMulti
 
 router = APIRouter(prefix="/offers", tags=["Route for managing current offer"])
 
@@ -70,17 +72,25 @@ async def offer_create(
 #     return ResponseMulti[OfferPublic](result=offers_public)
 
 
-# @router.get("/all_my", status_code=status.HTTP_200_OK)
-# @transaction
-# async def offer_all_my(
-#     _: Request, user: User = Depends(get_current_user)
-# ) -> ResponseMulti[OfferPublic]:
-#     """Get all offers associated with current employee"""
+#! Validated endpoint
+@router.get("/all_my", status_code=status.HTTP_200_OK)
+@transaction
+async def offer_all_my(
+    _: Request, employee_id: int, user: User = Depends(get_current_user)
+) -> ResponseMulti[OfferWithServicePublic]:
+    """Get all offers associated with current employee"""
 
-#     offers: Offer = await OfferRepository().all_by(key_="id", value_=user.id)
-#     offers_public: list[OfferPublic] = [offer async for offer in offers]
+    # Only employee can get his offers
+    if user.role != "EMPLOYEE":
+        raise AuthenticationError
 
-#     return ResponseMulti[OfferPublic](result=offers_public)
+    # Get offers list from database
+    offers: OfferWithService = await OfferRepository().all_by(
+        key_="employee_id", value_=employee_id
+    )
+    offers_public: list[OfferWithServicePublic] = [offer for offer in offers]
+
+    return ResponseMulti[OfferWithServicePublic](result=offers_public)
 
 
 # @router.put("/update", status_code=status.HTTP_202_ACCEPTED)

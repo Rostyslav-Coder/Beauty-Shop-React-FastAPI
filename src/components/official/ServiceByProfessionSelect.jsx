@@ -7,7 +7,7 @@ import simpleRequest from '../../request/simpleRequest';
 
 
 // ! Validated Component
-const ServiceByProfessionSelect = ({ setServiceId, myData }) => {
+const ServiceByProfessionSelect = ({ setServiceId, setServiceInfo, myData }) => {
 	const [serviceOption, setServiceOption] = useState([]);
 
 	useEffect(() => {
@@ -29,7 +29,11 @@ const ServiceByProfessionSelect = ({ setServiceId, myData }) => {
 	}, [myData]);
 
 	const handleServiceChange = (e) => {
-		setServiceId(e.target.value);
+		const selectedServiceId = e.target.value;
+		setServiceId(selectedServiceId);
+
+		const selectedService = serviceOption.find(service => service.id == selectedServiceId);
+		setServiceInfo(selectedService);
 	};
 
 	return (
@@ -51,6 +55,7 @@ const ServiceByProfessionSelect = ({ setServiceId, myData }) => {
 
 ServiceByProfessionSelect.propTypes = {
 	setServiceId: PropTypes.func,
+	setServiceInfo: PropTypes.func,
 	myData: PropTypes.object,
 };
 
