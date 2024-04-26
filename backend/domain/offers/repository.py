@@ -9,8 +9,12 @@ from typing import Any
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from backend.domain.offers import Offer, OfferUncommited, OfferWithService
-from backend.infrastructure.database import BaseRepository, OfferTable
+from backend.domain.offers import Offer, OfferFool, OfferUncommited
+from backend.infrastructure.database import (
+    BaseRepository,
+    EmployeeTable,
+    OfferTable,
+)
 
 __all__ = ("OfferRepository",)
 
@@ -23,14 +27,17 @@ class OfferRepository(BaseRepository[OfferTable]):
         return [Offer.from_orm(offer) for offer in instance]
 
     #! Validated function
-    async def all_by(self, key_: str, value_: Any) -> list[OfferWithService]:
+    async def all_by(self, key_: str, value_: Any) -> list[OfferFool]:
         stmt = (
             select(self.schema_class)
             .where(getattr(self.schema_class, key_) == value_)
             .options(joinedload(OfferTable.service))
+            .options(
+                joinedload(OfferTable.employee).joinedload(EmployeeTable.user)
+            )
         )
         result = await self._session.execute(stmt)
-        return [OfferWithService.from_orm(offer) for offer in result.scalars()]
+        return [OfferFool.from_orm(offer) for offer in result.scalars()]
 
     async def get(self, key_: str, value_: Any) -> Offer:
         instance = await self._get(key=key_, value=value_)

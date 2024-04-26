@@ -15,9 +15,11 @@ __all__ = (
     "EmployeeCreateRequestBody",
     "EmployeePublic",
     "UserEmployeeProfPublic",
+    "EmployeeUserPublic",
     "EmployeeUncommited",
     "Employee",
     "UserEmployeeProf",
+    "EmployeeUser",
 )
 
 
@@ -61,6 +63,14 @@ class UserEmployeeProfPublic(EmployeePublic):
     profession: ProfessionName
 
 
+class EmployeeUserPublic(EmployeePublic):
+    """
+    Existed employee representation with user.
+    """
+
+    user: EmployeeExpansion
+
+
 # Internal models
 # ============================================================
 class EmployeeUncommited(InternalModel):
@@ -85,8 +95,16 @@ class Employee(EmployeeUncommited):
 
 class UserEmployeeProf(Employee):
     """
-    Fool internal application representation.
+    Fool internal application representation with user & profession.
     """
 
     user: EmployeeExpansion
     profession: ProfessionName
+
+
+class EmployeeUser(Employee):
+    """
+    Internal application representation with user.
+    """
+
+    user: EmployeeExpansion

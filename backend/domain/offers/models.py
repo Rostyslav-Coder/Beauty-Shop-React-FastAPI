@@ -8,16 +8,19 @@ from decimal import Decimal
 
 from pydantic import Field
 
+from backend.domain.employees import EmployeeUser, EmployeeUserPublic
 from backend.domain.services import ServicePublic
 from backend.infrastructure.models import InternalModel, PublicModel
 
 __all__ = (
     "OfferCreateRequestBody",
     "OfferPublic",
-    "OfferWithServicePublic",
+    "OfferServicePublic",
+    "OfferFoolPublic",
     "OfferUncommited",
     "Offer",
-    "OfferWithService",
+    "OfferService",
+    "OfferFool",
 )
 
 
@@ -47,10 +50,16 @@ class OfferPublic(OfferPublicBase):
     id: int = Field(description="Offer ID")
 
 
-class OfferWithServicePublic(OfferPublic):
+class OfferServicePublic(OfferPublic):
     """Existed offer representation with service."""
 
     service: ServicePublic
+
+
+class OfferFoolPublic(OfferServicePublic):
+    """Existed offer representation with service, employee and user."""
+
+    employee: EmployeeUserPublic
 
 
 # Internal models
@@ -70,7 +79,13 @@ class Offer(OfferUncommited):
     id: int
 
 
-class OfferWithService(Offer):
+class OfferService(Offer):
     """The internal application representation with service."""
 
     service: ServicePublic
+
+
+class OfferFool(OfferService):
+    """The internal application representation with service, employee and user."""
+
+    employee: EmployeeUser

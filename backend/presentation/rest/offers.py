@@ -10,11 +10,12 @@ from backend.application.authentication import get_current_user
 from backend.domain.offers import (
     Offer,
     OfferCreateRequestBody,
+    OfferFool,
+    OfferFoolPublic,
     OfferPublic,
     OfferRepository,
+    OfferServicePublic,
     OfferUncommited,
-    OfferWithService,
-    OfferWithServicePublic,
 )
 from backend.domain.services import Service, ServiceRepository
 from backend.domain.users import User
@@ -73,11 +74,29 @@ async def offer_create(
 
 
 #! Validated endpoint
+@router.get("/all_by_service", status_code=status.HTTP_200_OK)
+@transaction
+async def offer_all_by_service(
+    _: Request,
+    service_id: int,
+) -> ResponseMulti[OfferFoolPublic]:
+    """Get all offers associated with current service"""
+
+    # Get offers list from database
+    offers: OfferFool = await OfferRepository().all_by(
+        key_="service_id", value_=service_id
+    )
+    offers_public: list[OfferFoolPublic] = [offer for offer in offers]
+
+    return ResponseMulti[OfferFoolPublic](result=offers_public)
+
+
+# * Endpoint not TESTED
 @router.get("/all_my", status_code=status.HTTP_200_OK)
 @transaction
 async def offer_all_my(
     _: Request, employee_id: int, user: User = Depends(get_current_user)
-) -> ResponseMulti[OfferWithServicePublic]:
+) -> ResponseMulti[OfferServicePublic]:
     """Get all offers associated with current employee"""
 
     # Only employee can get his offers
@@ -85,12 +104,12 @@ async def offer_all_my(
         raise AuthenticationError
 
     # Get offers list from database
-    offers: OfferWithService = await OfferRepository().all_by(
+    offers: OfferFool = await OfferRepository().all_by(
         key_="employee_id", value_=employee_id
     )
-    offers_public: list[OfferWithServicePublic] = [offer for offer in offers]
+    offers_public: list[OfferServicePublic] = [offer for offer in offers]
 
-    return ResponseMulti[OfferWithServicePublic](result=offers_public)
+    return ResponseMulti[OfferServicePublic](result=offers_public)
 
 
 # @router.put("/update", status_code=status.HTTP_202_ACCEPTED)
