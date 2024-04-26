@@ -54,8 +54,8 @@ const Home = () => {
 				</h2>
 			</div>
 			<Parallax
-				speed={30}
-				translateX={[30, -30]}
+				speed={10}
+				translateX={[20, -20]}
 				className='home__text'
 			>
 				<p>
@@ -64,8 +64,8 @@ const Home = () => {
 				</p>
 			</Parallax>
 			<Parallax
-				speed={30}
-				translateX={[30, -30]}
+				speed={10}
+				translateX={[20, -20]}
 				className='home__text'
 			>
 				<p>
@@ -74,8 +74,8 @@ const Home = () => {
 				</p>
 			</Parallax>
 			<Parallax
-				speed={30}
-				translateX={[30, -30]}
+				speed={10}
+				translateX={[20, -20]}
 				className='home__text'
 			>
 				<p>
@@ -84,8 +84,8 @@ const Home = () => {
 				</p>
 			</Parallax>
 			<Parallax
-				speed={30}
-				translateX={[30, -30]}
+				speed={10}
+				translateX={[20, -20]}
 				className='home__text'
 			>
 				<p>
@@ -94,8 +94,8 @@ const Home = () => {
 				</p>
 			</Parallax>
 			<Parallax
-				speed={30}
-				translateX={[30, -30]}
+				speed={10}
+				translateX={[20, -20]}
 				className='home__text'
 			>
 				<p>
@@ -104,8 +104,8 @@ const Home = () => {
 				</p>
 			</Parallax>
 			<Parallax
-				speed={30}
-				translateX={[30, -30]}
+				speed={10}
+				translateX={[20, -20]}
 				className='home__text'
 			>
 				<p>
@@ -114,8 +114,8 @@ const Home = () => {
 				</p>
 			</Parallax>
 			<Parallax
-				speed={30}
-				translateX={[30, -30]}
+				speed={10}
+				translateX={[20, -20]}
 				className='home__text'
 			>
 				<p>

@@ -1,9 +1,12 @@
 // ============ SERVICES PAGE COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
+import { Link, Routes, Route } from 'react-router-dom';
 import { ParallaxBanner, Parallax } from 'react-scroll-parallax';
 
+// import Booking from './services/Booking';
 import simpleRequest from '../request/simpleRequest';
+import Offers from './services/Offers';
 import '../styles/Services.css';
 
 
@@ -49,8 +52,8 @@ const Services = () => {
 				<Parallax
 					key={profession.id}
 					className='services__card'
-					speed={30}
-					translateX={[30, -30]}
+					speed={10}
+					translateX={[20, -20]}
 				>
 					<h2>{profession.name} SERVICES:</h2>
 					{services[profession.id]?.map(service => (
@@ -58,10 +61,24 @@ const Services = () => {
 							<h3>{service.name}</h3>
 							<p>{service.description}</p>
 							<p>Minimal price: $ {service.minPrice}</p>
+							<Link
+								className='services__button'
+								to={'/services/offers'}
+								state={{ serviceId: service.id }}
+							>
+								BOOK NOW
+							</Link>
 						</div>
 					))}
 				</Parallax>
 			))}
+			<Routes>
+				<Route
+					path='offers'
+					element={<Offers />}
+					loader={async () => await Offers.fetchData()}
+				/>
+			</Routes>
 		</ParallaxBanner>
 	);
 };

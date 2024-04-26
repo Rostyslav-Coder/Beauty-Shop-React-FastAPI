@@ -12,8 +12,8 @@ import Employees from './Employees';
 import Footer from './Footer';
 import Header from './Header';
 import Home from './Home';
-import Registration from './Registration';
 import Orders from './Orders';
+import Registration from './Registration';
 import Services from './Services';
 import { useUserContext } from './hooks/useUserContext';
 import '../styles/App.css';
@@ -30,7 +30,7 @@ const App = () => {
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/about' element={<About />} />
-						<Route path='/services' element={<Services />} />
+						<Route path='/services/*' element={<Services />} />
 						<Route path='/employees' element={<Employees />} />
 						<Route path='/contact' element={<Contact />} />
 						<Route path='/registration' element={<Registration />} />
