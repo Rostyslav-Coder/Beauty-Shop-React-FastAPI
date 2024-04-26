@@ -1,17 +1,45 @@
-/* ============ OFFERS STYLE MODULE  ============ */
+/* ============ OFFERS PAGE STYLE MODULE  ============ */
 
 .offers {
-	position: fixed;
-	top: 30vh;
-	left: 10%;
-	right: 10%;
-	width: 80%;
+	width: 100%;
+	min-height: 100vh;
+	padding-bottom: 10rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-image: url('../assets/home/home-bg.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.offers__card {
+	width: 80%;
+	margin: 0 auto 2rem;
+	padding: 1rem 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 1rem;
 	background-color: #CDCDCD22;
 	backdrop-filter: blur(24px);
-	border: 2px solid #111;
 	border-radius: 0.5rem;
+	font-family: 'Montserrat Alternates';
+	font-size: 1.8rem;
+	font-weight: 600;
+	line-height: 1.4;
+	text-align: justify;
 }
+
+.offers__title {
+	font-family: 'Lobster';
+	font-size: 3rem;
+	align-self: center;
+}
+
+@media screen and (orientation: landscape) {}
+
+@media screen and (min-width: 1024px) {}

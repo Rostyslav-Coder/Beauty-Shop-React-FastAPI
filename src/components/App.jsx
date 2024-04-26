@@ -12,6 +12,7 @@ import Employees from './Employees';
 import Footer from './Footer';
 import Header from './Header';
 import Home from './Home';
+import Offers from './Offers';
 import Orders from './Orders';
 import Registration from './Registration';
 import Services from './Services';
@@ -30,7 +31,12 @@ const App = () => {
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/about' element={<About />} />
-						<Route path='/services/*' element={<Services />} />
+						<Route path='/services/' element={<Services />} />
+						<Route
+							path='offers'
+							element={<Offers />}
+							loader={async () => await Offers.fetchData()}
+						/>
 						<Route path='/employees' element={<Employees />} />
 						<Route path='/contact' element={<Contact />} />
 						<Route path='/registration' element={<Registration />} />

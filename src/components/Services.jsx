@@ -1,12 +1,12 @@
 // ============ SERVICES PAGE COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
-import { Link, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ParallaxBanner, Parallax } from 'react-scroll-parallax';
 
 // import Booking from './services/Booking';
 import simpleRequest from '../request/simpleRequest';
-import Offers from './services/Offers';
+// import Offers from './services/Offers';
 import '../styles/Services.css';
 
 
@@ -63,7 +63,7 @@ const Services = () => {
 							<p>Minimal price: $ {service.minPrice}</p>
 							<Link
 								className='services__button'
-								to={'/services/offers'}
+								to={'/offers'}
 								state={{ serviceId: service.id }}
 							>
 								BOOK NOW
@@ -72,13 +72,13 @@ const Services = () => {
 					))}
 				</Parallax>
 			))}
-			<Routes>
+			{/* <Routes>
 				<Route
 					path='offers'
 					element={<Offers />}
 					loader={async () => await Offers.fetchData()}
 				/>
-			</Routes>
+			</Routes> */}
 		</ParallaxBanner>
 	);
 };

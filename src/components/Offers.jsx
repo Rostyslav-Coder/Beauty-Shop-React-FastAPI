@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import simpleRequest from '../../request/simpleRequest';
-import '../../styles/Offers.css';
+import simpleRequest from '../request/simpleRequest';
+import '../styles/Offers.css';
 
 
 const Offers = () => {
@@ -33,7 +33,7 @@ const Offers = () => {
 
 	return (
 		<div className='offers'>
-			<h2>Suggestions from our specialists:</h2>
+			<h2 className='offers__title'>Suggestions from our specialists:</h2>
 			{offers && (
 				offers.map(offer => (
 					<div key={offer.id} className='offers__card'>
