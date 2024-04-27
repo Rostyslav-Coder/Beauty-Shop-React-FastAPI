@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ParallaxBanner, Parallax } from 'react-scroll-parallax';
 
-// import Booking from './services/Booking';
 import simpleRequest from '../request/simpleRequest';
-// import Offers from './services/Offers';
 import '../styles/Services.css';
 
 

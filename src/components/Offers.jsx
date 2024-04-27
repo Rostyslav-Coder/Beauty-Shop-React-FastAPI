@@ -1,8 +1,7 @@
 // ============ OFFERS COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
 
 import simpleRequest from '../request/simpleRequest';
 import '../styles/Offers.css';
@@ -34,7 +33,7 @@ const Offers = () => {
 	return (
 		<div className='offers'>
 			<h2 className='offers__title'>Suggestions from our specialists:</h2>
-			{offers && (
+			{offers.length > 0 && (
 				offers.map(offer => (
 					<div key={offer.id} className='offers__card'>
 						<h3>{offer.service.name}</h3>
@@ -42,6 +41,13 @@ const Offers = () => {
 						<p>Service duration: {offer.duration} hours.</p>
 						<p>Service price: ${offer.price}</p>
 						<p>Specialists: {offer.employee.user.firstName} {offer.employee.user.lastName}</p>
+						<Link
+							className='offers__button'
+							to={'/booking'}
+							state={{ offerId: offer.id }}
+						>
+							Book now
+						</Link>
 					</div>
 				))
 			)}
@@ -50,9 +56,5 @@ const Offers = () => {
 		</div>
 	)
 };
-
-Offers.propTypes = {
-	serviceId: PropTypes.number
-}
 
 export default Offers;

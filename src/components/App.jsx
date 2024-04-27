@@ -3,9 +3,11 @@
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+import { useUserContext } from './hooks/useUserContext';
 import About from './About';
 import AdminPanel from './AdminPanel';
 import Authentication from './Authentication';
+import Booking from './Booking';
 import Contact from './Contact';
 import EmployeePanel from './EmployeePanel';
 import Employees from './Employees';
@@ -16,7 +18,6 @@ import Offers from './Offers';
 import Orders from './Orders';
 import Registration from './Registration';
 import Services from './Services';
-import { useUserContext } from './hooks/useUserContext';
 import '../styles/App.css';
 
 
@@ -36,6 +37,11 @@ const App = () => {
 							path='offers'
 							element={<Offers />}
 							loader={async () => await Offers.fetchData()}
+						/>
+						<Route
+							path='/booking'
+							element={<Booking />}
+							loader={async () => await Booking.fetchData()}
 						/>
 						<Route path='/employees' element={<Employees />} />
 						<Route path='/contact' element={<Contact />} />

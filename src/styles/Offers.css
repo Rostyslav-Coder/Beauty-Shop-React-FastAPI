@@ -35,9 +35,30 @@
 }
 
 .offers__title {
+	margin-top: 10vh;
 	font-family: 'Lobster';
 	font-size: 3rem;
 	align-self: center;
+}
+
+.offers__button {
+	width: 50%;
+	padding: 0.5rem 1rem;
+	align-self: center;
+	text-align: center;
+	border: 2px solid #42030A;
+	border-radius: 0.5rem;
+	color: #42030A;
+	font-size: 1.5rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: 1s;
+	cursor: pointer;
+}
+
+.offers__button:hover {
+	box-shadow: 0 0 1rem #42030A;
 }
 
 @media screen and (orientation: landscape) {}

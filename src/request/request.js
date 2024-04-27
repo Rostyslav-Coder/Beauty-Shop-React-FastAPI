@@ -3,9 +3,15 @@
 import axios from 'axios';
 
 
-async function sendRequest(method, url, data = null) {
+async function sendRequest(method, url, data = null, onUnauthorized = null) {
 	const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 	let token = localStorage.getItem('token');
+
+	if (!token) {
+		onUnauthorized();
+		return;
+	}
+
 	let headers = {
 		'Authorization': `Bearer ${token}`,
 	};
@@ -50,6 +56,10 @@ async function sendRequest(method, url, data = null) {
 				});
 				return { result: retryResponse.data.result };
 			} else {
+				// If the token refresh fails, call the unauthorized access handler
+				if (onUnauthorized) {
+					onUnauthorized();
+				}
 				throw new Error('Unauthorized request');
 			}
 		} else {

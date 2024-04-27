@@ -72,12 +72,12 @@ const OfferCreator = ({ setNewOffer, setServiceInfo, myData, setError }) => {
 					Enter Duration:
 					<select id='duration' onChange={handlerDurationChange} required>
 						<option value={null} selected>Select One</option>
-						<option value={0.5}>Half an Hour</option>
-						<option value={1}>One Hour</option>
-						<option value={1.5}>An Hour and a Half</option>
-						<option value={2}>Two Hour</option>
-						<option value={2.5}>Two and a Half Hours</option>
-						<option value={3}>Three Hours</option>
+						<option value={30}>Half an Hour</option>
+						<option value={60}>One Hour</option>
+						<option value={90}>An Hour and a Half</option>
+						<option value={120}>Two Hour</option>
+						<option value={150}>Two and a Half Hours</option>
+						<option value={180}>Three Hours</option>
 					</select>
 				</label>
 				<button type='submit'>Submit</button>
