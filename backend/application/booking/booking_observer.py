@@ -10,6 +10,7 @@ from dateutil import parser
 
 from backend.domain.bookings import BookingCreateRequestBody, BookingUncommited
 from backend.domain.offers import Offer, OfferRepository
+from backend.domain.users import User
 
 __all__ = ("booking_schema_updater",)
 
@@ -17,6 +18,7 @@ __all__ = ("booking_schema_updater",)
 #! Validated function
 async def booking_schema_updater(
     schema: BookingCreateRequestBody,
+    user: User,
 ) -> BookingUncommited:
     """
     Validates and updates the booking schema.
@@ -38,7 +40,7 @@ async def booking_schema_updater(
         end_time_utc = start_time_utc + timedelta(minutes=offer.duration)
 
     updated_schema = BookingUncommited(
-        owner_id=schema.owner_id,
+        owner_id=user.id,
         offer_id=schema.offer_id,
         employee_id=offer.employee_id,
         start_time=start_time_utc,

@@ -22,7 +22,7 @@ from backend.domain.bookings import (
     BookingUncommited,
 )
 from backend.domain.employees import Employee, EmployeeRepository
-from backend.domain.offers import OfferPublic
+from backend.domain.offers import Offer, OfferRepository
 from backend.domain.users import User
 from backend.infrastructure.database import transaction
 from backend.infrastructure.errors import AuthenticationError
@@ -45,7 +45,9 @@ async def booking_create(
     if user.role != "USER":
         raise AuthenticationError
 
-    schema_uncommited: BookingUncommited = await booking_schema_updater(schema)
+    schema_uncommited: BookingUncommited = await booking_schema_updater(
+        schema, user
+    )
 
     # Create new booking in the database
     booking: Booking = await BookingRepository().create(
@@ -61,20 +63,24 @@ async def booking_create(
 @transaction
 async def free_slots_by_employee_and_date(
     _: Request,
-    date: str,
-    offer: OfferPublic,
+    offer_id: int,
 ) -> ResponseMulti[datetime]:
     """
     Get the employee's free slots for a given date.
     """
 
+    # Get the date
+    date = datetime.now()
+
+    # Get the offer from the database
+    offer: Offer = await OfferRepository().get(key_="id", value_=offer_id)
+
     # Get the offer duration
     offer_duration = timedelta(minutes=offer.duration)
 
     # Get the employee
-    employee_id = offer.employee_id
     employe: Employee = await EmployeeRepository().get(
-        key_="id", value_=employee_id
+        key_="id", value_=offer.employee_id
     )
 
     # Get the employee's schedule
@@ -82,7 +88,7 @@ async def free_slots_by_employee_and_date(
 
     # Get the bookings for the given date
     bookings: list[Booking] = await BookingRepository().all_by_employee(
-        employee_id=employee_id, date=datetime.fromisoformat(date)
+        employee_id=offer.employee_id, date=date
     )
 
     # Remove the booked times from the schedule

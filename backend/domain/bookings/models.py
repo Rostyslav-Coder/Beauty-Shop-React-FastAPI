@@ -23,7 +23,6 @@ __all__ = (
 # ============================================================
 class BookingPublicBase(PublicModel):
 
-    owner_id: int = Field(description="User ID")
     offer_id: int = Field(description="Associated offer ID")
 
 
@@ -39,6 +38,7 @@ class BookingPublic(BookingPublicBase):
     """The internal application representation."""
 
     id: int = Field(description="Booking ID")
+    owner_id: int = Field(description="User ID")
     employee_id: int = Field(description="Associated employee ID")
     start_time: datetime = Field(description="Booking start time in UTC")
     end_time: datetime = Field(description="Booking end time in UTC")
