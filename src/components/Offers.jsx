@@ -1,16 +1,18 @@
-// ============ OFFERS COMPONENT MODULE  ============ //
+// ============ OFFERS PAGE COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import simpleRequest from '../request/simpleRequest';
 import '../styles/Offers.css';
 
 
+// ! Validated Component
 const Offers = () => {
 	const [offers, setOffers] = useState([]);
 	const [error, setError] = useState(null);
 	const serviseId = useLocation().state.serviceId;
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const REQUEST_URL = '/offers/all_by_service';
@@ -50,10 +52,21 @@ const Offers = () => {
 						</Link>
 					</div>
 				))
+			)
+			}
+			{offers.length === 0 && (
+				<p className='offers__error'>
+					Unfortunately there are no offers in this category yet.
+				</p>
 			)}
-			{!offers && <p className='offers__error'>No offers found</p>}
 			{error && <p className='offers__error'>{error}</p>}
-		</div>
+			< button
+				className='offers__button'
+				onClick={() => navigate(-1)}
+			>
+				Go back
+			</button>
+		</div >
 	)
 };
 

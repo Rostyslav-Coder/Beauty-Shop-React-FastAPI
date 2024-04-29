@@ -1,1 +1,77 @@
 /* ============ BOOKING PAGE STYLE MODULE  ============ */
+
+.booking {
+	width: 100%;
+	min-height: 100vh;
+	padding-bottom: 10rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-image: url('../assets/home/home-bg.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.booking__freeSlot {
+	width: 80%;
+	margin: 12vh auto 2rem;
+	padding: 1rem 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	background-color: #CDCDCD22;
+	backdrop-filter: blur(24px);
+	border-radius: 0.5rem;
+	font-family: 'Montserrat Alternates';
+	font-size: 1.8rem;
+	font-weight: 600;
+	line-height: 1.4;
+	text-align: justify;
+}
+
+.freeSlot__title {
+	margin-top: 10vh;
+	font-family: 'Lobster';
+	font-size: 2rem;
+	align-self: center;
+}
+
+.freeSlot__buttonsBox {
+	width: 90%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	column-gap: 6.6%;
+	row-gap: 0.5rem;
+}
+
+.freeSlot__button {
+	width: 20%;
+	padding: 0.5rem 1rem;
+	text-align: center;
+	background-color: #CDCDCD22;
+	backdrop-filter: blur(24px);
+	border: 2px solid #42030A;
+	border-radius: 0.5rem;
+	color: #42030A;
+	font-size: 1rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: 1s;
+	cursor: pointer;
+}
+
+.freeSlot__button:hover {
+	box-shadow: 0 0 1rem #42030A;
+}
+
+@media screen and (orientation: landscape) {}
+
+@media screen and (min-width: 1024px) {}

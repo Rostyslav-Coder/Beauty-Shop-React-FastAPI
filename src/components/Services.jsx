@@ -8,6 +8,7 @@ import simpleRequest from '../request/simpleRequest';
 import '../styles/Services.css';
 
 
+// ! Validated Component
 const Services = () => {
 	const [professions, setProfessions] = useState([]);
 	const [services, setServices] = useState([]);
@@ -70,13 +71,6 @@ const Services = () => {
 					))}
 				</Parallax>
 			))}
-			{/* <Routes>
-				<Route
-					path='offers'
-					element={<Offers />}
-					loader={async () => await Offers.fetchData()}
-				/>
-			</Routes> */}
 		</ParallaxBanner>
 	);
 };

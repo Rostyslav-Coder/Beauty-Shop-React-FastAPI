@@ -1,4 +1,4 @@
-// ============ BOOKING PAGE COMPONENT MODULE  ============ //
+// ============ BOOKING COMPONENT MODULE  ============ //
 
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import sendRequest from '../request/request';
 import '../styles/Booking.css';
 
 
+// ! Validated Component
 const Booking = () => {
 	const [booking, setBooking] = useState(null);
 	const [freeSlots, setFreeSlots] = useState([]);
@@ -75,14 +76,34 @@ const Booking = () => {
 	return (
 		<div className='booking'>
 			{Object.entries(freeSlotsByDate).map(([date, times], index) => (
-				<form key={index} className='booking__freeSlot' onSubmit={(e) => handleSubmit(e, e.target.value)}>
-					<h3>{date}</h3>
-					{times.map(({ time, original }, index) => (
-						<button key={index} value={original} onClick={(e) => handleSubmit(e, original)}>{time}</button>
-					))}
+				<form
+					className='booking__freeSlot'
+					key={index}
+					onSubmit={(e) => handleSubmit(e, e.target.value)}
+				>
+					<h3 className='freeSlot__title'>Free times on: {date}</h3>
+					<div className='freeSlot__buttonsBox'>
+						{times.map(({ time, original }, index) => (
+							<button
+								className='freeSlot__button'
+								key={index}
+								value={original}
+								onClick={(e) => handleSubmit(e, original)}
+							>
+								{time}
+							</button>
+						))}
+					</div>
+					<button className='freeSlot__button' onClick={() => navigate(-1)}>Back to offers</button>
 				</form>
 			))}
-			{!freeSlots && <p className='booking__error'>No booking found</p>}
+			{!freeSlots && (
+				<div className='booking__freeSlot'>
+					<h3 className='booking__title'>No Free Times on this day.</h3>
+					<p className='booking__text'>Try another specialist or another day.</p>
+					<button className='freeSlot__button' onClick={() => navigate(-1)}>Back to offers</button>
+				</div>
+			)}
 			{booking && (
 				<div className='booking__success'>
 					<h3>Booking created successfully</h3>

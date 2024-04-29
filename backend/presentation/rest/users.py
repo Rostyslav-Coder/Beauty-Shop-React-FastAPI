@@ -41,15 +41,15 @@ async def user_create(
     hashed_password = pwd_context.hash(schema.password)
     schema.password = hashed_password
 
-    # Modify the request body based on the role of the user
+    # Checking that the user does`t want to log in as ADMIN
     schema = registration_observer(schema)
 
     # Create a new user in the database
     user: User = await UsersRepository().create(
         UserUncommited(**schema.dict())
     )
-    # user_public = UserPublic.from_orm(user)
 
+    # Generate auth token for response
     response: JSONResponse = create_auth_response(user)
 
     return response
